@@ -21,10 +21,11 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +38,7 @@ import { SpinnerComponent } from './shared/spinner.component';
     RouterModule.forRoot(Approutes, { useHash: false }),
     FullComponent,
     NavigationComponent,
-    SidebarComponent,
+    SidebarComponent
   ],
   providers: [
     {
