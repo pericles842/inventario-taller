@@ -2,3 +2,20 @@
 .cursor-pointer {
     cursor: pointer;
   }
+ //efecto touch
+.touch {
+  transition: transform 0.1s ease;
+}
+
+.touch:active {
+  transform: scale(1.1);
+}
+
+//efecto touch mas grande 
+.touchx2 {
+  transition: transform 0.1s ease;
+}
+
+.touchx2:active {
+  transform: scale(1.5);
+}

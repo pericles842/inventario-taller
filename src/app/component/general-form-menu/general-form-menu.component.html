@@ -1,21 +1,27 @@
 <div class="d-flex justify-content-start align-items-center gap-1">
-  <button type="button" class="btn  btn-success" data-bs-placement="bottom" title="Crear registro">
-    <i class="bi bi-cloud-download"></i>
+
+  <button (click)="emitButtonMenu('create')" type="button" class="btn  btn-success text-white touch"
+    data-bs-placement="bottom" title="Crear registro">
+    <i class="bi bi-cloud-download  "></i>
   </button>
 
-  <button data-bs-placement="bottom" title="Editar registro" type="button" class="btn  btn-info">
+  <button data-bs-placement="bottom" (click)="emitButtonMenu('edit')" title="Editar registro" type="button"
+    class="btn  btn-info text-white touch">
     <i class="bi bi-pencil-fill"></i>
   </button>
 
-  <button data-bs-placement="bottom" title="Buscar registros" type="button" class="btn  btn-info">
+  <button data-bs-placement="bottom" (click)="emitButtonMenu('search')" title="Buscar registros" type="button"
+    class="btn  btn-info text-white touch">
     <i class="bi bi-search"></i>
   </button>
 
-  <button data-bs-placement="bottom" title="Eliminar elemento" type="button" class="btn  btn-danger">
+  <button data-bs-placement="bottom" (click)="emitButtonMenu('delete')" title="Eliminar elemento" type="button"
+    class="btn  btn-danger text-white touch">
     <i class="bi bi-trash-fill"></i>
   </button>
 
-  <button data-bs-placement="bottom" title="Archivar elemento" type="button" class="btn  btn-warning">
+  <button data-bs-placement="bottom" (click)="emitButtonMenu('file')" title="Archivar elemento" type="button"
+    class="btn  btn-warning text-white touch">
     <i class="bi bi-archive-fill"></i>
   </button>
 

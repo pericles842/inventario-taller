@@ -20,6 +20,10 @@ export const Approutes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
       }
     ]
   },

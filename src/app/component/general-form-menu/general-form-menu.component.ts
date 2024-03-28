@@ -1,10 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-general-form-menu',
+  standalone: true,
+  selector: 'app-menu-general',
   templateUrl: './general-form-menu.component.html',
   styleUrls: ['./general-form-menu.component.scss']
 })
 export class GeneralFormMenuComponent {
-  
+
+  /**
+   *evento botón
+   *
+   * @type {GeneralFormMenu}
+   * @memberof GeneralFormMenuComponent
+   */
+  @Output() emitButton!: EventEmitter<any>
+
+  /**
+   *Emision del boton
+   *
+   * @param {GeneralFormMenu} btn
+   * @memberof GeneralFormMenuComponent
+   */
+  emitButtonMenu(btn: string) {
+    this.emitButton.emit(btn)
+
+  }
 }
