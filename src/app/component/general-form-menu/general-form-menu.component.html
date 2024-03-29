@@ -1,31 +1,31 @@
-<div class="card shadow-sm rounded">
+<div class="card  shadow-sm rounded">
   <div class="d-flex flex justify-content-start align-items-center gap-2 m-2">
 
-    <button (click)="emitButtonMenu('create')" type="button" class="btn  btn-success text-white touch "
-      data-bs-placement="bottom" title="Crear registro">
+    <button (click)="guardar.emit()" type="button" class="btn  btn-success text-white touch " data-bs-placement="bottom"
+      title="Crear registro">
       <i class="bi bi-cloud-download"></i>
       <span class="ms-2">Guardar</span>
     </button>
 
-    <button data-bs-placement="bottom" (click)="emitButtonMenu('edit')" title="Editar registro" type="button"
+    <button data-bs-placement="bottom" (click)="editar.emit()" title="Editar registro" type="button"
       class="btn  btn-info text-white touch">
       <i class="bi bi-pencil-fill"></i>
       <span class="ms-2">Editar</span>
     </button>
 
-    <button data-bs-placement="bottom" (click)="emitButtonMenu('search')" title="Buscar registros" type="button"
+    <button data-bs-placement="bottom" (click)="search.emit()" title="Buscar registros" type="button"
       class="btn  btn-info text-white touch">
       <i class="bi bi-search"></i>
       <span class="ms-2">Listar</span>
     </button>
 
-    <button data-bs-placement="bottom" (click)="emitButtonMenu('delete')" title="Eliminar elemento" type="button"
+    <button data-bs-placement="bottom" (click)="delete.emit()" title="Eliminar elemento" type="button"
       class="btn  btn-danger text-white touch">
       <i class="bi bi-trash-fill"></i>
       <span class="ms-2">Eliminar</span>
     </button>
 
-    <button data-bs-placement="bottom" (click)="emitButtonMenu('file')" title="Archivar elemento" type="button"
+    <button data-bs-placement="bottom" (click)="archivar.emit()" title="Archivar elemento" type="button"
       class="btn  btn-warning text-white touch">
       <i class="bi bi-archive-fill"></i>
       <span class="ms-2">Archivar</span>

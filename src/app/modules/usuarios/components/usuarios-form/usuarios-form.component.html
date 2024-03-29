@@ -1,4 +1,4 @@
-<app-menu-general></app-menu-general>
+<app-menu-general (guardar)="saveElement()"></app-menu-general>
 
 <div class="card flex flex-column rounded-3 shadow-sm container">
   <!-- HEADER DEL FORMULARIO -->
@@ -6,35 +6,36 @@
   </app-header-form>
 
   <!-- FORMULARIO -->
-  <section class="d-flex flex-column mt-4" style="gap:37px;">
+  <section class="d-flex flex-column my-4" style="gap:37px;">
     <div class="row">
-      <div class="col-3">
-        <app-input-forms typeInput="text" labelInput="Nombre"></app-input-forms>
-      </div>
-      <div class="col-3">
-        <app-input-forms typeInput="email" labelInput="Email"></app-input-forms>
+      <div class="col-6">
+        <app-input-forms typeInput="text" [(ngModel)]="user.full_name" labelInput="Nombre completo"></app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms typeInput="number" labelInput="Cédula"></app-input-forms>
+        <app-input-forms typeInput="email" [(ngModel)]="user.email" labelInput="Email"></app-input-forms>
       </div>
     </div>
     <!-- FILA 2 -->
     <div class="row">
-      <div class="col-5">
-        <app-input-forms typeInput="text" labelInput="Dirección"></app-input-forms>
+      <div class="col-6">
+        <app-input-forms typeInput="text" [(ngModel)]="user.direction" labelInput="Dirección"></app-input-forms>
+      </div>
+      <div class="col-6">
+        <app-input-forms typeInput="number" [(ngModel)]="user.ci" labelInput="Cédula"></app-input-forms>
       </div>
     </div>
 
     <!-- FILA 3 -->
     <div class="row">
       <div class="col-4">
-        <app-input-forms typeInput="text" labelInput="usuario"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="user.user" labelInput="usuario"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms typeInput="text" labelInput="Contraseña"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="user.password" labelInput="Contraseña"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms typeInput="select" [resources]="rolesUser" labelInput="rol"></app-input-forms>
+        <app-input-forms typeInput="select" [resources]="rolesUser"  [(ngModel)]="user.rol" labelInput="rol"></app-input-forms>
       </div>
     </div>
+    
   </section>

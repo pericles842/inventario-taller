@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
 
 @Component({
   standalone: true,
@@ -8,22 +9,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class GeneralFormMenuComponent {
 
-  /**
-   *evento botón
-   *
-   * @type {GeneralFormMenu}
-   * @memberof GeneralFormMenuComponent
-   */
-   @Output() emitButton: EventEmitter<string> = new EventEmitter<string>();
 
-  /**
-   *Emision del boton
-   *
-   * @param {GeneralFormMenu} btn
-   * @memberof GeneralFormMenuComponent
-   */
-  emitButtonMenu(btn: string) {
-    this.emitButton.emit(btn)
+  @Output() guardar: EventEmitter<GeneralFormMenu.create> = new EventEmitter<GeneralFormMenu.create>();
+  @Output() editar: EventEmitter<GeneralFormMenu.edit> = new EventEmitter<GeneralFormMenu.edit>();
+  @Output() delete: EventEmitter<GeneralFormMenu.delete> = new EventEmitter<GeneralFormMenu.delete>();
+  @Output() archivar: EventEmitter<GeneralFormMenu.file> = new EventEmitter<GeneralFormMenu.file>();
+  @Output() search: EventEmitter<GeneralFormMenu.search> = new EventEmitter<GeneralFormMenu.search>();
 
-  }
+
 }

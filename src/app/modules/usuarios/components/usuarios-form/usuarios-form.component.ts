@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Usuario } from '../../models/UsuariosModel';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -23,5 +24,13 @@ export class UsuariosFormComponent {
       label: 'Empleado',
       key: 5
     }
-  ]
+  ];
+
+  user: Usuario = new Usuario()
+
+  saveElement() {
+   console.log(this.user);
+   
+
+  }
 }
