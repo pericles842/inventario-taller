@@ -7,7 +7,7 @@ export const UsuariosRoutes: Routes = [
     path: '',
     children: [
       {
-        path: 'create/users',
+        path: 'create-users',
         component: UsuariosFormComponent
       },
     ]

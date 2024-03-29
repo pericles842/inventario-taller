@@ -14,7 +14,7 @@ export class GeneralFormMenuComponent {
    * @type {GeneralFormMenu}
    * @memberof GeneralFormMenuComponent
    */
-  @Output() emitButton!: EventEmitter<any>
+   @Output() emitButton: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    *Emision del boton

@@ -1,0 +1,57 @@
+.custom-input-container {
+    position: relative;
+    width: 100%;
+    /* Ajusta el ancho según sea necesario */
+}
+
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* Ajusta el color y grosor del borde según sea necesario */
+    border-radius: 7px;
+    /* Ajusta el radio del borde según sea necesario */
+    font-size: 16px;
+    
+    color: var(--text-secondary);
+}
+
+.custom-input-label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    /* Ajusta la posición horizontal del texto */
+    transform: translateY(-50%);
+    background-color: #b6646400;
+    padding: 0 5px;
+    /* Ajusta el relleno del texto según sea necesario */
+    font-size: 16px;
+    /* Ajusta el tamaño de la fuente del texto según sea necesario */
+    color: #666;
+    /* Ajusta el color del texto según sea necesario */
+    transition: all 0.3s ease;
+    /* Transición suave para los cambios */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.custom-input:focus+.custom-input-label,
+.custom-input:not(:placeholder-shown)+.custom-input-label {
+    top: -14px;
+    /* Posición del texto cuando el input está enfocado o tiene contenido */
+    font-size: 15px;
+    /* Tamaño del texto cuando el input está enfocado o tiene contenido */
+    color:var(--text-secondary);
+    
+    /* Color del texto cuando el input está enfocado o tiene contenido */
+}
+
+.custom-input:focus {
+    border-width: 0.5px; /* Grosor del borde cuando el input está enfocado */
+    border-color: #007bff; /* Color del borde cuando el input está enfocado */
+  }
+  
+//   .custom-input:focus + .custom-input-label {
+//     color: #007bff; /* Color del texto cuando el input está enfocado */
+//   }
+
+ 

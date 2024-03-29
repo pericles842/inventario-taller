@@ -6,5 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./usuarios-form.component.scss']
 })
 export class UsuariosFormComponent {
-
+  rolesUser: any[] = [
+    {
+      label: 'Administrador',
+      key: 2
+    },
+    {
+      label: 'Jefe de almacén',
+      key: 3
+    },
+    {
+      label: 'Gerente de tienda',
+      key: 4
+    },
+    {
+      label: 'Empleado',
+      key: 5
+    }
+  ]
 }

@@ -1,0 +1,55 @@
+<div [ngSwitch]="typeInput">
+
+
+  <div *ngSwitchCase="'text'">
+    <div class="custom-input-container">
+      <input [disabled]="disabled"  type="text" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+
+
+  <div *ngSwitchCase="'email'">
+    <div class="custom-input-container">
+      <input [disabled]="disabled"   type="email" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'password'">
+    <div class="custom-input-container">
+      <input [disabled]="disabled" type="password" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'number'">
+    <div class="custom-input-container">
+      <input [disabled]="disabled" type="number" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'search'">
+    <div class="custom-input-container">
+      <input [disabled]="disabled" type="search" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'date'">
+    <div class="custom-input-container">
+      <input [disabled]="disabled" type="date" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'select'">
+    <div  class="custom-input-container">
+      <select  class="custom-input" style="width: 100%;" id="select">
+        <option style="padding: 10px;" *ngFor="let item of resources" [value]="item.key">{{item.label}}</option>
+      </select>
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
+</div>

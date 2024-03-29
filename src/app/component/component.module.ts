@@ -13,6 +13,7 @@ import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from "./table/table.component";
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,9 +28,8 @@ import { TableComponent } from "./table/table.component";
     NgbdButtonsComponent,
     CardsComponent,
     TableComponent,
-    
+
   ],
-  declarations: [
-  ],
+  declarations: [],
 })
 export class ComponentsModule { }

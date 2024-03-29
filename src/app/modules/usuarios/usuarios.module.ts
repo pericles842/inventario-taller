@@ -4,6 +4,8 @@ import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.
 import { GeneralFormMenuComponent } from "../../component/general-form-menu/general-form-menu.component";
 import { RouterModule } from '@angular/router';
 import { UsuariosRoutes } from './usuarios.routing';
+import { HeaderFormComponent } from "../../component/header-form/header-form.component";
+import { InputFormsComponent } from "../../component/input-forms/input-forms.component";
 
 
 
@@ -15,6 +17,8 @@ import { UsuariosRoutes } from './usuarios.routing';
         CommonModule,
         GeneralFormMenuComponent,
         RouterModule.forChild(UsuariosRoutes),
+        HeaderFormComponent,
+        InputFormsComponent
     ]
 })
 export class UsuariosModule { }
