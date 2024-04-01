@@ -51,14 +51,14 @@ export class InputFormsComponent {
    */
   @Input() disabled: boolean = false
 
-  @Input() placeholder: string = '';
+  @Input() placeholder: string = ' ';
   /**
    *Almacena el valor del input
    *
    * @type {*}
    * @memberof InputFormsComponent
    */
-  value: any;
+  value:any = '';
 
   /**
    *Es utilizada para notificar a Angular cuando el valor del componente ha cambiado

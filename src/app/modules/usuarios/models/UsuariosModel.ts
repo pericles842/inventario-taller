@@ -10,7 +10,8 @@ export class Usuario {
     email: string = '';
     ci: number = 0;
     direction: string = '';
-    user: string = '';
+    username: string = '';
     password: string = '';
-    rol: number = -1
+    rol: number = -1;
+    token?:string;
 }
