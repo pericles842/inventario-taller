@@ -54,4 +54,52 @@
 //     color: #007bff; /* Color del texto cuando el input está enfocado */
 //   }
 
- 
+/* Ocultar el checkbox nativo */
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Estilo del contenedor del checkbox personalizado */
+.checkbox-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+/* Estilo del checkbox personalizado */
+.checkbox-container .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Estilo del tick (marca) dentro del checkbox personalizado */
+.checkbox-container .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Muestra el tick cuando el checkbox está marcado */
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Estilo del tick */
+.checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #007bff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}

@@ -34,7 +34,7 @@ export class InputFormsComponent {
    * @type {('text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select')}
    * @memberof InputFormsComponent
    */
-  @Input() typeInput: 'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select' = 'text'
+  @Input() typeInput: 'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select' | 'checkbox' = 'text'
 
   /**
    *En caso de ser un select definir los recursos
@@ -58,7 +58,7 @@ export class InputFormsComponent {
    * @type {*}
    * @memberof InputFormsComponent
    */
-  value:any = '';
+  value: any = '';
 
   /**
    *Es utilizada para notificar a Angular cuando el valor del componente ha cambiado
@@ -97,5 +97,18 @@ export class InputFormsComponent {
     this.value = event.target.value;
     this.onChange(this.value);
     this.onTouched();
+  }
+
+  /**
+   *Detecta el cambio del check
+   *
+   * @param {*} event
+   * @memberof InputFormsComponent
+   */
+  onCheckboxChange(event: any) {
+    this.value = !this.value
+    this.onChange(this.value);
+    this.onTouched();
+
   }
 }

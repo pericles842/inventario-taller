@@ -1,4 +1,3 @@
-
 <div class="d-flex justify-content-center align-items-center"
   style="height: 100vh; background-color: rgb(237, 237, 237);">
   <div class="rounded-3 shadow-sm container p-5" style="width: 50%; background-color: rgb(255, 255, 255);">
@@ -10,16 +9,16 @@
         <app-input-forms typeInput="text" [(ngModel)]="usuario.username" labelInput="Usuario"></app-input-forms>
       </div>
       <div class="col-12">
-        <app-input-forms typeInput="text" [(ngModel)]="usuario.password" labelInput="Contraseña"></app-input-forms>
+        <app-input-forms typeInput="password" [(ngModel)]="usuario.password" labelInput="Contraseña"></app-input-forms>
+      </div>
+      <div class="col-12">
+        <app-input-forms  typeInput="checkbox"  [(ngModel)]="recordarPassword"
+        labelInput="Recordar Contraseña"></app-input-forms> 
       </div>
     </div>
 
-    <div class="form-check text-start mb-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        Recordar
-      </label>
+    <div class="text-start mb-3">
+      <button class="btn btn-info w-100 py-2" [disabled]="loading" (click)="callServiceAutenticarLogin()"
+        type="submit">Entrar</button>
     </div>
-    <button class="btn btn-info w-100 py-2" (click)="callServiceAutenticarLogin()" type="submit">Sign in</button>
   </div>
-</div>

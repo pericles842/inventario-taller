@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
 import { HttpClientModule } from '@angular/common/http';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
-import { LoginService } from './services/service.service';
+import { AuthService } from './services/service.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ToastComponent } from "../toast/toast.component";
-import * as toastr from 'toastr';
+import * as toast from 'toastr';
+import {  Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -16,43 +16,68 @@ import * as toastr from 'toastr';
   imports: [
     InputFormsComponent,
     HttpClientModule,
-    CommonModule,
-    FormsModule,
-    ToastComponent
+    CommonModule, 
+    FormsModule
   ]
 })
-export class LoginComponent {
-
+export class LoginComponent implements OnInit  {
+  /**
+   *Usuario
+   *
+   * @type {Usuario}
+   * @memberof LoginComponent
+   */
   usuario: Usuario = new Usuario();
 
+  /**
+   *recordar contrasena
+   *
+   * @type {boolean}
+   * @memberof LoginComponent
+   */
+  recordarPassword: boolean = false
+  toast = toast;
+
+  loading: boolean = false;
+
   constructor(
-    private loginService: LoginService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
+  ngOnInit(): void {
+    if (localStorage.getItem('session_user')) {
+      let user = JSON.parse(localStorage.getItem('session_user') as string);
+
+      this.usuario.password = user.password
+      this.usuario.username = user.username
+      this.recordarPassword = true;
+    }
+  }
   /**
    *Ejecuta el servicio de autenticación
    *
    * @memberof LoginComponent
    */
-  callServiceAutenticarLogin() {
+  callServiceAutenticarLogin(): any {
+    if (!this.validateLogin()) return toast.info('Campos no validos')
+    this.loading = true
 
-    if (this.validateLogin()) {
-      this.loginService.login(this.usuario).subscribe({
-        next: (user) => {
-          sessionStorage.setItem('user', JSON.stringify(user[0]))
+    this.authService.login(this.usuario).subscribe({
+      next: (user) => {
+        sessionStorage.setItem('user', JSON.stringify(user[0]));
 
-        },
-        error: (err) => {
-          console.log(err);
+        this.saveCredentials();
+        this.loading = false
+        this.authService.setAuthenticated()
+        this.router.navigate(['/dashboard'])
+      },
+      error: (err) => {
+        this.loading = false
+        toast.error('Los datos no coinciden');
 
-          toastr.error('Los datos no coinciden');
-
-        },
-      })
-
-
-    } else toastr.info('Campos no validos');
-
+      },
+    })
 
   }
   /**
@@ -67,4 +92,20 @@ export class LoginComponent {
     }
     return pass;
   }
+
+  /**
+   *Guarda las credenciales
+   *
+   * @memberof LoginComponent
+   */
+  saveCredentials() {
+
+    if (this.recordarPassword) {
+      localStorage.setItem('session_user', JSON.stringify({ username: this.usuario.username, password: this.usuario.password }))
+    } else {
+      localStorage.removeItem("session_user");
+    }
+
+  }
+  
 }

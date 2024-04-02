@@ -50,6 +50,14 @@
     </div>
   </div>
 
+  <div *ngSwitchCase="'checkbox'">
+    <label style="user-select: none;" class="checkbox-container">{{labelInput}}
+      <input [value]="value" [checked]="value" (change)="onCheckboxChange($event)" [disabled]="disabled"
+        type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+  </div>
+
   <div *ngSwitchCase="'select'">
     <div class="custom-input-container">
       <select (input)="onInputChange($event)" class="custom-input" style="width: 100%;" id="select">

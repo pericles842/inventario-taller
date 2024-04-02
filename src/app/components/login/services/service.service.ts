@@ -8,8 +8,9 @@ import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthService {
 
+  private isAuthenticated: boolean = false;
   constructor(
     private http: HttpClient
   ) { }
@@ -28,4 +29,33 @@ export class LoginService {
     }
     return this.http.post<Usuario[]>(`${environments.host}api/user/authentication`, body)
   }
+  /**
+   *Setae la autenticación
+   *
+   * @memberof AuthService
+   */
+  public setAuthenticated() {
+    this.isAuthenticated = true;
+  }
+
+  /**
+   *Salir de la session
+   *
+   * @memberof AuthService
+   */
+  logout(): void {
+    this.isAuthenticated = false;
+  }
+
+  /**
+   *verofica si esta logeado
+   *
+   * @return {*}  {boolean}
+   * @memberof AuthService
+   */
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
+  }
+
+  
 }
