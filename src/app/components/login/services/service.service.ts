@@ -11,6 +11,9 @@ import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 export class AuthService {
 
   private isAuthenticated: boolean = false;
+
+  public usuario: Usuario = new Usuario()
+
   constructor(
     private http: HttpClient
   ) { }
@@ -39,6 +42,25 @@ export class AuthService {
   }
 
   /**
+   *Sete el usuario
+   *
+   * @param {Usuario} user
+   * @memberof AuthService
+   */
+  public setUser(user: Usuario) {
+    this.usuario = user
+  }
+
+  /**
+   *Otiene el usuario
+   *
+   * @return {*} 
+   * @memberof AuthService
+   */
+  getUser() {
+    return this.usuario
+  }
+  /**
    *Salir de la session
    *
    * @memberof AuthService
@@ -57,5 +79,5 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  
+
 }

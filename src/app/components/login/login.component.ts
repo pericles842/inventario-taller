@@ -65,12 +65,17 @@ export class LoginComponent implements OnInit  {
 
     this.authService.login(this.usuario).subscribe({
       next: (user) => {
-        sessionStorage.setItem('user', JSON.stringify(user[0]));
+        
+        let usuario = user[0];
+        sessionStorage.setItem('user', JSON.stringify(usuario));
 
         this.saveCredentials();
-        this.loading = false
         this.authService.setAuthenticated()
         this.router.navigate(['/dashboard'])
+
+        this.authService.setUser(usuario)
+        this.loading = false
+
       },
       error: (err) => {
         this.loading = false

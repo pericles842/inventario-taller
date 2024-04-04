@@ -16,8 +16,8 @@ $skin1: #2962ff;
 $skin2: #fe5419;
 $skin3: #00b0ff;
 $skin4: #6659f7;
-$skin5: #233242;
-$skin6: #fff;
+$skin5: #1f2835; //todo: sidebar 
+$skin6: #17212e; //todo topbar s  
 
 // 
 // Topbar settings
@@ -40,7 +40,7 @@ $sidebar-icons: #fff;
 $sidebar-text-dark: #212529;
 $sidebar-icons-dark: #4f5467;
 
-$sidebar-width-full: 250px;
+$sidebar-width-full: 230px; //!tamano de sidebar
 $sidebar-width-mini: 65px;
 
 // 
@@ -80,7 +80,7 @@ $yellow: #ffbc34 !default;
 $green: #5ac146 !default;
 $teal: #20c997 !default;
 $cyan: #4fc3f7 !default;
-$primary: #7460ee !default;
+$primary: rgb(22, 160, 146)  !default;
 $text-muted: $gray-500 !default;
 
 $light-primary: #ddd8fd !default;

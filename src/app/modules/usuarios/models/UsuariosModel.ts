@@ -6,7 +6,7 @@
  */
 export class Usuario {
     id?: number = -1;
-    full_name: string = '';
+    name_user: string = '';
     email: string = '';
     ci: number = 0;
     direction: string = '';
@@ -14,4 +14,5 @@ export class Usuario {
     password: string = '';
     rol: number = -1;
     token?:string;
+    name_rol:string = ''
 }

@@ -1,3 +1,5 @@
+@import '../../../assets/scss/variable';
+
 .custom-input-container {
     position: relative;
     width: 100%;
@@ -12,7 +14,7 @@
     border-radius: 7px;
     /* Ajusta el radio del borde según sea necesario */
     font-size: 16px;
-    
+
     color: var(--text-secondary);
 }
 
@@ -40,16 +42,18 @@
     /* Posición del texto cuando el input está enfocado o tiene contenido */
     font-size: 15px;
     /* Tamaño del texto cuando el input está enfocado o tiene contenido */
-    color:var(--text-secondary);
-    
+    color: var(--text-secondary);
+
     /* Color del texto cuando el input está enfocado o tiene contenido */
 }
 
 .custom-input:focus {
-    border-width: 0.5px; /* Grosor del borde cuando el input está enfocado */
-    border-color: #007bff; /* Color del borde cuando el input está enfocado */
-  }
-  
+    border-width: 0.5px;
+    /* Grosor del borde cuando el input está enfocado */
+    border-color: $primary;
+    /* Color del borde cuando el input está enfocado */
+}
+
 //   .custom-input:focus + .custom-input-label {
 //     color: #007bff; /* Color del texto cuando el input está enfocado */
 //   }
@@ -89,7 +93,7 @@ input[type="checkbox"] {
 }
 
 /* Muestra el tick cuando el checkbox está marcado */
-.checkbox-container input:checked ~ .checkmark:after {
+.checkbox-container input:checked~.checkmark:after {
     display: block;
 }
 
@@ -99,7 +103,7 @@ input[type="checkbox"] {
     top: 2px;
     width: 5px;
     height: 10px;
-    border: solid #007bff;
+    border: solid $primary;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
