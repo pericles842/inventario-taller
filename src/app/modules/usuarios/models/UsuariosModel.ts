@@ -13,6 +13,7 @@ export class Usuario {
     username: string = '';
     password: string = '';
     rol: number = -1;
-    token?:string;
-    name_rol:string = ''
+    token?: string;
+    name_rol: string = '';
+    ci_as_username: boolean = false
 }

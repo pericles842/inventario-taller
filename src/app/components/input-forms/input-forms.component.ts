@@ -42,7 +42,7 @@ export class InputFormsComponent {
    * @type {{key:string,label:string}[]}
    * @memberof InputFormsComponent
    */
-  @Input() resources: { key: string, label: string }[] = []
+  @Input() resources: { id: number, name: string }[] = []
   /**
    *define si los campos se pueden editar o no
    *

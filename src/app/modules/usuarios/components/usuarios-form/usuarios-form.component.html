@@ -1,4 +1,3 @@
-
 <app-menu-general (guardar)="saveElement()"></app-menu-general>
 
 <div class="card flex flex-column rounded-3 shadow-sm container">
@@ -10,33 +9,42 @@
   <section class="d-flex flex-column my-4" style="gap:37px;">
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="text" [(ngModel)]="user.name_user" labelInput="Nombre completo"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.name_user" labelInput="Nombre completo"></app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms typeInput="email" [(ngModel)]="user.email" labelInput="Email"></app-input-forms>
+        <app-input-forms typeInput="email" [(ngModel)]="userForm.email" labelInput="Email"></app-input-forms>
       </div>
     </div>
     <!-- FILA 2 -->
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="text" [(ngModel)]="user.direction" labelInput="Dirección"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.direction" labelInput="Dirección"></app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms typeInput="number" [(ngModel)]="user.ci" labelInput="Cédula"></app-input-forms>
+        <app-input-forms typeInput="number" [(ngModel)]="userForm.ci" labelInput="Cédula"></app-input-forms>
+      </div>
+    </div>
+
+    <!-- FILA 2 -->
+    <div class="row">
+      <div class="col-6">
+        <app-input-forms typeInput="checkbox" [(ngModel)]="userForm.ci_as_username" (change)="changeUsername()"
+          labelInput="Cédula como usuario"></app-input-forms>
       </div>
     </div>
 
     <!-- FILA 3 -->
     <div class="row">
       <div class="col-4">
-        <app-input-forms typeInput="text" [(ngModel)]="user.username" labelInput="usuario"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.username" labelInput="usuario"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms typeInput="text" [(ngModel)]="user.password" labelInput="Contraseña"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.password" labelInput="Contraseña"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms typeInput="select" [resources]="rolesUser"  [(ngModel)]="user.rol" labelInput="rol"></app-input-forms>
+        <app-input-forms typeInput="select" [resources]="listRoles" [(ngModel)]="userForm.rol"
+          labelInput="rol"></app-input-forms>
       </div>
     </div>
-    
+
   </section>

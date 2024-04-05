@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpResponse } from '@angular/common/http';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
-import { AuthService } from './services/service.service';
+import { AuthService } from './services/Auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as toast from 'toastr';
 import {  Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -65,25 +66,25 @@ export class LoginComponent implements OnInit  {
 
     this.authService.login(this.usuario).subscribe({
       next: (user) => {
-        
         let usuario = user[0];
-        sessionStorage.setItem('user', JSON.stringify(usuario));
-
+        
+        // Guardar las credenciales y establecer el usuario autenticado
         this.saveCredentials();
-        this.authService.setAuthenticated()
-        this.router.navigate(['/dashboard'])
-
-        this.authService.setUser(usuario)
-        this.loading = false
-
+        this.authService.setAuthenticated();
+        this.authService.setUser(usuario);
+        
+        // Navegar al dashboard después de la autenticación
+        this.router.navigate(['/dashboard']);
+  
+        this.loading = false;
       },
       error: (err) => {
-        this.loading = false
-        toast.error('Los datos no coinciden');
+        this.loading = false;
+        
+        toast.error('Credenciales inválidas')
 
-      },
-    })
-
+      }
+    });
   }
   /**
    *valida el login antes del click

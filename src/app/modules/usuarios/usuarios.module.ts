@@ -7,6 +7,7 @@ import { UsuariosRoutes } from './usuarios.routing';
 import { HeaderFormComponent } from "../../components/header-form/header-form.component";
 import { InputFormsComponent } from "../../components/input-forms/input-forms.component";
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
         GeneralFormMenuComponent,
         RouterModule.forChild(UsuariosRoutes),
         HeaderFormComponent,
-        InputFormsComponent
+        InputFormsComponent,
+        HttpClientModule
     ]
 })
 export class UsuariosModule { }

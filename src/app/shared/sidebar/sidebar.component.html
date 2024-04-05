@@ -13,10 +13,12 @@
         <a class="cursor-pointer  sidebar-link waves-effect waves-dark d-flex justify-content-between"
           (click)="toggleSubMenu(sidebarnavItem)" [routerLink]="sidebarnavItem.path === '' ? null:sidebarnavItem.path"
           [ngClass]="[sidebarnavItem.class]">
+
           <div class="d-flex">
             <i [ngClass]="[sidebarnavItem.icon]"></i>
             <span class="hide-menu">{{sidebarnavItem.title}}</span>
           </div>
+          
           <i class="bi bi-caret-down-fill" *ngIf="hasSubMenu(sidebarnavItem)"></i>
         </a>
         <!-- SUBMENUS -->

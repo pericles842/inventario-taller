@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output, OnInit } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/components/login/services/service.service';
+import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 
 
@@ -28,10 +28,19 @@ export class NavigationComponent implements AfterViewInit, OnInit {
     private authService: AuthService
   ) { }
 
-    ngOnInit(): void {
-      this.usuario = this.authService.getUser()
-  }
+  ngOnInit(): void {
+    this.usuario = this.authService.getUser()
 
+    
+  }
+  /**
+   *Cierra la sesión
+   *
+   * @memberof NavigationComponent
+   */
+  logout() {
+    this.authService.logout()
+  }
   // This is for Notifications
   notifications: Object[] = [
     {

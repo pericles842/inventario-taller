@@ -36,7 +36,6 @@ export class SidebarComponent implements OnInit {
 
   // Method to toggle submenu visibility
   toggleSubMenu(item: RouteInfo): void {
-    console.log(item);
     
     if (this.showSubMenu === item.title) {
       this.showSubMenu = '';

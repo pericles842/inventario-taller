@@ -61,7 +61,7 @@
   <div *ngSwitchCase="'select'">
     <div class="custom-input-container">
       <select (input)="onInputChange($event)" class="custom-input" style="width: 100%;" id="select">
-        <option style="padding: 20px;" *ngFor="let item of resources" [value]="item.key ">{{item.label}}</option>
+        <option style="padding: 20px;" *ngFor="let item of resources" [value]="item.id ">{{item.name}}</option>
       </select>
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
