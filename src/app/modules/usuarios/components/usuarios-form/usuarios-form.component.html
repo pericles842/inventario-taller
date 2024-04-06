@@ -1,4 +1,5 @@
-<app-menu-general (guardar)="saveElement()"></app-menu-general>
+<app-menu-general (search)="searchUser()" (guardar)="saveElement()"></app-menu-general>
+<app-dynamic-table [columns]="columns" [records]="listUsers" titleModal="Lista de Usuarios"></app-dynamic-table>
 
 <div class="card flex flex-column rounded-3 shadow-sm container">
   <!-- HEADER DEL FORMULARIO -->
@@ -9,7 +10,8 @@
   <section class="d-flex flex-column my-4" style="gap:37px;">
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.name_user" labelInput="Nombre completo"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.name_user"
+          labelInput="Nombre completo"></app-input-forms>
       </div>
       <div class="col-6">
         <app-input-forms typeInput="email" [(ngModel)]="userForm.email" labelInput="Email"></app-input-forms>
@@ -48,3 +50,4 @@
     </div>
 
   </section>
+  <app-loading [loading]="loading"></app-loading>

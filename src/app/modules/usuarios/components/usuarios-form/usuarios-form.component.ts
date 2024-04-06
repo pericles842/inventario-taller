@@ -4,6 +4,7 @@ import { AuthService } from '../../../../components/login/services/Auth.service'
 import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -12,25 +13,24 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class UsuariosFormComponent implements OnInit {
 
-  //Roles
-  listRoles: RolUser[] = []
-
-  protected userAuthenticated: Usuario = this.authService.getUser()
-
-  userForm: Usuario = new Usuario()
+  columns: Columns[] = [];
+  listRoles: RolUser[] = [];
+  userForm: Usuario = new Usuario();
+  loading: boolean = false;
+  listUsers: Usuario[] = [];
 
   constructor(
     private usuariosService: UsuariosService,
-    private authService: AuthService
 
   ) { }
   ngOnInit(): void {
-    this.callServiceListStatus()
+    this.callServiceListRoles()
+    this.columns = this.usuariosService.columns
 
   }
   saveElement() {
-    this.userForm.rol=  parseInt(this.userForm.rol as  unknown as string)
-   this.callCreateUser(this.userForm) 
+    this.userForm.rol = parseInt(this.userForm.rol as unknown as string)
+    this.callCreateUser(this.userForm)
   }
   /**
    *crea un usuario 
@@ -38,15 +38,18 @@ export class UsuariosFormComponent implements OnInit {
    * @param {Usuario} usuario
    * @memberof UsuariosFormComponent
    */
-  callCreateUser(usuario:Usuario){
+  callCreateUser(usuario: Usuario) {
+    this.loading = true
+
     this.usuariosService.createUser(usuario).subscribe({
       next: (usuario) => {
-        toast.success('Usuario creado exitosamente ')
+        this.userForm.id = usuario.id
+        this.loading = false
+
+        setTimeout(() => { toast.success('Usuario creado exitosamente ') }, 200);
       },
-      error(err) {
-
-        console.log(err);
-
+      error: (err) => {
+        this.loading = false
         toast.error(err.message);
       }
     })
@@ -56,17 +59,17 @@ export class UsuariosFormComponent implements OnInit {
    *
    * @memberof UsuariosFormComponent
    */
-  callServiceListStatus() {
-   // console.log(this.userAuthenticated.rol);
+  callServiceListRoles() {
+    // console.log(this.userAuthenticated.rol);
+    this.loading = true
 
-    this.usuariosService.listStatus(this.userAuthenticated.rol).subscribe({
+    this.usuariosService.listRoles().subscribe({
       next: (listRoles) => {
         this.listRoles = listRoles
+        this.loading = false
       },
-      error(err) {
-
-        console.log(err);
-
+      error: (err) => {
+        this.loading = false
         toast.error('Los datos no coinciden');
       }
     })
@@ -88,5 +91,22 @@ export class UsuariosFormComponent implements OnInit {
       this.userForm.username = this.userForm.ci.toString()
     } else this.userForm.username = ''
 
+  }
+  /**
+   *Servicio de búsqueda de usuarios
+   *
+   * @memberof UsuariosFormComponent
+   */
+  searchUser() {
+    this.usuariosService.searchUser().subscribe({
+      next: (usuario) => {
+        console.log(usuario);
+        this.listUsers = usuario
+
+      },
+      error: (e) => {
+        toast.error(e)
+      }
+    })
   }
 }

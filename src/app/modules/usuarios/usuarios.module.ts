@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
-import { GeneralFormMenuComponent } from "../../components/general-form-menu/general-form-menu.component";
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { UsuariosRoutes } from './usuarios.routing';
+import { GeneralFormMenuComponent } from "../../components/general-form-menu/general-form-menu.component";
 import { HeaderFormComponent } from "../../components/header-form/header-form.component";
 import { InputFormsComponent } from "../../components/input-forms/input-forms.component";
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { LoadingComponent } from "../../components/loading/loading.component";
+import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
+import { UsuariosRoutes } from './usuarios.routing';
+import { DynamicTableComponent } from "../../components/dynamic-table/dynamic-table.component";
 
 
 
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
         RouterModule.forChild(UsuariosRoutes),
         HeaderFormComponent,
         InputFormsComponent,
-        HttpClientModule
+        HttpClientModule,
+        LoadingComponent,
+        DynamicTableComponent
     ]
 })
 export class UsuariosModule { }
