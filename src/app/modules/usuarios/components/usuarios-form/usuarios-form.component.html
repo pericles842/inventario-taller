@@ -1,5 +1,5 @@
 <app-menu-general (search)="searchUser()" (guardar)="saveElement()"></app-menu-general>
-<app-dynamic-table [columns]="columns" [records]="listUsers" titleModal="Lista de Usuarios"></app-dynamic-table>
+<app-dynamic-table #table [columns]="columns" [records]="listUsers" titleModal="Lista de Usuarios"></app-dynamic-table>
 
 <div class="card flex flex-column rounded-3 shadow-sm container">
   <!-- HEADER DEL FORMULARIO -->

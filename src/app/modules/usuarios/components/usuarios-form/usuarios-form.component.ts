@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as toast from 'toastr';
 import { AuthService } from '../../../../components/login/services/Auth.service';
 import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -12,6 +13,8 @@ import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
   styleUrls: ['./usuarios-form.component.scss']
 })
 export class UsuariosFormComponent implements OnInit {
+
+  @ViewChild('table') table !: DynamicTableComponent
 
   columns: Columns[] = [];
   listRoles: RolUser[] = [];
@@ -100,8 +103,8 @@ export class UsuariosFormComponent implements OnInit {
   searchUser() {
     this.usuariosService.searchUser().subscribe({
       next: (usuario) => {
-        console.log(usuario);
         this.listUsers = usuario
+        this.table.openModal();
 
       },
       error: (e) => {
