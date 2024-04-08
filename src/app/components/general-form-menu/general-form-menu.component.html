@@ -1,35 +1,51 @@
 <div class="card  shadow-sm rounded">
   <div class="d-flex flex justify-content-start align-items-center gap-2 m-2">
 
-    <button (click)="guardar.emit()" type="button" class="btn  btn-primary text-white touch " data-bs-placement="bottom"
-      title="Crear registro">
-      <i class="bi bi-cloud-download"></i>
-      <span class="ms-2">Guardar</span>
-    </button>
+    <div *ngIf="view_buttons.create">
+      <button (click)="guardar.emit()" type="button" class="btn  btn-primary text-white touch "
+        data-bs-placement="bottom" title="Crear registro">
+        <i class="bi bi-cloud-download"></i>
+        <span class="ms-2">Guardar</span>
+      </button>
+    </div>
 
-    <button data-bs-placement="bottom" (click)="editar.emit()" title="Editar registro" type="button"
+    <!-- <button data-bs-placement="bottom" (click)="editar.emit()" title="Editar registro" type="button"
       class="btn  btn-info text-white touch">
       <i class="bi bi-pencil-fill"></i>
       <span class="ms-2">Editar</span>
-    </button>
+    </button> -->
 
-    <button data-bs-placement="bottom" (click)="search.emit()" title="Buscar registros" type="button"
-      class="btn  btn-info text-white touch">
-      <i class="bi bi-search"></i>
-      <span class="ms-2">Listar</span>
-    </button>
+    <div *ngIf="view_buttons.descartar">
+      <button data-bs-placement="bottom" (click)="descartar.emit()" title="Descartar" type="button"
+        class="btn  btn-secondary  text-white touch">
+        <i class="bi bi-arrow-repeat"></i>
+        <span class="ms-2">Descartar</span>
+      </button>
+    </div>
 
-    <button data-bs-placement="bottom" (click)="delete.emit()" title="Eliminar elemento" type="button"
-      class="btn  btn-danger text-white touch">
-      <i class="bi bi-trash-fill"></i>
-      <span class="ms-2">Eliminar</span>
-    </button>
+    <div *ngIf="view_buttons.search">
+      <button data-bs-placement="bottom" (click)="search.emit()" title="Buscar registros" type="button"
+        class="btn  btn-info text-white touch">
+        <i class="bi bi-search"></i>
+        <span class="ms-2">Listar</span>
+      </button>
+    </div>
 
-    <button data-bs-placement="bottom" (click)="archivar.emit()" title="Archivar elemento" type="button"
-      class="btn  btn-warning text-white touch">
-      <i class="bi bi-archive-fill"></i>
-      <span class="ms-2">Archivar</span>
-    </button>
+    <div *ngIf="view_buttons.delete">
+      <button data-bs-placement="bottom" (click)="deleteInput()" title="Eliminar elemento" type="button"
+        class="btn  btn-danger text-white touch">
+        <i class="bi bi-trash-fill"></i>
+        <span class="ms-2">Eliminar</span>
+      </button>
+    </div>
+
+    <div *ngIf="view_buttons.archivar">
+      <button data-bs-placement="bottom" (click)="archiveInput()" title="Archivar elemento" type="button"
+        class="btn  btn-warning text-white touch">
+        <i class="bi bi-archive-fill"></i>
+        <span class="ms-2">Archivar</span>
+      </button>
+    </div>
 
   </div>
 </div>

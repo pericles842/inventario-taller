@@ -60,7 +60,7 @@ export class UsuariosService {
    */
   searchUser() {
 
-    const headers = new HttpHeaders().set('rol', this.userAuthenticated.rol.toString());
+    const headers = new HttpHeaders().set('user', this.userAuthenticated.id.toString());
     return this.http.get<Usuario[]>(`${environments.host}api/user/list-users`, { headers })
 
   }

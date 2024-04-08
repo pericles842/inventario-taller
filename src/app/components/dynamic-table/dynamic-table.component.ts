@@ -1,15 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { InputFormsComponent } from "../input-forms/input-forms.component";
+
 
 @Component({
-  standalone: true,
-  selector: 'app-dynamic-table',
-  templateUrl: './dynamic-table.component.html',
-  styleUrls: ['./dynamic-table.component.scss'],
-  imports: [
-    CommonModule
-  ]
+    standalone: true,
+    selector: 'app-dynamic-table',
+    templateUrl: './dynamic-table.component.html',
+    styleUrls: ['./dynamic-table.component.scss'],
+    imports: [
+        CommonModule,
+        InputFormsComponent
+    ]
 })
 export class DynamicTableComponent {
 
@@ -44,18 +48,26 @@ export class DynamicTableComponent {
    * @memberof DynamicTableComponent
    */
   @Input() type_table: 'modal' | 'table' = 'modal';
-  
+
+  /**
+   *item seleccionado
+   *
+   * @type {EventEmitter<Usuario>}
+   * @memberof DynamicTableComponent
+   */
+  @Output() selectItem: EventEmitter<any> = new EventEmitter()
+
 
   constructor(
     private renderer: Renderer2
   ) { }
 
   /**
-   * Abrir modal
+   *Este metodo dinamico abre el modal si el mismo no esta abierto pero si esta abierto lo cerrara
    *
    * @memberof DynamicTableComponent
    */
-  openModal() {
+  openAndCloseModal() {
     //Crear un nuevo div
     const div = this.renderer.createElement('div');
 

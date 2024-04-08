@@ -42,7 +42,8 @@ export class InputFormsComponent {
    * @type {{key:string,label:string}[]}
    * @memberof InputFormsComponent
    */
-  @Input() resources: { id: number, name: string }[] = []
+  @Input() resources: { id: number, name: string }[] = [];
+  
   /**
    *define si los campos se pueden editar o no
    *
@@ -98,7 +99,6 @@ export class InputFormsComponent {
     this.onChange(this.value);
     this.onTouched();
   }
-
   /**
    *Detecta el cambio del check
    *

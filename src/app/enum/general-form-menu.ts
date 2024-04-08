@@ -9,5 +9,6 @@ export enum GeneralFormMenu {
     edit = 'edit',
     delete = 'delete',
     search = 'search',
-    file = 'file'
+    file = 'file',
+    descartar = 'descartar'
 }

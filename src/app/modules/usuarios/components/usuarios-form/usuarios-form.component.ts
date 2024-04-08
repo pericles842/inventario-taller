@@ -16,6 +16,7 @@ export class UsuariosFormComponent implements OnInit {
 
   @ViewChild('table') table !: DynamicTableComponent
 
+  type_view: number = 0
   columns: Columns[] = [];
   listRoles: RolUser[] = [];
   userForm: Usuario = new Usuario();
@@ -27,13 +28,53 @@ export class UsuariosFormComponent implements OnInit {
 
   ) { }
   ngOnInit(): void {
+    this.listarUsuarios()
     this.callServiceListRoles()
     this.columns = this.usuariosService.columns
 
   }
   saveElement() {
     this.userForm.rol = parseInt(this.userForm.rol as unknown as string)
+
+    //valida el formulario
+    if (!this.validateForm()) return
+
     this.callCreateUser(this.userForm)
+  }
+
+  /**
+   *Valida el formulario
+   *
+   * @return {*} 
+   * @memberof UsuariosFormComponent
+   */
+  validateForm() {
+    let pass: boolean = true
+
+    if (!this.userForm.name_user.trim()) {
+
+      toast.warning('El campo Nombre debe estar lleno')
+      pass = false
+    } else if (!this.userForm.email.trim()) {
+
+      toast.warning('El campo Email debe estar lleno')
+      pass = false
+    } else if (!this.userForm.username.trim()) {
+
+      toast.warning('El campo Username debe estar lleno')
+      pass = false
+    } else if (!this.userForm.password.trim()) {
+
+      toast.warning('El campo Contraseña debe estar lleno')
+      pass = false
+    } else if  (!this.userForm.ci.toString().trim()) {
+
+      toast.warning('El campo Cédula debe estar lleno')
+      pass = false
+    }
+
+
+    return pass;
   }
   /**
    *crea un usuario 
@@ -48,6 +89,7 @@ export class UsuariosFormComponent implements OnInit {
       next: (usuario) => {
         this.userForm.id = usuario.id
         this.loading = false
+        this.type_view = 1
 
         setTimeout(() => { toast.success('Usuario creado exitosamente ') }, 200);
       },
@@ -72,6 +114,7 @@ export class UsuariosFormComponent implements OnInit {
         this.loading = false
       },
       error: (err) => {
+
         this.loading = false
         toast.error('Los datos no coinciden');
       }
@@ -101,15 +144,43 @@ export class UsuariosFormComponent implements OnInit {
    * @memberof UsuariosFormComponent
    */
   searchUser() {
+    this.table.openAndCloseModal();
+  }
+  /**
+   *Llama al servicio de listar usuarios
+   *
+   * @memberof UsuariosFormComponent
+   */
+  listarUsuarios() {
     this.usuariosService.searchUser().subscribe({
       next: (usuario) => {
         this.listUsers = usuario
-        this.table.openModal();
 
       },
       error: (e) => {
-        toast.error(e)
+
+        toast.error('Error al listar usuarios')
       }
     })
+  }
+  /**
+   *Setea los valores de la tabla al modelo ngmdel
+   *
+   * @param {Usuario} event 
+   * @memberof UsuariosFormComponent
+   */
+  selectItem(event: Usuario) {
+    this.userForm = event
+    this.table.openAndCloseModal()
+    this.type_view = 1
+  }
+
+  /**
+   *Descarta el formulario
+   *
+   * @memberof UsuariosFormComponent
+   */
+  descartar() {
+    this.userForm = new Usuario()
   }
 }
