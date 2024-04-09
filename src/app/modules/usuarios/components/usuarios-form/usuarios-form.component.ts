@@ -6,6 +6,7 @@ import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
+import { findIndex } from 'rxjs';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -67,12 +68,19 @@ export class UsuariosFormComponent implements OnInit {
 
       toast.warning('El campo Contraseña debe estar lleno')
       pass = false
-    } else if  (!this.userForm.ci.toString().trim()) {
+    } else if (!this.userForm.ci.toString().trim()) {
 
       toast.warning('El campo Cédula debe estar lleno')
       pass = false
-    }
+    } else if (this.userForm.repeat_password.trim() != this.userForm.password.trim()) {
 
+      toast.warning('Las confirmación de contraseña no coincide')
+      pass = false
+    } else if (!this.userForm.repeat_password.trim()  ) {
+
+    toast.warning('Por favor confirme la contraseña')
+    pass = false
+  }
 
     return pass;
   }
@@ -87,11 +95,23 @@ export class UsuariosFormComponent implements OnInit {
 
     this.usuariosService.createUser(usuario).subscribe({
       next: (usuario) => {
-        this.userForm.id = usuario.id
-        this.loading = false
-        this.type_view = 1
 
-        setTimeout(() => { toast.success('Usuario creado exitosamente ') }, 200);
+        if (this.userForm.id == -1) {
+          this.userForm.id = usuario.id
+          let name_rol = this.listRoles.find(rol => rol.id == this.userForm.rol)?.name
+
+          this.userForm.name_rol = name_rol as string
+          this.listUsers.push(this.userForm)
+
+        } else {
+
+          let index = this.listUsers.findIndex(u => u.id == this.userForm.id)
+
+          this.listUsers[index] = this.userForm
+        }
+
+        this.loading = false
+        setTimeout(() => { toast.success('Usuario guardado exitosamente ') }, 200);
       },
       error: (err) => {
         this.loading = false
@@ -182,5 +202,29 @@ export class UsuariosFormComponent implements OnInit {
    */
   descartar() {
     this.userForm = new Usuario()
+  }
+  /**
+   *Elimina un usuario
+   *
+   * @param {number} id
+   * @memberof UsuariosFormComponent
+   */
+  deleteUser() {
+    let id: number = this.userForm.id
+
+    this.usuariosService.deleteUser(id).subscribe({
+      next: (value) => {
+
+        //buscamos el indice para eliminarlo 
+        let index = this.listUsers.findIndex(u => u.id == id);
+        this.listUsers.splice(index, 1);
+        this.userForm = new Usuario()
+
+        toast.warning('Usuario eliminado')
+      },
+      error: (err) => {
+        toast.error('Error al listar usuarios')
+      },
+    })
   }
 }

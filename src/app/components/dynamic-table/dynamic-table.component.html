@@ -1,6 +1,6 @@
 <ng-container *ngIf="type_table === 'modal'; else standaloneTable">
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog  modal-dialog-scrollable modal-xl">
       <div class="modal-content">
 
         <div class="d-flex justify-content-between  p-3 m-0">
@@ -8,9 +8,16 @@
           <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-header">
-       
-            <app-input-forms typeInput="text" labelInput="Buscar"></app-input-forms>
-           
+
+          <app-input-forms typeInput="text" [(ngModel)]="search" (ngModelChange)="filterTableRecords($event)" labelInput="Buscar"></app-input-forms>
+
+          <!-- ? en un futuro -->
+          <!-- <div  *ngFor="let column of columns">
+            <div class="d-flex justify-content-between align-items-center">
+              <app-input-forms   typeInput="checkbox" [(ngModel)]="filters" [labelInput]="column.label"></app-input-forms>
+            </div>
+          </div> -->
+
         </div>
 
         <div class="modal-body">

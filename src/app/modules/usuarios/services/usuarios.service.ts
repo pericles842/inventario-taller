@@ -15,11 +15,11 @@ export class UsuariosService {
 
   protected userAuthenticated: Usuario = this.authService.getUser();
 
-  columns:Columns[] = [
-    {label:'id',key:'id'},
-    {label:'Nombre',key:'name_user'},
-    {label:'Email',key:'email'},
-    {label:'Cargo',key:'name_rol'}
+  columns: Columns[] = [
+    { label: 'id', key: 'id' },
+    { label: 'Nombre', key: 'name_user' },
+    { label: 'Email', key: 'email' },
+    { label: 'Cargo', key: 'name_rol' }
   ]
 
   constructor(
@@ -64,4 +64,16 @@ export class UsuariosService {
     return this.http.get<Usuario[]>(`${environments.host}api/user/list-users`, { headers })
 
   }
+
+  /**
+   *Elimina un usuario
+   *
+   * @param {number} id
+   * @return {*} 
+   * @memberof UsuariosService
+   */
+  deleteUser(id: number) {
+    return this.http.delete<any>(`${environments.host}api/user/delete/${id}`)
+  }
+
 }

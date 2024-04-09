@@ -12,8 +12,9 @@ export class Usuario {
     direction: string = '';
     username: string = '';
     password: string = '';
-    rol: number|string = -1;
+    rol: number|string = 5;
     token?: string;
     name_rol: string = '';
-    ci_as_username: boolean = false
+    ci_as_username: boolean = false;
+    repeat_password:string = ''
 }

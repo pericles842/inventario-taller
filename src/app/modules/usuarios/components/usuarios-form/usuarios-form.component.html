@@ -1,17 +1,17 @@
-<app-menu-general (descartar)="descartar()" (search)="searchUser()" (guardar)="saveElement()"
+<app-menu-general (descartar)="descartar()" (delete)="deleteUser()" (search)="searchUser()" (guardar)="saveElement()"
   [(type_view)]="type_view"></app-menu-general>
 
 <!-- TABLA MODAL -->
 <app-dynamic-table #table [columns]="columns" (selectItem)="selectItem($event)" [records]="listUsers"
   titleModal="Lista de Usuarios"></app-dynamic-table>
 
-<div class="card flex flex-column rounded-3 shadow-sm container">
+<div class="card flex flex-column rounded-3 shadow-sm container ">
   <!-- HEADER DEL FORMULARIO -->
   <app-header-form header="Usuarios" description="Proceso de creación de usuarios y asignación de permisos">
   </app-header-form>
 
   <!-- FORMULARIO -->
-  <section class="d-flex flex-column my-4" style="gap:37px;">
+  <section class="d-flex flex-column my-4 p-2" style="gap:37px;">
     <div class="row">
       <div class="col-6">
         <app-input-forms typeInput="text" [(ngModel)]="userForm.name_user"
@@ -41,15 +41,18 @@
 
     <!-- FILA 3 -->
     <div class="row">
-      <div class="col-4">
+      <div class="col-3">
         <app-input-forms typeInput="text" [(ngModel)]="userForm.username" labelInput="usuario"></app-input-forms>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <app-input-forms typeInput="text" [(ngModel)]="userForm.password" labelInput="Contraseña"></app-input-forms>
       </div>
-      
-      <div class="col-4">
-        {{userForm.rol}}
+
+      <div class="col-3">
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.repeat_password" labelInput="Confirmar Contraseña"></app-input-forms>
+      </div>
+
+      <div class="col-3">
         <app-input-forms typeInput="select" [resources]="listRoles" [(ngModel)]="userForm.rol"
           labelInput="Cargos"></app-input-forms>
       </div>

@@ -67,6 +67,7 @@ export class AuthService {
   getUser() {
     return this.getCookie('user_info') as Usuario
   }
+  
   /**
    *Salir de la session
    *
@@ -74,8 +75,10 @@ export class AuthService {
    */
   logout(): void {
     this.isAuthenticated = false;
-    sessionStorage.setItem('authenticated', JSON.stringify(this.isAuthenticated))
+    sessionStorage.setItem('authenticated', JSON.stringify(this.isAuthenticated));
+
     this.deleteCookie('user_info')
+    window.location.href = window.location.href;
     this.router.navigateByUrl('/login')
   }
 

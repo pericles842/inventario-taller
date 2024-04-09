@@ -3,20 +3,24 @@ import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
-    standalone: true,
-    selector: 'app-dynamic-table',
-    templateUrl: './dynamic-table.component.html',
-    styleUrls: ['./dynamic-table.component.scss'],
-    imports: [
-        CommonModule,
-        InputFormsComponent
-    ]
+  standalone: true,
+  selector: 'app-dynamic-table',
+  templateUrl: './dynamic-table.component.html',
+  styleUrls: ['./dynamic-table.component.scss'],
+  imports: [
+    CommonModule,
+    InputFormsComponent,
+    FormsModule
+  ]
 })
 export class DynamicTableComponent {
 
+  search: string = ''
+  filters: boolean = false
   /**
    *Columnas de la tabla importante definir correctamente el key
    *
@@ -33,6 +37,7 @@ export class DynamicTableComponent {
    */
   @Input() records: any[] = []
 
+  cloneRecords: any[] = this.records
   /**
    *Titulo del modal
    *
@@ -62,6 +67,17 @@ export class DynamicTableComponent {
     private renderer: Renderer2
   ) { }
 
+  filterTableRecords(event: any) {
+
+    if (!this.search.trim()) this.records = this.cloneRecords;
+    
+    this.records = this.records.filter(item => {
+      return item.id == parseInt(event) || item.name_user == event || item.ci == parseInt(event);
+    });
+
+    console.log(event);
+
+  }
   /**
    *Este metodo dinamico abre el modal si el mismo no esta abierto pero si esta abierto lo cerrara
    *
