@@ -9,8 +9,9 @@
         </div>
         <div class="modal-header">
 
-          <app-input-forms typeInput="text" [(ngModel)]="search" (ngModelChange)="filterTableRecords($event)" labelInput="Buscar"></app-input-forms>
-
+          <app-input-forms typeInput="text" [(ngModel)]="search" labelInput="Buscar"></app-input-forms>
+          <!--  (ngModelChange)="filterTableRecords($event)" -->
+          
           <!-- ? en un futuro -->
           <!-- <div  *ngFor="let column of columns">
             <div class="d-flex justify-content-between align-items-center">

@@ -29,7 +29,6 @@ export class UsuariosFormComponent implements OnInit {
 
   ) { }
   ngOnInit(): void {
-    this.listarUsuarios()
     this.callServiceListRoles()
     this.columns = this.usuariosService.columns
 
@@ -76,11 +75,11 @@ export class UsuariosFormComponent implements OnInit {
 
       toast.warning('Las confirmación de contraseña no coincide')
       pass = false
-    } else if (!this.userForm.repeat_password.trim()  ) {
+    } else if (!this.userForm.repeat_password.trim()) {
 
-    toast.warning('Por favor confirme la contraseña')
-    pass = false
-  }
+      toast.warning('Por favor confirme la contraseña')
+      pass = false
+    }
 
     return pass;
   }
@@ -97,11 +96,14 @@ export class UsuariosFormComponent implements OnInit {
       next: (usuario) => {
 
         if (this.userForm.id == -1) {
+
           this.userForm.id = usuario.id
           let name_rol = this.listRoles.find(rol => rol.id == this.userForm.rol)?.name
 
           this.userForm.name_rol = name_rol as string
           this.listUsers.push(this.userForm)
+
+          this.userForm = new Usuario();
 
         } else {
 
@@ -164,6 +166,7 @@ export class UsuariosFormComponent implements OnInit {
    * @memberof UsuariosFormComponent
    */
   searchUser() {
+    this.listarUsuarios()
     this.table.openAndCloseModal();
   }
   /**
@@ -191,6 +194,7 @@ export class UsuariosFormComponent implements OnInit {
    */
   selectItem(event: Usuario) {
     this.userForm = event
+    this.userForm.repeat_password = event.password;
     this.table.openAndCloseModal()
     this.type_view = 1
   }
@@ -224,6 +228,21 @@ export class UsuariosFormComponent implements OnInit {
       },
       error: (err) => {
         toast.error('Error al listar usuarios')
+      },
+    })
+  }
+  /**
+   *archiva un unario
+   *
+   * @memberof UsuariosFormComponent
+   */
+  archiveUser() {
+    this.usuariosService.archiveUser(this.userForm.id).subscribe({
+      next: (value) => {
+        toast.success('Usuario archivado exitosamente')
+      },
+      error: (err) => {
+        toast.success('Error al archivar usuario')
       },
     })
   }

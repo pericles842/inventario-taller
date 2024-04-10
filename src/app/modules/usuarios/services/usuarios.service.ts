@@ -19,7 +19,8 @@ export class UsuariosService {
     { label: 'id', key: 'id' },
     { label: 'Nombre', key: 'name_user' },
     { label: 'Email', key: 'email' },
-    { label: 'Cargo', key: 'name_rol' }
+    { label: 'Cargo', key: 'name_rol' },
+    { label: 'Archivado', key: 'archivado' }
   ]
 
   constructor(
@@ -74,6 +75,16 @@ export class UsuariosService {
    */
   deleteUser(id: number) {
     return this.http.delete<any>(`${environments.host}api/user/delete/${id}`)
+  }
+  /**
+   *archiva un usuario
+   *
+   * @param {number} id
+   * @return {*} 
+   * @memberof UsuariosService
+   */
+  archiveUser(id: number) {
+    return this.http.get<any>(`${environments.host}api/user/archive/${id}`)
   }
 
 }
