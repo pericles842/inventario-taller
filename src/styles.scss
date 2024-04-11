@@ -1,3 +1,4 @@
+@import './assets/scss/variable';
 /* You can add global styles to this file, and also import other style files */
 .cursor-pointer {
   cursor: pointer;
@@ -21,4 +22,19 @@
   transform: scale(1.5);
 }
 
- 
+
+/* Personalización de la barra de desplazamiento */
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: $primary;
+  border-radius: 50px;
+  /* Color del botón de desplazamiento */
+}
+
+body::-webkit-scrollbar-track {
+  background-color: $skin5;
+  /* Color de la pista de desplazamiento */
+}

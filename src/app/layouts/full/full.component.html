@@ -4,7 +4,7 @@
 <div id="main-wrapper" [ngClass]="{ 'show-sidebar': showMobileMenu }" dir="ltr" data-theme="light"
   data-layout="vertical" [attr.data-sidebartype]="sidebartype" data-sidebar-position="absolute"
   data-header-position="absolute" data-boxed-layout="full">
-  
+
   <!-- ============================================================== -->
   <!-- Topbar header - style you can find in topbar.scss -->
   <!-- ============================================================== -->
@@ -58,7 +58,8 @@
   <!-- ============================================================== -->
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
-  <aside class="left-sidebar" data-sidebarbg="skin5" (mouseover)="Logo()" (mouseout)="Logo()">
+  <aside id="sidebar" class="left-sidebar overflow-y-scroll"  style="height: 100%; width: auto;" data-sidebarbg="skin5" (mouseover)="Logo()"
+    (mouseout)="Logo()">
     <app-sidebar></app-sidebar>
   </aside>
   <!-- ============================================================== -->

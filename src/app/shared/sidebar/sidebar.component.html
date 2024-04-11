@@ -1,7 +1,7 @@
-<nav class="sidebar-nav">
-  <ul id="sidebarnav">
+<nav class="sidebar-nav " >
+  <ul id="sidebarnav ">
     <!-- First level menu -->
-    <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title"
+    <li class="sidebar-item " [class.active]="showMenu === sidebarnavItem.title"
       *ngFor="let sidebarnavItem of sidebarnavItems">
 
       <!-- LABEL MENU -->
@@ -24,8 +24,14 @@
         <!-- SUBMENUS -->
         <ul class="" *ngIf="showSubMenu === sidebarnavItem.title">
           <li class="" *ngFor="let subItem of sidebarnavItem.submenu">
+            <!-- <i [ngClass]="[subItem.icon]"></i>
             <a class="sidebar-link waves-effect waves-dark fs-3 ms-5 py-2"
-              [routerLink]="subItem.path">{{subItem.title}}</a>
+              [routerLink]="subItem.path">{{subItem.title}}</a> -->
+
+              <div class="d-flex sidebar-link waves-effect waves-dark fs-3 ms-4 py-2">
+                <i [ngClass]="[subItem.icon]"></i>
+                <span class="hide-menu">{{subItem.title}}</span>
+              </div>
           </li>
         </ul>
       </div>
