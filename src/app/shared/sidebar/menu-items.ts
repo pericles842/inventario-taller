@@ -82,7 +82,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '',
+    path: '/dashboard',
     title: 'Stocks',
     icon: 'bi bi-graph-up',
     class: '',
