@@ -1,0 +1,22 @@
+<app-menu-general [type_view]="type_view" (guardar)="saveElement()"></app-menu-general>
+
+
+<div class="card flex flex-column rounded-3 shadow-sm container ">
+  <!-- HEADER DEL FORMULARIO -->
+  <app-header-form header="Almacenes" description="Proceso de creación de Almacenes">
+    <h4 class=" fs-6 mt-3 mb-1">{{store.id | sequence}}</h4>
+  </app-header-form>
+
+
+  <section class="d-flex flex-column my-3 p-2" style="gap:37px;">
+    <div class="row">
+      <div class="col-6">
+        <app-input-forms typeInput="text"
+          [(ngModel)]="store.name_store" (ngModelChange)="store.name_store = $event.toUpperCase()" appAddPrefix [prefix]="'ALM-'" labelInput="Nombre Almacén"></app-input-forms>
+      </div>
+      <div class="col-6">
+        <app-input-forms typeInput="email" [(ngModel)]="store.direction" labelInput="Dirección"></app-input-forms>
+      </div>
+    </div>
+  </section>
+</div>

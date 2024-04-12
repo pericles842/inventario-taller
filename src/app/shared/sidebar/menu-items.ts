@@ -50,7 +50,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '',
+    path: 'almacenes/create-store',
     title: 'Almacenes',
     icon: 'bi bi-box2-fill',
     class: '',
