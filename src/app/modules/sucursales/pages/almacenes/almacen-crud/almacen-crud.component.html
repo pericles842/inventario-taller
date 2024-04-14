@@ -1,0 +1,28 @@
+<app-menu-general (descartar)="descartar()" (delete)="delete()" (search)="search()" [(type_view)]="type_view"
+  (guardar)="saveElement()" (archivar)="closeStore()"></app-menu-general>
+
+<app-dynamic-table #table [columns]="columns" [records]="listStores" (selectItem)="selectItem($event)"
+  titleModal=" Lista de Almacenes"></app-dynamic-table>
+
+<div class="main-contend-card">
+  <!-- HEADER DEL FORMULARIO -->
+  <app-header-form header="Almacenes" description="Proceso de creación de Almacenes">
+    <h4 class=" fs-6 mt-3 mb-1">ALM-{{store.id | sequence}}</h4>
+  </app-header-form>
+
+
+  <section class="main-contend-form" >
+    <div class="row">
+      <div class="col-6">
+        <app-input-forms typeInput="text" [(ngModel)]="store.name_store"
+          (ngModelChange)="store.name_store = $event.toUpperCase()" appAddPrefix [prefix]="'ALM-'"
+          labelInput="Nombre Almacén"></app-input-forms>
+      </div>
+      <div class="col-6">
+        <app-input-forms typeInput="email" [(ngModel)]="store.direction" labelInput="Dirección"></app-input-forms>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-loading [loading]="loading"></app-loading>

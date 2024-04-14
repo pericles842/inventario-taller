@@ -9,4 +9,5 @@ export class Store {
     name_store: string = '';
     direction: string = '';
     status_id: number = 1;
+    estatus: string = '';
 }

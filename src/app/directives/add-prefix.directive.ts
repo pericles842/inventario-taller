@@ -8,10 +8,10 @@ export class AddPrefixDirective {
 
   constructor() { }
 
-  @HostListener('input', ['$event']) onInput(event: Event) {
+  @HostListener('input', ['$event']) onInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value;
-
+    
     // Si el valor no comienza con el prefijo, agregarlo al principio
     if (!inputValue.startsWith(this.prefix)) {
       inputElement.value = this.prefix + inputValue;

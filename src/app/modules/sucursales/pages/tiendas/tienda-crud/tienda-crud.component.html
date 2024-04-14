@@ -1,0 +1,25 @@
+<app-menu-general [(type_view)]="type_view"></app-menu-general>
+
+<app-dynamic-table titleModal=" Lista de Tiendas"></app-dynamic-table>
+
+<div class="main-contend-card">
+  <!-- HEADER DEL FORMULARIO -->
+  <app-header-form header="Tiendas" description="Proceso de creación de Tiendas">
+    <h4 class=" fs-6 mt-3 mb-1">TDA-{{shop.id | sequence}}</h4>
+  </app-header-form>
+
+  <section class="main-contend-form">
+    <div class="row">
+      <div class="col-6">
+        <app-input-forms typeInput="text" [(ngModel)]="shop.name_shop"
+          (ngModelChange)="shop.name_shop = $event.toUpperCase()" appAddPrefix [prefix]="'TDA-'"
+          labelInput="Nombre Tienda"></app-input-forms>
+      </div>
+      <div class="col-6">
+        <app-input-forms typeInput="email" [(ngModel)]="shop.direction" labelInput="Dirección"></app-input-forms>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-loading [loading]="loading"></app-loading>

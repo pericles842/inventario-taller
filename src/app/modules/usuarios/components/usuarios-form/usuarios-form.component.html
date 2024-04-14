@@ -5,13 +5,13 @@
 <app-dynamic-table #table [columns]="columns" (selectItem)="selectItem($event)" [records]="listUsers"
   titleModal="Lista de Usuarios"></app-dynamic-table>
 
-<div class="card flex flex-column rounded-3 shadow-sm container ">
+<div class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
   <app-header-form header="Usuarios" description="Proceso de creación de usuarios y asignación de permisos">
   </app-header-form>
 
   <!-- FORMULARIO -->
-  <section class="d-flex flex-column my-4 p-2" style="gap:37px;">
+  <section class="main-contend-form">
     <div class="row">
       <div class="col-6">
         <app-input-forms typeInput="text" [(ngModel)]="userForm.name_user"

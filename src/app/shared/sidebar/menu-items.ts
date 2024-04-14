@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '',
+    path: 'sucursales/tiendas/create-shop',
     title: 'Tiendas',
     icon: 'bi bi-shop-window',
     class: '',
@@ -50,7 +50,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'almacenes/create-store',
+    path: 'sucursales/almacenes/create-store',
     title: 'Almacenes',
     icon: 'bi bi-box2-fill',
     class: '',
