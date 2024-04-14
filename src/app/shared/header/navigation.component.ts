@@ -22,6 +22,8 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
   public usuario: Usuario = new Usuario()
 
+  public hexadecimalColor: string = ''
+
 
   constructor(
     private modalService: NgbModal,
@@ -30,9 +32,42 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.usuario = this.authService.getUser()
+    this.hexadecimalColor = this.hexadecimalAleatorio()
 
-    
+
   }
+  /**
+   *Parsea las iniciales de lass palabras
+   *
+   * @readonly
+   * @memberof NavigationComponent
+   */
+  get parseNameUser() {
+    const palabras_array = this.usuario.name_user.split(' ').slice(0, 2);
+    let iniciales = '';
+
+    palabras_array.forEach(palabra => {
+      // Ignorar palabras vacías
+      if (palabra.length > 0) {
+        // Obtener la primera letra de la palabra y convertirla a mayúscula
+        iniciales += palabra.charAt(0).toUpperCase();
+      }
+    });
+    return iniciales
+  }
+
+  hexadecimalAleatorio(): string {
+    // Generar tres componentes de color aleatorios en formato hexadecimal
+    const componente1 = Math.floor(Math.random() * 156 + 100).toString(16).padStart(2, '0'); // Rojo
+    const componente2 = Math.floor(Math.random() * 156 + 100).toString(16).padStart(2, '0'); // Verde
+    const componente3 = Math.floor(Math.random() * 156 + 100).toString(16).padStart(2, '0'); // Azul
+
+    // Concatenar los componentes para formar el color hexadecimal
+    const hexadecimal = `#${componente1}${componente2}${componente3}`;
+
+    return hexadecimal;
+  }
+
   /**
    *Cierra la sesión
    *

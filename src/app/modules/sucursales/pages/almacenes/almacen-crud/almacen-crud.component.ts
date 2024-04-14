@@ -129,7 +129,7 @@ export class AlmacenCrudComponent implements OnInit {
         let index = this.listStores.findIndex(al => al.id == this.store.id);
         this.listStores.splice(index, 1);
         this.store = new Store()
-
+        toast.success('Almacen eliminado exitosamente')
         this.loading = false
       },
       error: (err) => {
@@ -146,6 +146,7 @@ export class AlmacenCrudComponent implements OnInit {
    */
   descartar() {
     this.store = new Store()
+    this.type_view = 0
   }
   /**
    *Cierra un alamcen
@@ -156,8 +157,9 @@ export class AlmacenCrudComponent implements OnInit {
     this.loading = false
     this.storeService.closeStore(this.store.id).subscribe({
       next: (store) => {
+        this.descartar()
         this.loading = false
-        toast.success('Almacen cerrado')
+        toast.success('Almacen cerrado exitosamente')
       },
       error: (err) => {
         this.loading = false
@@ -165,4 +167,5 @@ export class AlmacenCrudComponent implements OnInit {
       },
     })
   }
+
 }

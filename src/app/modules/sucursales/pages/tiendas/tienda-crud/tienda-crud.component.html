@@ -1,11 +1,16 @@
-<app-menu-general [(type_view)]="type_view"></app-menu-general>
+<app-menu-general (guardar)="saveElement()" (search)="search()" (archivar)="closeShop()" (descartar)="descartar()"
+  (delete)="delete()" [(type_view)]="type_view"></app-menu-general>
 
-<app-dynamic-table titleModal=" Lista de Tiendas"></app-dynamic-table>
+<app-dynamic-table #table titleModal="Lista de Tiendas" (selectItem)="selectItem($event)" [records]="this.listShops"
+  [columns]="columns"></app-dynamic-table>
 
 <div class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
   <app-header-form header="Tiendas" description="Proceso de creación de Tiendas">
-    <h4 class=" fs-6 mt-3 mb-1">TDA-{{shop.id | sequence}}</h4>
+    <h4 correlative_number class=" fs-6 mt-5 mb-1">TDA-{{shop.id | sequence}}</h4>
+    <p *ngIf="shop.id != -1" chip-right [ngClass]="shop.status_id == 1 ? ' bg-primary text-primary ':' bg-danger text-danger '"
+      class="p-2  fs-5 rounded-3" style="--bs-bg-opacity: .3; ">{{shop.estatus
+      |uppercase}}</p>
   </app-header-form>
 
   <section class="main-contend-form">

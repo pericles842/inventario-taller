@@ -7,11 +7,15 @@
 <div class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
   <app-header-form header="Almacenes" description="Proceso de creación de Almacenes">
-    <h4 class=" fs-6 mt-3 mb-1">ALM-{{store.id | sequence}}</h4>
+    <h4 correlative_number class=" fs-6 mt-5 mb-1">ALM-{{store.id | sequence}}</h4>
+    <p *ngIf="store.id != -1" chip-right
+      [ngClass]="store.status_id == 1 ? ' bg-primary text-primary ':' bg-danger text-danger '"
+      class="p-2  fs-5 rounded-3" style="--bs-bg-opacity: .3; ">{{store.estatus
+      |uppercase}}</p>
   </app-header-form>
 
 
-  <section class="main-contend-form" >
+  <section class="main-contend-form">
     <div class="row">
       <div class="col-6">
         <app-input-forms typeInput="text" [(ngModel)]="store.name_store"

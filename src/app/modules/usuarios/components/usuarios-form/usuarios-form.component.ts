@@ -206,6 +206,7 @@ export class UsuariosFormComponent implements OnInit {
    */
   descartar() {
     this.userForm = new Usuario()
+    this.type_view = 0
   }
   /**
    *Elimina un usuario
@@ -239,6 +240,7 @@ export class UsuariosFormComponent implements OnInit {
   archiveUser() {
     this.usuariosService.archiveUser(this.userForm.id).subscribe({
       next: (value) => {
+        this.descartar()
         toast.success('Usuario archivado exitosamente')
       },
       error: (err) => {

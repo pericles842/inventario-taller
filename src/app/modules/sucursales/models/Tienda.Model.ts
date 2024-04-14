@@ -9,5 +9,5 @@ export class Shop {
     name_shop: string = '';
     direction: string = '';
     status_id: number = 1;
-    estatus: string = '';
+    estatus: string = 'Abierto';
 }

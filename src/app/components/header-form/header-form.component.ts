@@ -10,4 +10,5 @@ export class HeaderFormComponent {
 
   @Input() header: string = 'Header'
   @Input() description: string = 'Descripción'
+
 }
