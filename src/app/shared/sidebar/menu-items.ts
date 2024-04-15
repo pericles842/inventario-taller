@@ -58,7 +58,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '',
+    path: 'sucursales/assign-user',
     title: 'Asignar usuarios',
     icon: 'bi bi-people-fill',
     class: '',

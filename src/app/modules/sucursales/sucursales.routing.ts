@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { AlmacenCrudComponent } from './pages/almacenes/almacen-crud/almacen-crud.component';
 import { TiendaCrudComponent } from './pages/tiendas/tienda-crud/tienda-crud.component';
+import { AssignUserToBranchCrudComponent } from './pages/assign-user-to-branch-crud/assign-user-to-branch-crud.component';
 
 
 
-export const StoreRoutes: Routes = [
+export const BranchRoutes: Routes = [
   {
     path: 'almacenes',
     children: [
@@ -22,5 +23,8 @@ export const StoreRoutes: Routes = [
         component: TiendaCrudComponent
       },
     ]
+  },
+  {
+    path: 'assign-user', component: AssignUserToBranchCrudComponent
   }
 ];

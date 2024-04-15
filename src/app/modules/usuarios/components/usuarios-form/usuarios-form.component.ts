@@ -103,15 +103,13 @@ export class UsuariosFormComponent implements OnInit {
           this.userForm.name_rol = name_rol as string
           this.listUsers.push(this.userForm)
 
-          this.userForm = new Usuario();
-
         } else {
 
           let index = this.listUsers.findIndex(u => u.id == this.userForm.id)
 
           this.listUsers[index] = this.userForm
         }
-
+        this.type_view = 1
         this.loading = false
         setTimeout(() => { toast.success('Usuario guardado exitosamente ') }, 200);
       },

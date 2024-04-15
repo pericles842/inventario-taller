@@ -30,7 +30,9 @@
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="me-3 text-white">{{usuario.name_user}}</span>
       <!-- <img src="assets/images/users/user1.jpg" alt="user" class="rounded-circle" width="31" /> -->
-      <span [ngStyle]="{ 'background-color': hexadecimalColor }" class="rounded-circle p-2 text-black fw-medium " > {{parseNameUser}} </span>
+      <span [ngStyle]="{ 'background-color': hexadecimalColor , 'padding':'9px 7px'}"
+        class="rounded-circle text-white  ">
+        {{parseNameUser}} </span>
     </a>
 
     <div class="dropdown-menu-right" class="dropdown-menu-right" style="box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.285);"
