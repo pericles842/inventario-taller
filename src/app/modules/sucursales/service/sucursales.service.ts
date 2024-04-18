@@ -29,14 +29,24 @@ export class BranchesService {
     private http: HttpClient,
     private authService: AuthService
   ) { }
-/**
- *Lista los usuarios que no estan asignados a ninguna sucursal
- *
- * @return {*}  {Observable<any[]>}
- * @memberof BranchesService
- */
-public listUsersBranch(): Observable<any[]> {
+  /**
+   *Lista los usuarios que no estan asignados a ninguna sucursal
+   *
+   * @return {*}  {Observable<any[]>}
+   * @memberof BranchesService
+   */
+  public listUsersBranch(): Observable<any[]> {
     return this.http.get<any[]>(`${environments.host}api/branch/list-uses`)
   }
-   
+  
+  /**
+   *Lista todas las sucursales
+   *
+   * @return {*}  {Observable<any[]>}
+   * @memberof BranchesService
+   */
+  public listAllBranch(): Observable<{type:'almacen'|'tienda',id:number,name:string}[]> {
+    return this.http.get<{type:'almacen'|'tienda',id:number,name:string}[]>(`${environments.host}api/branch/all-branch`)
+  }
+
 }

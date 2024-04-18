@@ -5,6 +5,7 @@
     <div class="custom-input-container">
       <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="text" class="custom-input"
         placeholder="">
+
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
   </div>
@@ -61,11 +62,16 @@
   <div *ngSwitchCase="'select'">
     <div class="custom-input-container">
       <select (change)="onInputChange($event)" class="custom-input" style="width: 100%;" id="select">
-        <option style="padding: 20px;" *ngFor="let item of resources"
-          [selected]=" item.id == value" [value]="item.id ">
+        <option style="padding: 20px;" *ngFor="let item of resources" [selected]=" item.id == value" [value]="item.id ">
           {{item.name}}</option>
       </select>
-      <label class="custom-input-label">{{labelInput}}</label>
+
+      <label class="custom-input-label">{{labelInput}} 
+        <!-- spinner -->
+        <span *ngIf="loading" class="ms-2 spinner-border spinner-border-sm"
+          aria-hidden="true"></span>
+        </label>
     </div>
+
   </div>
 </div>

@@ -12,6 +12,7 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingComponent {
   @Input() loading = false;
+  @Input() label: string = ''
 
   /**
    *Detecta la carga y desabilita el scrrol

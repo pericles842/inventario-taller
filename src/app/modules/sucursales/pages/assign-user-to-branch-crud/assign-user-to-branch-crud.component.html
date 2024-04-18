@@ -5,24 +5,28 @@
   <!-- HEADER DEL FORMULARIO -->
   <app-header-form header="Sucursales" description="Proceso de asignación  de usuarios a una sucursal">
     <div chip-right>
+      <!-- SELECCIONABLE DE SUCURSAL -->
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <input type="radio" class="btn-check" [(ngModel)]="typeBranch" value="almacen" name="btnradio" id="btnradio1"
+          autocomplete="off" checked>
         <label class="btn btn-outline-primary" for="btnradio1">Almacenes</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <input type="radio" class="btn-check" [(ngModel)]="typeBranch" value="tienda" name="btnradio" id="btnradio2"
+          autocomplete="off">
         <label class="btn btn-outline-primary" for="btnradio2">Tiendas</label>
       </div>
 
+
     </div>
     <h4 correlative_number class=" fs-6 mt-5 mb-1">{{87 | sequence}}</h4>
-
   </app-header-form>
 
   <section class="main-contend-form">
-
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="select" labelInput="Sucursales"></app-input-forms>
+        <app-input-forms [(ngModel)]="idBranch" typeInput="select" [resources]="branch" [loading]="loading"
+          labelInput="Sucursales">
+        </app-input-forms>
       </div>
       <div class="col-6">
         <app-input-forms [disabled]="true" typeInput="text" labelInput="Direction"></app-input-forms>
@@ -37,8 +41,11 @@
         <app-input-forms [disabled]="true" typeInput="text" labelInput="Cargo"></app-input-forms>
       </div>
     </div>
-
   </section>
+
+</div>
+
+<div class="main-contend-card p-3">
   <app-dynamic-table #table [records]="listUserBranch" [columns]="columns" type_table="table"
     titleModal="Lista de usuarios"></app-dynamic-table>
 </div>

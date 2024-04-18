@@ -42,7 +42,7 @@ export class InputFormsComponent {
    * @memberof InputFormsComponent
    */
   @Input() resources: { id: number, name: string }[] = [];
-  
+
   /**
    *define si los campos se pueden editar o no
    *
@@ -52,6 +52,8 @@ export class InputFormsComponent {
   @Input() disabled: boolean = false
 
   @Input() placeholder: string = ' ';
+
+  @Input() loading: boolean = false
   /**
    *Almacena el valor del input
    *
