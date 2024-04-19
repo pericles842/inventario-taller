@@ -7,6 +7,8 @@ export class Sucursal {
   user_id: number = -1
   fulL_name: string = ''
   cargo: string = ''
+  rol_id: number = -1
+  email: string = ''
 }
 
 /**

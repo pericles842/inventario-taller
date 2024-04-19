@@ -61,9 +61,9 @@ export class BranchesService {
   public listBranchUsers(type_branch: typeBranch["typeBranch"], id_branch: number): Observable<Sucursal[]> {
 
     let body = {
-      typeBranch: type_branch,
+      type_branch: type_branch,
       id_branch: id_branch
     }
-    return this.http.post<Sucursal[]>(`${environments.host}api/branch/branch/users`, body)
+    return this.http.post<Sucursal[]>(`${environments.host}api/branch/users`, body)
   }
 }

@@ -107,3 +107,7 @@ input[type="checkbox"] {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
+
+.disabled {
+    background-color: rgba(221, 221, 221, 0.708);
+}

@@ -3,8 +3,8 @@
 
   <div *ngSwitchCase="'text'">
     <div class="custom-input-container">
-      <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="text" class="custom-input"
-        placeholder="">
+      <input [value]="value" [ngClass]="disabled? 'disabled':''" (input)="onInputChange($event)" [disabled]="disabled"
+        type="text" class="custom-input" placeholder="">
 
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
@@ -13,7 +13,7 @@
 
   <div *ngSwitchCase="'email'">
     <div class="custom-input-container">
-      <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="email" class="custom-input"
+      <input [ngClass]="disabled? 'disabled':''"  [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="email" class="custom-input"
         placeholder="">
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
@@ -21,7 +21,7 @@
 
   <div *ngSwitchCase="'password'">
     <div class="custom-input-container">
-      <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="password" class="custom-input"
+      <input  [ngClass]="disabled? 'disabled':''"  [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="password" class="custom-input"
         placeholder="">
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
@@ -29,7 +29,7 @@
 
   <div *ngSwitchCase="'number'">
     <div class="custom-input-container">
-      <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="number" class="custom-input"
+      <input [ngClass]="disabled? 'disabled':''"  [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="number" class="custom-input"
         placeholder="">
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
@@ -37,7 +37,7 @@
 
   <div *ngSwitchCase="'search'">
     <div class="custom-input-container">
-      <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="search" class="custom-input"
+      <input [ngClass]="disabled? 'disabled':''"  [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="search" class="custom-input"
         placeholder="">
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
@@ -45,7 +45,7 @@
 
   <div *ngSwitchCase="'date'">
     <div class="custom-input-container">
-      <input [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="date" class="custom-input"
+      <input [ngClass]="disabled? 'disabled':''"  [value]="value" (input)="onInputChange($event)" [disabled]="disabled" type="date" class="custom-input"
         placeholder="">
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
@@ -53,7 +53,7 @@
 
   <div *ngSwitchCase="'checkbox'">
     <label style="user-select: none;" class="checkbox-container">{{labelInput}}
-      <input [value]="value" [checked]="value" (change)="onCheckboxChange($event)" [disabled]="disabled"
+      <input [ngClass]="disabled? 'disabled':''"  [value]="value" [checked]="value" (change)="onCheckboxChange($event)" [disabled]="disabled"
         type="checkbox">
       <span class="checkmark"></span>
     </label>
@@ -61,16 +61,16 @@
 
   <div *ngSwitchCase="'select'">
     <div class="custom-input-container">
-      <select [disabled]="disabled" aria-readonly="true" (change)="onInputChange($event)" class="custom-input" style="width: 100%;" id="select">
+      <select [ngClass]="disabled? 'disabled':''"  [disabled]="disabled" aria-readonly="true" (change)="onInputChange($event)" class="custom-input"
+        style="width: 100%;" id="select">
         <option style="padding: 20px;" *ngFor="let item of resources" [selected]=" item.id == value" [value]="item.id ">
           {{item.name}}</option>
       </select>
 
-      <label class="custom-input-label">{{labelInput}} 
+      <label class="custom-input-label">{{labelInput}}
         <!-- spinner -->
-        <span *ngIf="loading" class="ms-2 spinner-border spinner-border-sm"
-          aria-hidden="true"></span>
-        </label>
+        <span *ngIf="loading" class="ms-2 spinner-border spinner-border-sm" aria-hidden="true"></span>
+      </label>
     </div>
 
   </div>
