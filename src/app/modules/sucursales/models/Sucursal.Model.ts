@@ -1,11 +1,12 @@
-import { Usuario } from "../../usuarios/models/UsuariosModel"
 
 export class Sucursal {
-  id: number = -1
+  sucursal_id: number = -1
   typeBranch!: typeBranch['typeBranch']
   name: string = ''
   direction: string = ''
-  users: Usuario[] = []
+  user_id: number = -1
+  fulL_name: string = ''
+  cargo: string = ''
 }
 
 /**

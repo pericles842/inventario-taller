@@ -12,14 +12,15 @@ import { Sucursal, typeBranch } from '../../models/Sucursal.Model';
 export class AssignUserToBranchCrudComponent implements OnInit {
   type_view: number = 0
   loading: boolean = false
-  
+
   columns: Columns[] = []
 
-  listUserBranch: any[] = []
+  listUserNotBranch: { id: number, name_user: string, email: string, name_rol: string }[] = []
   listBranch: any[] = []
-  idBranch:number = -1
+  idBranch: number = -1
+  listUserBranch: Sucursal[] = []
 
-  typeBranch: typeBranch['typeBranch'] = 'almacen'
+  typeBranch: typeBranch['typeBranch'] | null = null
   sucursal: Sucursal = new Sucursal()
 
   constructor(
@@ -43,9 +44,9 @@ export class AssignUserToBranchCrudComponent implements OnInit {
    */
   listUsersBranch() {
     this.loading = true
-    this.branchesService.listUsersBranch().subscribe({
+    this.branchesService.listUsersNotBranch().subscribe({
       next: (users) => {
-        this.listUserBranch = users
+        this.listUserNotBranch = users
         this.loading = false
       },
       error: (err) => {
@@ -53,6 +54,14 @@ export class AssignUserToBranchCrudComponent implements OnInit {
         toast.error('error al listar usuarios ')
       },
     })
+  }
+  /**
+   *Mensaje de select
+   *
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  msgSelect() {
+    if (this.typeBranch == null) toast.info('Seleccione una Tienda o un almacén')
   }
   /**
    *Listar sucursales
@@ -65,11 +74,22 @@ export class AssignUserToBranchCrudComponent implements OnInit {
       next: (branch) => {
         this.listBranch = branch
         this.idBranch = this.listBranch[0].id
-        this.loading =false
+        this.loading = false
       },
       error: (err) => {
         this.loading = false
         toast.error('Error al cargar las sucursales')
+      },
+    })
+  }
+  listBranchUsers(type_branch: typeBranch["typeBranch"], id_branch: number) {
+    this.branchesService.listBranchUsers(type_branch, id_branch).subscribe({
+      next: (sucursal) => {
+        this.listUserBranch = sucursal
+      },
+      error: (err) => {
+
+        toast.error('Error al cargar usuarios de la sucursal')
       },
     })
   }

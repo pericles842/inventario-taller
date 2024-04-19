@@ -5,6 +5,7 @@ import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Shop } from '../models/Tienda.Model';
 import { Observable } from 'rxjs';
 import { environments } from 'environments/environment.local';
+import { Sucursal, typeBranch } from '../models/Sucursal.Model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,18 +36,34 @@ export class BranchesService {
    * @return {*}  {Observable<any[]>}
    * @memberof BranchesService
    */
-  public listUsersBranch(): Observable<any[]> {
-    return this.http.get<any[]>(`${environments.host}api/branch/list-uses`)
+  public listUsersNotBranch(): Observable<any[]> {
+    return this.http.get<any[]>(`${environments.host}api/branch/users-not-branch`)
   }
-  
+
   /**
    *Lista todas las sucursales
    *
    * @return {*}  {Observable<any[]>}
    * @memberof BranchesService
    */
-  public listAllBranch(): Observable<{type:'almacen'|'tienda',id:number,name:string}[]> {
-    return this.http.get<{type:'almacen'|'tienda',id:number,name:string}[]>(`${environments.host}api/branch/all-branch`)
+  public listAllBranch(): Observable<{ type: 'almacen' | 'tienda', id: number, name: string }[]> {
+    return this.http.get<{ type: 'almacen' | 'tienda', id: number, name: string }[]>(`${environments.host}api/branch/all-branch`)
   }
 
+  /**
+   *Lista los usuarios asignados a una sucursal
+   *
+   * @param {typeBranch["typeBranch"]} type_branch
+   * @param {number} id_branch
+   * @return {*}  {Observable<Sucursal[]>}
+   * @memberof BranchesService
+   */
+  public listBranchUsers(type_branch: typeBranch["typeBranch"], id_branch: number): Observable<Sucursal[]> {
+
+    let body = {
+      typeBranch: type_branch,
+      id_branch: id_branch
+    }
+    return this.http.post<Sucursal[]>(`${environments.host}api/branch/branch/users`, body)
+  }
 }

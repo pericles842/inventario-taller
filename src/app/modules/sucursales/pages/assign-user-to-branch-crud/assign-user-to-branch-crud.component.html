@@ -8,7 +8,7 @@
       <!-- SELECCIONABLE DE SUCURSAL -->
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" [(ngModel)]="typeBranch" value="almacen" name="btnradio" id="btnradio1"
-          autocomplete="off" checked>
+          autocomplete="off">
         <label class="btn btn-outline-primary" for="btnradio1">Almacenes</label>
 
         <input type="radio" class="btn-check" [(ngModel)]="typeBranch" value="tienda" name="btnradio" id="btnradio2"
@@ -24,8 +24,8 @@
   <section class="main-contend-form">
     <div class="row">
       <div class="col-6">
-        <app-input-forms [(ngModel)]="idBranch" typeInput="select" [resources]="branch" [loading]="loading"
-          labelInput="Sucursales">
+        <app-input-forms [(ngModel)]="idBranch" (click)="msgSelect()" typeInput="select" [resources]="branch"
+          [loading]="loading" labelInput="Sucursales">
         </app-input-forms>
       </div>
       <div class="col-6">
@@ -41,12 +41,34 @@
         <app-input-forms [disabled]="true" typeInput="text" labelInput="Cargo"></app-input-forms>
       </div>
     </div>
+
+
+
+
+    <p class=" fs-7   ">Usuarios de la sucursal</p>
+
+    <div class="d-flex flex-wrap  gap-4 ">
+
+      <div
+        class="d-flex flex-column  bg-primary  text-white py-1 px-4 rounded-3 shadow  gap-0 justify-content-center align-items-center">
+        <span class="fs-5  ">Louis sarmiento</span>
+        <span class="fs-1 fw-semibold">Jefe de almacén</span>
+      </div>
+
+
+
+      <div
+        class="d-flex flex-column  bg-primary  text-white py-1 px-4 rounded-3 shadow  gap-0 justify-content-center align-items-center">
+        <span class="fs-5  ">Louis sarmiento</span>
+        <span class="fs-1 fw-semibold">Jefe de almacén</span>
+      </div>
+
+    </div>
   </section>
-
 </div>
 
-<div class="main-contend-card p-3">
-  <app-dynamic-table #table [records]="listUserBranch" [columns]="columns" type_table="table"
+<!-- <div class="main-contend-card p-3">
+  <app-dynamic-table #table [records]="listUserNotBranch" [columns]="columns" type_table="table"
     titleModal="Lista de usuarios"></app-dynamic-table>
-</div>
+</div> -->
 <app-loading [loading]="loading"></app-loading>
