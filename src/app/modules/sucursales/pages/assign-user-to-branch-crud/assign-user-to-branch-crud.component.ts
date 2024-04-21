@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { BranchesService } from '../../service/sucursales.service';
 import * as toast from 'toastr';
 import { Sucursal, typeBranch } from '../../models/Sucursal.Model';
+import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 
 @Component({
   selector: 'app-assign-user-to-branch-crud',
@@ -14,7 +15,8 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   loading: boolean = false
   loadingSelectBranch: boolean = false
 
-  columns: Columns[] = []
+  columns_branch_not_users: Columns[] = []
+  columns_branch_users: Columns[] = []
 
   listUserNotBranch: { id: number, name_user: string, email: string, name_rol: string }[] = []
   listBranch: any[] = []
@@ -24,14 +26,18 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   typeBranch: typeBranch['typeBranch'] | null = null
   sucursal: Sucursal = new Sucursal()
 
+  @ViewChild('table_users') table_users!: DynamicTableComponent
+
   constructor(
     private branchesService: BranchesService
   ) { }
 
   ngOnInit(): void {
-    this.columns = this.branchesService.columns_users
+    this.columns_branch_not_users = this.branchesService.columns_branch_not_users
+    this.columns_branch_users = this.branchesService.columns_branch_users
+
     this.listAllBranch()
-    this.listUsersBranch()
+    this.listUsersNotBranch()
   }
 
   get branch() {
@@ -44,10 +50,11 @@ export class AssignUserToBranchCrudComponent implements OnInit {
    *
    * @memberof AssignUserToBranchCrudComponent
    */
-  listUsersBranch() {
+  listUsersNotBranch() {
     this.loading = true
     this.branchesService.listUsersNotBranch().subscribe({
       next: (users) => {
+
         this.listUserNotBranch = users
         this.loading = false
       },
@@ -95,7 +102,8 @@ export class AssignUserToBranchCrudComponent implements OnInit {
 
     this.branchesService.listBranchUsers(type_branch, id_branch).subscribe({
       next: (users) => {
-        console.log(users);
+        this.sucursal.sucursal_id = this.idBranch
+        this.sucursal.direction = this.listBranch.find(branch => branch.id == this.idBranch && branch.type == this.typeBranch).direction
 
         this.listUserBranch = users
         this.loading = false
@@ -115,28 +123,34 @@ export class AssignUserToBranchCrudComponent implements OnInit {
 
     let id_branch = this.idBranch;
 
-     if (select) {
+    if (select) {
       //para el select una promesa debido al valor computado branch
       id_branch = await new Promise<number>((resolve, reject) => {
         this.loadingSelectBranch = true
         setTimeout(() => {
-  
+
           let branch = this.branch
           this.idBranch = branch[0]?.id
-          console.log(this.idBranch);
-  
+
           resolve(this.idBranch)
           this.loadingSelectBranch = false
-  
+
         }, 200);
-  
+
       })
-     }
+    }
 
     this.listBranchUsers(this.typeBranch as 'almacen' | 'tienda', id_branch);
   }
 
-  assignHeaderBranch(){
-    
+  openModalListNotBranch() {
+
+    this.table_users.openAndCloseModal()
+  }
+
+
+  assignArrayUsersToBranch(items: object[]) {
+    console.log(items);
+
   }
 }

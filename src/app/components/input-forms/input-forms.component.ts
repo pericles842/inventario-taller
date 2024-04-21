@@ -26,7 +26,7 @@ export class InputFormsComponent {
    * @type {string}
    * @memberof InputFormsComponent
    */
-  @Input() labelInput: string = 'Label'
+  @Input() labelInput: string = ''
   /**
    *Tipo de input
    *

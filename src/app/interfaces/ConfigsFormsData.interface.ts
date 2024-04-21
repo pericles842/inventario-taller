@@ -5,5 +5,7 @@
  * @interface Columns
  */
 export interface Columns {
-    label: string, key: string
+    label: string,
+    key: string,
+    visible?:boolean
 }

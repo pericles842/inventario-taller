@@ -16,7 +16,7 @@
         <label class="btn btn-outline-primary" for="btnradio2">Tiendas</label>
       </div>
     </div>
-    <h4 correlative_number class=" fs-6 mt-5 mb-1">{{87 | sequence}}</h4>
+    <h4 correlative_number class=" fs-6 mt-5 mb-1">{{sucursal.sucursal_id | sequence}}</h4>
   </app-header-form>
 
   <section class="main-contend-form">
@@ -27,49 +27,25 @@
         </app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms [disabled]="true" typeInput="text" labelInput="Direction"></app-input-forms>
+        <app-input-forms [disabled]="true" typeInput="text" [ngModel]="sucursal.direction"
+          labelInput="Direction"></app-input-forms>
       </div>
     </div>
-    {{idBranch}}
-    {{typeBranch}}
-    <div class="row">
-      <div class="col-8">
-        <app-input-forms [disabled]="true" typeInput="text" labelInput="Encargado"></app-input-forms>
-      </div>
-      <div class="col-4">
-        <app-input-forms [disabled]="true" typeInput="text" labelInput="Cargo"></app-input-forms>
-      </div>
-    </div>
-
-     
   </section>
 </div>
 
 <div class="main-contend-card">
-  <app-header-form header="Usuarios Asignados" [description]="'Lista de usuarios asignados '  ">
-    <button chip-right class="btn text-white bg-info">+</button>
-  </app-header-form>
-
-  <div class="d-flex flex-wrap  gap-4">
-
-    <div class="card user-card" *ngFor="let user of listUserBranch">
-      <div class="card-body d-flex align-items-center" style="padding: 8px  15px;">
-        <!-- Icono de usuario -->
-        <i class="bi bi-person-circle bi-custom user-card-icon"></i>
-        <div>
-          <h5 class="card-title user-card-title">{{user.fulL_name}}</h5>
-
-          <p *ngIf="user.rol_id == 3 ||user.rol_id == 4 " class="card-text user-card-email">{{user.cargo}} </p>
-          <p *ngIf="user.rol_id == 5 " class="card-text user-card-email">{{user.email}} </p>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  <section class="mx-2">
+    <app-header-form header="Usuarios Asignados"
+    [description]="'Lista de usuarios asignados ' + sucursal.name"></app-header-form>
+  <!-- //listUserBranch -->
+  <app-dynamic-table [disabledBtnAdd]="typeBranch == null" [viewBtnDelete]="true" [columns]="columns_branch_users"
+    [records]="listUserBranch" type_table="table" [viewBtnAdd]="true"
+    (btnAdd)="openModalListNotBranch()"></app-dynamic-table>
+  </section>
 </div>
 
-<!-- <div class="main-contend-card p-3">
-  <app-dynamic-table #table [records]="listUserNotBranch" [columns]="columns" type_table="table"
-    titleModal="Lista de usuarios"></app-dynamic-table>
-</div> -->
 <app-loading [loading]="loading"></app-loading>
+
+<app-dynamic-table [selectable_table]="true" #table_users [columns]="columns_branch_not_users"
+  [records]="listUserNotBranch" (selectBtnChecks)="assignArrayUsersToBranch($event)"></app-dynamic-table>

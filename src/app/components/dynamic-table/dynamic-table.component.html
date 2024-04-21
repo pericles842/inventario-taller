@@ -7,19 +7,6 @@
           <h1 class="modal-title fs-6 " id="exampleModalLabel">{{ titleModal }}</h1>
           <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-header">
-
-          <app-input-forms typeInput="text" [(ngModel)]="search" labelInput="Buscar"></app-input-forms>
-          <!--  (ngModelChange)="filterTableRecords($event)" -->
-          
-          <!-- ? en un futuro -->
-          <!-- <div  *ngFor="let column of columns">
-            <div class="d-flex justify-content-between align-items-center">
-              <app-input-forms   typeInput="checkbox" [(ngModel)]="filters" [labelInput]="column.label"></app-input-forms>
-            </div>
-          </div> -->
-
-        </div>
 
         <div class="modal-body">
           <ng-template [ngTemplateOutlet]="tableTemplate"></ng-template>
@@ -35,7 +22,7 @@
 
 
 <ng-template #standaloneTable>
-  <h1 class=" fs-6 p-3 bg-primary rounded-2 text-white" >{{ titleModal }}</h1>
+  <h1 *ngIf="titleModal.trim()" class=" fs-6 p-3 bg-primary rounded-2 text-white">{{ titleModal }}</h1>
   <ng-template [ngTemplateOutlet]="tableTemplate"></ng-template>
 </ng-template>
 
@@ -43,21 +30,60 @@
 <ng-template #tableTemplate>
   <div class="card">
     <div class="card-body p-0">
+      <!-- FILTROS -->
+      <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+
+        <div class="col-4">
+          <app-input-forms [disabled]="records.length == 0" typeInput="text" [(ngModel)]="search"
+            labelInput="Buscar"></app-input-forms>
+        </div>
+        <!-- BOTON AGREGAR -->
+        <div *ngIf="viewBtnAdd">
+          <button [disabled]="disabledBtnAdd" (click)="btnAdd.emit()" class="btn text-white bg-primary "><i
+              class="bi bi-plus fs-6"></i></button>
+        </div>
+      </div>
+
       <div class="table-responsive m-0">
+
         <table class="table table-hover align-middle text-nowrap table-bordered">
           <thead>
             <tr>
-              <th *ngFor="let column of columns" class="text-dark font-medium fs-4">{{ column.label }}</th>
+              <th *ngIf="viewBtnDelete">
+                <span>Acción</span>
+              </th>
+              <th *ngIf="selectable_table" class=" text-dark font-medium fs-4 ">
+                <app-input-forms [disabled]="records.length == 0" typeInput="checkbox" (click)="addItemCheck(undefined)"
+                  [(ngModel)]="selectedAllChecks" [labelInput]="'Todos'"></app-input-forms>
+              </th>
+              <th *ngFor="let column of columns" class=" text-dark font-medium fs-4 ">
+                <app-input-forms typeInput="checkbox" [labelInput]="column.label"></app-input-forms>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of records">
+              <!-- TABLA SELECCIONABLE -->
+              <td *ngIf="selectable_table">
+                <app-input-forms class="text-white" (change)="addItemCheck(item)" [(ngModel)]="item.check"
+                  typeInput="checkbox" labelInput="."></app-input-forms>
+              </td>
+              <!-- bOTON ELIMINAR -->
+              <td *ngIf="viewBtnDelete">
+                <button (click)="btnDelete.emit(item)" class="btn btn-danger btn-sm ">
+                  <i class="bi bi-trash-fill "></i>
+                </button>
+              </td>
               <td style="cursor: pointer" (click)="selectItem.emit(item)" *ngFor="let column of columns">{{
                 item[column.key] }}
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <!-- BOTONES -->
+      <div *ngIf="selectable_table" class="d-flex justify-content-end ">
+        <button (click)="acceptChecks()" type="button" class="btn btn-primary ">Aceptar</button>
       </div>
     </div>
   </div>

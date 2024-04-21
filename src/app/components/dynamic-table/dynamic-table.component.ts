@@ -55,12 +55,79 @@ export class DynamicTableComponent {
   @Input() type_table: 'modal' | 'table' = 'modal';
 
   /**
+   *Ver boton agreggar
+   *
+   * @type {Boolean}
+   * @memberof DynamicTableComponent
+   */
+  @Input() viewBtnAdd: Boolean = false
+
+  @Input() disabledBtnAdd: Boolean = false
+   
+
+  /**
+   *Ver boton eliminar
+   *
+   * @type {boolean}
+   * @memberof DynamicTableComponent
+   */
+  @Input() viewBtnDelete: boolean = false
+  /**
+   *Activa el modo de tabla selecciable
+   *
+   * @type {Boolean}
+   * @memberof DynamicTableComponent
+   */
+  @Input() selectable_table: Boolean = false
+
+  /**
    *item seleccionado
    *
    * @type {EventEmitter<Usuario>}
    * @memberof DynamicTableComponent
    */
   @Output() selectItem: EventEmitter<any> = new EventEmitter()
+
+  /**
+   *boton elminar
+   *
+   * @type {EventEmitter<any>}
+   * @memberof DynamicTableComponent
+   */
+  @Output() btnDelete: EventEmitter<any> = new EventEmitter()
+
+
+  /**
+   *Emitir botón agregar
+   *
+   * @type {EventEmitter<boolean>}
+   * @memberof DynamicTableComponent
+   */
+  @Output() btnAdd: EventEmitter<boolean> = new EventEmitter()
+  /**
+   *Evento del boton para confirmar los items seleccinados
+   *
+   * @type {EventEmitter<boolean>}
+   * @memberof DynamicTableComponent
+   */
+  @Output() selectBtnChecks: EventEmitter<object[]> = new EventEmitter()
+
+  /**
+   *Seleccionar todos los registros en caos de tabla seeccioable
+   *
+   * @type {boolean}
+   * @memberof DynamicTableComponent
+   */
+  selectedAllChecks: boolean = false
+
+  /**
+   *Items seleccionados por el check
+   *
+   * @type {any[]}
+   * @memberof DynamicTableComponent
+   */
+  itemsSelected: any[] = []
+
 
 
   constructor(
@@ -70,12 +137,10 @@ export class DynamicTableComponent {
   filterTableRecords(event: any) {
 
     if (!this.search.trim()) this.records = this.cloneRecords;
-    
+
     this.records = this.records.filter(item => {
       return item.id == parseInt(event) || item.name_user == event || item.ci == parseInt(event);
     });
-
-    console.log(event);
 
   }
   /**
@@ -100,4 +165,56 @@ export class DynamicTableComponent {
       this.renderer.removeChild(document.body, div);
     }, 1000); // Ajusta el tiempo según sea necesario
   }
+  /**
+   *Agregga interactivamente registros de la tabla
+   *
+   * @param {*} item
+   * @memberof DynamicTableComponent
+   */
+  addItemCheck(item: any) {
+
+    if (item == undefined) {
+      //para la visualizacion de chenk en la tabla
+      this.records.forEach(item => {
+        item.check = !this.selectedAllChecks
+      })
+
+
+      this.records.forEach(item => {
+        if (item.check) {
+          this.itemsSelected.push(item)
+        } else {
+          let index = this.itemsSelected.findIndex(i => i.id == item.id)
+          this.itemsSelected.splice(index, 1)
+        }
+      })
+
+      //por alguna razons se repite el metodo , esto limina los registros repetitos
+      this.itemsSelected = this.itemsSelected.filter((obj, index, self) =>
+        index === self.findIndex((o) => o.id === obj.id)
+      );
+       
+      return
+    }
+
+    if (item.check) {
+      this.itemsSelected.push(item)
+    } else {
+      let index = this.itemsSelected.findIndex(i => i.id == item.id)
+      this.itemsSelected.splice(index, 1)
+    }
+
+  }
+
+  /**
+   *Acción de botón confirmar los cheks
+   *
+   * @memberof DynamicTableComponent
+   */
+  acceptChecks() {
+    this.selectBtnChecks.emit(this.itemsSelected)
+
+    this.openAndCloseModal()
+  }
+
 }

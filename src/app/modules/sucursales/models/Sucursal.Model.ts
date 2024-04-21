@@ -9,6 +9,13 @@ export class Sucursal {
   cargo: string = ''
   rol_id: number = -1
   email: string = ''
+
+  constructor(not_in_charge: boolean = false) {
+    if (not_in_charge) {
+      this.cargo = 'No asignado'
+      this.fulL_name = 'Encargado no asignado'
+    }
+  }
 }
 
 /**

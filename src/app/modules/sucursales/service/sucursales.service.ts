@@ -18,14 +18,24 @@ export class BranchesService {
    * @type {Columns[]}
    * @memberof BranchesService
    */
-  columns_users: Columns[] = [
+  columns_branch_not_users: Columns[] = [
     { label: 'id', key: 'id' },
     { label: 'Nombre', key: 'name_user' },
     { label: 'Email', key: 'email' },
     { label: 'Cargo', key: 'name_rol' }
   ]
-
-
+  /**
+   *Tala de usuarios asignados a una sucursal
+   *
+   * @type {Columns[]}
+   * @memberof BranchesService
+   */
+  columns_branch_users: Columns[] = [
+    { label: 'id', key: 'user_id' },
+    { label: 'Nombre', key: 'fulL_name' },
+    { label: 'Email', key: 'email' },
+    { label: 'Cargo', key: 'cargo' }
+  ]
   constructor(
     private http: HttpClient,
     private authService: AuthService
