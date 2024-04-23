@@ -37,11 +37,11 @@
 <div class="main-contend-card">
   <section class="mx-2">
     <app-header-form header="Usuarios Asignados"
-    [description]="'Lista de usuarios asignados ' + sucursal.name"></app-header-form>
-  <!-- //listUserBranch -->
-  <app-dynamic-table [disabledBtnAdd]="typeBranch == null" [viewBtnDelete]="true" [columns]="columns_branch_users"
-    [records]="listUserBranch" type_table="table" [viewBtnAdd]="true"
-    (btnAdd)="openModalListNotBranch()"></app-dynamic-table>
+      [description]="'Lista de usuarios asignados ' + sucursal.name"></app-header-form>
+    <!-- //listUserBranch -->
+    <app-dynamic-table [disabledBtnAdd]="typeBranch == null" [viewBtnDelete]="true"
+      (btnDelete)="assignArrayUsersToBranch($event)" [columns]="columns_branch_users" [records]="listUserBranch"
+      type_table="table" [viewBtnAdd]="true" (btnAdd)="openModalListNotBranch()"></app-dynamic-table>
   </section>
 </div>
 

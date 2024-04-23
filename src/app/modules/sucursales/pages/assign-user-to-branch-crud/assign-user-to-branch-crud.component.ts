@@ -18,7 +18,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   columns_branch_not_users: Columns[] = []
   columns_branch_users: Columns[] = []
 
-  listUserNotBranch: { id: number, name_user: string, email: string, name_rol: string }[] = []
+  listUserNotBranch: Sucursal[] = []
   listBranch: any[] = []
   idBranch: number = -1
   listUserBranch: Sucursal[] = []
@@ -143,14 +143,33 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     this.listBranchUsers(this.typeBranch as 'almacen' | 'tienda', id_branch);
   }
 
+  /**
+   *Abre el modal de lista no despachadas 
+   *
+   * @memberof AssignUserToBranchCrudComponent
+   */
   openModalListNotBranch() {
-
     this.table_users.openAndCloseModal()
   }
 
 
-  assignArrayUsersToBranch(items: object[]) {
-    console.log(items);
+  assignArrayUsersToBranch(items: Sucursal[] | Sucursal) {
+
+    const Sucursales = Array.isArray(items) ? items : [items]
+ 
+
+    Sucursales.forEach(item => {
+      let index = this.listUserNotBranch.findIndex(i => i.user_id == item.user_id)
+
+      if (item.check) {
+        item.check = false
+        this.listUserNotBranch.splice(index, 1)
+        this.listUserBranch.push(item)
+      } else {
+
+      }
+    })
+    // 
 
   }
 }

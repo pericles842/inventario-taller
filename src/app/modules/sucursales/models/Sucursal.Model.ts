@@ -5,15 +5,16 @@ export class Sucursal {
   name: string = ''
   direction: string = ''
   user_id: number = -1
-  fulL_name: string = ''
+  name_user: string = ''
   cargo: string = ''
   rol_id: number = -1
   email: string = ''
+  check: boolean = false
 
   constructor(not_in_charge: boolean = false) {
     if (not_in_charge) {
       this.cargo = 'No asignado'
-      this.fulL_name = 'Encargado no asignado'
+      this.name_user = 'Encargado no asignado'
     }
   }
 }

@@ -110,7 +110,7 @@ export class DynamicTableComponent {
    * @type {EventEmitter<boolean>}
    * @memberof DynamicTableComponent
    */
-  @Output() selectBtnChecks: EventEmitter<object[]> = new EventEmitter()
+  @Output() selectBtnChecks: EventEmitter<any[]> = new EventEmitter()
 
   /**
    *Seleccionar todos los registros en caos de tabla seeccioable
@@ -135,7 +135,7 @@ export class DynamicTableComponent {
   ) { }
 
   filterTableRecords(event: any) {
-
+    
     if (!this.search.trim()) this.records = this.cloneRecords;
 
     this.records = this.records.filter(item => {
@@ -181,8 +181,10 @@ export class DynamicTableComponent {
 
 
       this.records.forEach(item => {
+        
         if (item.check) {
           this.itemsSelected.push(item)
+          
         } else {
           let index = this.itemsSelected.findIndex(i => i.id == item.id)
           this.itemsSelected.splice(index, 1)
@@ -191,9 +193,9 @@ export class DynamicTableComponent {
 
       //por alguna razons se repite el metodo , esto limina los registros repetitos
       this.itemsSelected = this.itemsSelected.filter((obj, index, self) =>
-        index === self.findIndex((o) => o.id === obj.id)
+        index === self.findIndex((o) => o === obj)
       );
-       
+
       return
     }
 

@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environments } from 'environments/environment.local';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { Shop } from '../models/Tienda.Model';
-import { Observable } from 'rxjs';
-import { environments } from 'environments/environment.local';
 import { Sucursal, typeBranch } from '../models/Sucursal.Model';
 
 @Injectable({
@@ -19,10 +18,10 @@ export class BranchesService {
    * @memberof BranchesService
    */
   columns_branch_not_users: Columns[] = [
-    { label: 'id', key: 'id' },
+    { label: 'id', key: 'user_id' },
     { label: 'Nombre', key: 'name_user' },
     { label: 'Email', key: 'email' },
-    { label: 'Cargo', key: 'name_rol' }
+    { label: 'Cargo', key: 'cargo' }
   ]
   /**
    *Tala de usuarios asignados a una sucursal
@@ -32,7 +31,7 @@ export class BranchesService {
    */
   columns_branch_users: Columns[] = [
     { label: 'id', key: 'user_id' },
-    { label: 'Nombre', key: 'fulL_name' },
+    { label: 'Nombre', key: 'name_user' },
     { label: 'Email', key: 'email' },
     { label: 'Cargo', key: 'cargo' }
   ]
@@ -46,8 +45,8 @@ export class BranchesService {
    * @return {*}  {Observable<any[]>}
    * @memberof BranchesService
    */
-  public listUsersNotBranch(): Observable<any[]> {
-    return this.http.get<any[]>(`${environments.host}api/branch/users-not-branch`)
+  public listUsersNotBranch(): Observable<Sucursal[]> {
+    return this.http.get<Sucursal[]>(`${environments.host}api/branch/users-not-branch`)
   }
 
   /**
