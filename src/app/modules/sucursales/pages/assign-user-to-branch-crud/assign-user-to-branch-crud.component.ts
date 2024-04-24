@@ -153,23 +153,72 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   }
 
 
-  assignArrayUsersToBranch(items: Sucursal[] | Sucursal) {
+  assignArrayUsersToBranch(items: Sucursal[] | Sucursal, addInBranchNotUser: boolean = false) {
 
     const Sucursales = Array.isArray(items) ? items : [items]
- 
+
+    //valida que no se repitan las sucursales
+    if (!this.notDuplicateManagers(Sucursales)) return
 
     Sucursales.forEach(item => {
-      let index = this.listUserNotBranch.findIndex(i => i.user_id == item.user_id)
 
-      if (item.check) {
-        item.check = false
-        this.listUserNotBranch.splice(index, 1)
+      let index_user_not_branch = this.listUserNotBranch.findIndex(i => i.user_id == item.user_id)
+      let index_user = this.listUserBranch.findIndex(i => i.user_id == item.user_id)
+
+      if (addInBranchNotUser) {
+
+        this.listUserNotBranch.splice(index_user_not_branch, 1)
         this.listUserBranch.push(item)
       } else {
 
+        this.listUserBranch.splice(index_user, 1)
+        this.listUserNotBranch.push(item)
       }
+      item.check = false
     })
-    // 
 
+
+  }
+//!AREGLAR
+  notDuplicateManagers(users: Sucursal[]): boolean {
+    let pass = true
+
+    let cargo = ''
+    let rol_id = 0;
+
+    let managerFilter: Sucursal[] = []
+
+    users.filter(user => {
+
+      if (user.rol_id === 3 && this.typeBranch == 'almacen') {
+        managerFilter.push(user)
+        
+      } else if (user.rol_id === 4 && this.typeBranch == 'tienda') {
+       
+        managerFilter.push(user)
+      }
+    });
+
+    this.listUserBranch.filter(user => {
+
+      if (user.rol_id === 3 && this.typeBranch == 'almacen') {
+        managerFilter.push(user)
+        
+      } else if (user.rol_id === 4 && this.typeBranch == 'tienda') {
+       
+        managerFilter.push(user)
+      }
+    });
+
+    if (managerFilter.length > 1) {
+      let { cargo: c, rol_id: id } = managerFilter[0]
+      cargo = c
+      rol_id = id
+      pass = false
+      toast.warning(`No puedes Asignar ${managerFilter.length}  ${cargo} a esta sucursal`)
+      managerFilter = []
+    }
+
+    return pass
   }
 }

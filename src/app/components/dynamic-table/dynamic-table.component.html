@@ -53,7 +53,7 @@
                 <span>Acción</span>
               </th>
               <th *ngIf="selectable_table" class=" text-dark font-medium fs-4 ">
-                <app-input-forms [disabled]="records.length == 0" typeInput="checkbox" (click)="addItemCheck(undefined)"
+                <app-input-forms [disabled]="records.length == 0" typeInput="checkbox" (change)="addItemCheck(undefined)"
                   [(ngModel)]="selectedAllChecks" [labelInput]="'Todos'"></app-input-forms>
               </th>
               <th *ngFor="let column of columns" class=" text-dark font-medium fs-4 ">

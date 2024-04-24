@@ -63,7 +63,7 @@ export class DynamicTableComponent {
   @Input() viewBtnAdd: Boolean = false
 
   @Input() disabledBtnAdd: Boolean = false
-   
+
 
   /**
    *Ver boton eliminar
@@ -135,7 +135,7 @@ export class DynamicTableComponent {
   ) { }
 
   filterTableRecords(event: any) {
-    
+
     if (!this.search.trim()) this.records = this.cloneRecords;
 
     this.records = this.records.filter(item => {
@@ -172,36 +172,30 @@ export class DynamicTableComponent {
    * @memberof DynamicTableComponent
    */
   addItemCheck(item: any) {
-
+    //!REFACTORIZAR LOS RECORDS DE LA TABLA SE DEBERIAN ELIMNAR DESDE ESTE COMPONENTE
     if (item == undefined) {
       //para la visualizacion de chenk en la tabla
-      this.records.forEach(item => {
-        item.check = !this.selectedAllChecks
-      })
+      this.records.forEach(item => item.check = this.selectedAllChecks)
 
 
       this.records.forEach(item => {
-        
+
         if (item.check) {
           this.itemsSelected.push(item)
-          
+
         } else {
           let index = this.itemsSelected.findIndex(i => i.id == item.id)
           this.itemsSelected.splice(index, 1)
+
         }
       })
-
-      //por alguna razons se repite el metodo , esto limina los registros repetitos
-      this.itemsSelected = this.itemsSelected.filter((obj, index, self) =>
-        index === self.findIndex((o) => o === obj)
-      );
-
       return
     }
 
     if (item.check) {
       this.itemsSelected.push(item)
     } else {
+
       let index = this.itemsSelected.findIndex(i => i.id == item.id)
       this.itemsSelected.splice(index, 1)
     }
@@ -214,6 +208,7 @@ export class DynamicTableComponent {
    * @memberof DynamicTableComponent
    */
   acceptChecks() {
+    this.selectedAllChecks = false
     this.selectBtnChecks.emit(this.itemsSelected)
 
     this.openAndCloseModal()

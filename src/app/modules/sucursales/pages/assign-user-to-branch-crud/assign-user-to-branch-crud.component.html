@@ -48,4 +48,4 @@
 <app-loading [loading]="loading"></app-loading>
 
 <app-dynamic-table [selectable_table]="true" #table_users [columns]="columns_branch_not_users"
-  [records]="listUserNotBranch" (selectBtnChecks)="assignArrayUsersToBranch($event)"></app-dynamic-table>
+  [records]="listUserNotBranch" (selectBtnChecks)="assignArrayUsersToBranch($event,true)"></app-dynamic-table>

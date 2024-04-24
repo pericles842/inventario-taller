@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center align-items-center"
+<div  (keydown.enter)="callServiceAutenticarLogin()" class="d-flex justify-content-center align-items-center"
   style="height: 100vh; background-color: rgb(228, 228, 228);">
   <div class="rounded-3 shadow-sm container p-5" style="width: 50%; background-color: rgb(255, 255, 255);">
     <!-- <img class="mb-4 mx-auto" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
@@ -18,7 +18,8 @@
     </div>
 
     <div class="text-start mb-3">
-      <button class="btn btn-primary text-white w-100 py-2" [disabled]="loading" (click)="callServiceAutenticarLogin()"
+      <button class="btn btn-primary text-white w-100 py-2" [disabled]="loading"
+       (click)="callServiceAutenticarLogin()"
         type="submit">Entrar</button>
     </div>
   </div>
