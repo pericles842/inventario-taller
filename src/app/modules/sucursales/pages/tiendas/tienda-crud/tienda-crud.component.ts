@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
-import * as toast from 'toastr';
 import { Shop } from '../../../models/Tienda.Model';
 import { ShopService } from '../../../service/tiendas.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-tienda-crud',
@@ -21,7 +21,8 @@ export class TiendaCrudComponent implements OnInit {
   columns: Columns[] = []
 
   constructor(
-    private shopService: ShopService
+    private shopService: ShopService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class TiendaCrudComponent implements OnInit {
     this.loading = true;
     this.shopService.createShop(this.shop).subscribe({
       next: (shop) => {
-        
+
         if (this.shop.id == -1) {
 
           this.shop.id = shop.id
@@ -52,10 +53,10 @@ export class TiendaCrudComponent implements OnInit {
         this.type_view = 1
 
 
-        toast.success('Guardado exitosamente')
+        this.toastService.success('Guardado exitosamente')
       },
       error: (err) => {
-        toast.error('Error al guardar tienda')
+        this.toastService.error('Error al guardar tienda')
       },
     })
   }
@@ -70,11 +71,11 @@ export class TiendaCrudComponent implements OnInit {
 
     if (!this.shop.name_shop.trim()) {
       pass = false
-      toast.warning('Asignar nombre para la tienda');
+      this.toastService.warning('Asignar nombre para la tienda');
 
     } else if (!this.shop.direction.trim()) {
       pass = false
-      toast.warning('Asignar dirección de la tienda');
+      this.toastService.warning('Asignar dirección de la tienda');
     }
 
     return pass
@@ -103,7 +104,7 @@ export class TiendaCrudComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false
-        toast.error('Error al cargar tiendas')
+        this.toastService.error('Error al cargar tiendas')
       },
     })
   }
@@ -126,7 +127,7 @@ export class TiendaCrudComponent implements OnInit {
    */
   selectItem(shop: Shop) {
     this.shop = shop
-    this.type_view  =1 
+    this.type_view = 1
     this.table.openAndCloseModal()
   }
   /**
@@ -144,12 +145,12 @@ export class TiendaCrudComponent implements OnInit {
         this.shop = new Shop()
 
         this.loading = false
-        toast.success('Tienda eliminada exitosamente')
+        this.toastService.success('Tienda eliminada exitosamente')
       },
       error: (err) => {
 
         this.loading = false
-        toast.error('Error al eliminar un tienda')
+        this.toastService.error('Error al eliminar un tienda')
       },
     })
   }
@@ -164,10 +165,10 @@ export class TiendaCrudComponent implements OnInit {
       next: (value) => {
         this.descartar()
         this.loading = false
-        toast.success('Error al eliminar un tienda')
+        this.toastService.success('Error al eliminar un tienda')
       },
       error: (err) => {
-        toast.error('Error al cerrar un tienda')
+        this.toastService.error('Error al cerrar un tienda')
         this.loading = false
       },
     })

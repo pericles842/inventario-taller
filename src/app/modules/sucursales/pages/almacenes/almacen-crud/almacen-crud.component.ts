@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import * as toast from 'toastr';
 import { Store } from '../../../models/AlmacenModel';
 import { StoreService } from '../../../service/almacenes.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 
 @Component({
@@ -22,7 +22,8 @@ export class AlmacenCrudComponent implements OnInit {
 
 
   constructor(
-    private storeService: StoreService
+    private storeService: StoreService,
+    private toastService:ToastService
   ) { }
 
   ngOnInit(): void {
@@ -54,10 +55,10 @@ export class AlmacenCrudComponent implements OnInit {
         this.type_view = 1
 
 
-        toast.success('Guardado exitosamente')
+        this.toastService.success('Guardado exitosamente')
       },
       error: (err) => {
-        toast.error('Hubo un problema al crear el almacén')
+        this.toastService.error('Hubo un problema al crear el almacén')
         this.loading = false;
       }
     })
@@ -73,11 +74,11 @@ export class AlmacenCrudComponent implements OnInit {
 
     if (!this.store.name_store.trim()) {
       pass = false
-      toast.warning('Asignar nombre para el almacén');
+      this.toastService.warning('Asignar nombre para el almacén');
 
     } else if (!this.store.direction.trim()) {
       pass = false
-      toast.warning('Asignar dirección del almacén');
+      this.toastService.warning('Asignar dirección del almacén');
     }
 
     return pass
@@ -98,7 +99,7 @@ export class AlmacenCrudComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false
-        toast.error('Error al listar almacenes')
+        this.toastService.error('Error al listar almacenes')
       },
     })
   }
@@ -129,13 +130,13 @@ export class AlmacenCrudComponent implements OnInit {
         let index = this.listStores.findIndex(al => al.id == this.store.id);
         this.listStores.splice(index, 1);
         this.store = new Store()
-        toast.success('Almacen eliminado exitosamente')
+        this.toastService.success('Almacen eliminado exitosamente')
         this.loading = false
       },
       error: (err) => {
 
         this.loading = false
-        toast.error('Error al eliminar un almacen')
+        this.toastService.error('Error al eliminar un almacen')
       },
     })
   }
@@ -159,11 +160,11 @@ export class AlmacenCrudComponent implements OnInit {
       next: (store) => {
         this.descartar()
         this.loading = false
-        toast.success('Almacen cerrado exitosamente')
+        this.toastService.success('Almacen cerrado exitosamente')
       },
       error: (err) => {
         this.loading = false
-        toast.error('Error al cerrar un almacen')
+        this.toastService.error('Error al cerrar un almacen')
       },
     })
   }

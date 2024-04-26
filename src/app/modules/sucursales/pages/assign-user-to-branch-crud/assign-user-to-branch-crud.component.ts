@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { BranchesService } from '../../service/sucursales.service';
-import * as toast from 'toastr';
-import { Sucursal, typeBranch } from '../../models/Sucursal.Model';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
+import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { oneFirsUppercase } from '../../../../functions/Words';
+import { Sucursal, typeBranch } from '../../models/Sucursal.Model';
+import { BranchesService } from '../../service/sucursales.service';
 
 @Component({
   selector: 'app-assign-user-to-branch-crud',
@@ -29,10 +30,14 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   @ViewChild('table_users') table_users!: DynamicTableComponent
 
   constructor(
-    private branchesService: BranchesService
+    private branchesService: BranchesService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
+
+    // Mostrar la notificación con la configuración personalizada
+
     this.columns_branch_not_users = this.branchesService.columns_branch_not_users
     this.columns_branch_users = this.branchesService.columns_branch_users
 
@@ -60,7 +65,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false
-        toast.error('error al listar usuarios ')
+        this.toastService.error('error al listar usuarios', 'Error')
       },
     })
   }
@@ -70,7 +75,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
    * @memberof AssignUserToBranchCrudComponent
    */
   msgSelect() {
-    if (this.typeBranch == null) toast.info('Seleccione una Tienda o un almacén')
+    if (this.typeBranch == null) this.toastService.info('Seleccione una Tienda o un almacén', 'No existen datos')
   }
   /**
    *Listar sucursales
@@ -86,7 +91,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false
-        toast.error('Error al cargar las sucursales')
+        this.toastService.error('Error al cargar las sucursales', 'Error')
       },
     })
   }
@@ -110,7 +115,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false
-        toast.error('Error al cargar usuarios de la sucursal')
+        this.toastService.error('Error al cargar usuarios de la sucursal')
       },
     })
   }
@@ -152,13 +157,19 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     this.table_users.openAndCloseModal()
   }
 
-
+  /**
+   *Se encarga de  hacer el cambio de una tabla a la otra
+   *
+   * @param {(Sucursal[] | Sucursal)} items
+   * @param {boolean} [addInBranchNotUser=false]
+   * @memberof AssignUserToBranchCrudComponent
+   */
   assignArrayUsersToBranch(items: Sucursal[] | Sucursal, addInBranchNotUser: boolean = false) {
 
     const Sucursales = Array.isArray(items) ? items : [items]
 
     //valida que no se repitan las sucursales
-    if (!this.notDuplicateManagers(Sucursales)) return
+    if (!this.validateManagers(Sucursales, addInBranchNotUser)) return
 
     Sucursales.forEach(item => {
 
@@ -177,46 +188,66 @@ export class AssignUserToBranchCrudComponent implements OnInit {
       item.check = false
     })
 
-
   }
-//!AREGLAR
-  notDuplicateManagers(users: Sucursal[]): boolean {
-    let pass = true
+  /**
+   *Valida los usuarios que estan ingresando a los arreglos
+   *
+   * @param {Sucursal[]} users
+   * @return {*}  {boolean}
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  validateManagers(users: Sucursal[], addInBranchNotUser: boolean ): boolean {
+    console.log(addInBranchNotUser);
+    
+    if (!addInBranchNotUser) return true
 
-    let cargo = ''
-    let rol_id = 0;
+    let pass = true
+    //rol el cual se va a manejar
+    const ROL = this.typeBranch == 'almacen' ? 3 : 4
 
     let managerFilter: Sucursal[] = []
 
-    users.filter(user => {
+    if (!this.noMixManagers(users)) return false;
 
-      if (user.rol_id === 3 && this.typeBranch == 'almacen') {
-        managerFilter.push(user)
-        
-      } else if (user.rol_id === 4 && this.typeBranch == 'tienda') {
-       
-        managerFilter.push(user)
-      }
-    });
-
-    this.listUserBranch.filter(user => {
-
-      if (user.rol_id === 3 && this.typeBranch == 'almacen') {
-        managerFilter.push(user)
-        
-      } else if (user.rol_id === 4 && this.typeBranch == 'tienda') {
-       
-        managerFilter.push(user)
-      }
-    });
+    managerFilter = users.filter(user => user.rol_id == ROL)
+    let managerBranchFilter = this.listUserBranch.filter(user => user.rol_id == ROL)
 
     if (managerFilter.length > 1) {
-      let { cargo: c, rol_id: id } = managerFilter[0]
-      cargo = c
-      rol_id = id
+      console.log(managerFilter);
+
+      this.toastService.warning(`No se puede tener mas de ${managerFilter.length - 1} ${managerFilter[0].cargo} en la sucursal`)
+      return false
+    }
+
+
+    if (managerBranchFilter.length > 0 && managerFilter.length > 0) {
+      console.log(managerBranchFilter);
+      this.toastService.warning(`Esta sucursal ya tiene asignado un ${managerBranchFilter[0].cargo}`)
+      return false
+    }
+
+
+    return pass
+  }
+
+  /**
+   *Evita mezclar gerentes de tienda a almacén y diversa
+   *
+   * @param {Sucursal[]} users
+   * @return {*}  {Boolean}
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  noMixManagers(users: Sucursal[]): Boolean {
+    console.log(users);
+
+    let pass = true
+    let nonBelongingUser: boolean =
+      users.some(user => (this.typeBranch == 'almacen' && user.rol_id == 4) || (this.typeBranch == 'tienda' && user.rol_id == 3))
+
+    if (nonBelongingUser) {
+      this.toastService.warning(`No se permite asignar un <b> gerente de <b>
+       ${this.typeBranch == 'almacen' ? ' <b> tienda <b> , a un' : '<b> almacén </b> , a una'} ${oneFirsUppercase(this.typeBranch as any)}`)
       pass = false
-      toast.warning(`No puedes Asignar ${managerFilter.length}  ${cargo} a esta sucursal`)
-      managerFilter = []
     }
 
     return pass

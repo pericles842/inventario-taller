@@ -40,3 +40,9 @@
   @extend .p-2 !optional;
   gap:37px;
 }
+//clase padre de los toast
+.ngx-toastr {
+  opacity: 10 !important; 
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.222) !important;  
+}
+ 

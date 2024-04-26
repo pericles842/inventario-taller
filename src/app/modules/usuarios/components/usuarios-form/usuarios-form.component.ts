@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as toast from 'toastr';
 import { AuthService } from '../../../../components/login/services/Auth.service';
 import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
@@ -7,6 +6,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { findIndex } from 'rxjs';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -26,6 +26,7 @@ export class UsuariosFormComponent implements OnInit {
 
   constructor(
     private usuariosService: UsuariosService,
+    private toastService:ToastService
 
   ) { }
   ngOnInit(): void {
@@ -53,31 +54,31 @@ export class UsuariosFormComponent implements OnInit {
 
     if (!this.userForm.name_user.trim()) {
 
-      toast.warning('El campo Nombre debe estar lleno')
+      this.toastService.warning('El campo Nombre debe estar lleno')
       pass = false
     } else if (!this.userForm.email.trim()) {
 
-      toast.warning('El campo Email debe estar lleno')
+      this.toastService.warning('El campo Email debe estar lleno')
       pass = false
     } else if (!this.userForm.username.trim()) {
 
-      toast.warning('El campo Username debe estar lleno')
+      this.toastService.warning('El campo Username debe estar lleno')
       pass = false
     } else if (!this.userForm.password.trim()) {
 
-      toast.warning('El campo Contraseña debe estar lleno')
+      this.toastService.warning('El campo Contraseña debe estar lleno')
       pass = false
     } else if (!this.userForm.ci.toString().trim()) {
 
-      toast.warning('El campo Cédula debe estar lleno')
+      this.toastService.warning('El campo Cédula debe estar lleno')
       pass = false
     } else if (this.userForm.repeat_password.trim() != this.userForm.password.trim()) {
 
-      toast.warning('Las confirmación de contraseña no coincide')
+      this.toastService.warning('Las confirmación de contraseña no coincide')
       pass = false
     } else if (!this.userForm.repeat_password.trim()) {
 
-      toast.warning('Por favor confirme la contraseña')
+      this.toastService.warning('Por favor confirme la contraseña')
       pass = false
     }
 
@@ -111,11 +112,11 @@ export class UsuariosFormComponent implements OnInit {
         }
         this.type_view = 1
         this.loading = false
-        setTimeout(() => { toast.success('Usuario guardado exitosamente ') }, 200);
+        setTimeout(() => {  this.toastService.success('Usuario guardado exitosamente ') }, 200);
       },
       error: (err) => {
         this.loading = false
-        toast.error(err.message);
+        this.toastService.error(err.message);
       }
     })
   }
@@ -136,7 +137,7 @@ export class UsuariosFormComponent implements OnInit {
       error: (err) => {
 
         this.loading = false
-        toast.error('Los datos no coinciden');
+        this.toastService.error('Los datos no coinciden');
       }
     })
   }
@@ -150,7 +151,7 @@ export class UsuariosFormComponent implements OnInit {
     //si ci esta vacio
     if (this.userForm.ci_as_username && this.userForm.ci.toString().trim() == '') {
       this.userForm.ci_as_username = false;
-      toast.warning('LLene el campo cédula')
+      this.toastService.warning('LLene el campo cédula')
     }
 
     if (this.userForm.ci_as_username) {
@@ -180,7 +181,7 @@ export class UsuariosFormComponent implements OnInit {
       },
       error: (e) => {
 
-        toast.error('Error al listar usuarios')
+        this.toastService.error('Error al listar usuarios')
       }
     })
   }
@@ -223,10 +224,10 @@ export class UsuariosFormComponent implements OnInit {
         this.listUsers.splice(index, 1);
         this.userForm = new Usuario()
 
-        toast.warning('Usuario eliminado')
+        this.toastService.success('Usuario eliminado')
       },
       error: (err) => {
-        toast.error('Error al listar usuarios')
+        this.toastService.error('Error al listar usuarios')
       },
     })
   }
@@ -239,10 +240,10 @@ export class UsuariosFormComponent implements OnInit {
     this.usuariosService.archiveUser(this.userForm.id).subscribe({
       next: (value) => {
         this.descartar()
-        toast.success('Usuario archivado exitosamente')
+        this.toastService.success('Usuario archivado exitosamente')
       },
       error: (err) => {
-        toast.success('Error al archivar usuario')
+        this.toastService.success('Error al archivar usuario')
       },
     })
   }
