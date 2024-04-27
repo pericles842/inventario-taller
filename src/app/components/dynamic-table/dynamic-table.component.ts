@@ -210,7 +210,7 @@ export class DynamicTableComponent {
   acceptChecks() {
     this.selectedAllChecks = false
     this.selectBtnChecks.emit(this.itemsSelected)
-
+    this.itemsSelected = []
     this.openAndCloseModal()
   }
 

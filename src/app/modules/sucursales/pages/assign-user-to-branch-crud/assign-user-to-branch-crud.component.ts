@@ -42,7 +42,6 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     this.columns_branch_users = this.branchesService.columns_branch_users
 
     this.listAllBranch()
-    this.listUsersNotBranch()
   }
 
   get branch() {
@@ -146,6 +145,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     }
 
     this.listBranchUsers(this.typeBranch as 'almacen' | 'tienda', id_branch);
+    this.listUsersNotBranch()
   }
 
   /**
@@ -167,6 +167,8 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   assignArrayUsersToBranch(items: Sucursal[] | Sucursal, addInBranchNotUser: boolean = false) {
 
     const Sucursales = Array.isArray(items) ? items : [items]
+
+    
 
     //valida que no se repitan las sucursales
     if (!this.validateManagers(Sucursales, addInBranchNotUser)) return
@@ -196,12 +198,11 @@ export class AssignUserToBranchCrudComponent implements OnInit {
    * @return {*}  {boolean}
    * @memberof AssignUserToBranchCrudComponent
    */
-  validateManagers(users: Sucursal[], addInBranchNotUser: boolean ): boolean {
-    console.log(addInBranchNotUser);
-    
+  validateManagers(users: Sucursal[], addInBranchNotUser: boolean): boolean {
+    let pass = true
+
     if (!addInBranchNotUser) return true
 
-    let pass = true
     //rol el cual se va a manejar
     const ROL = this.typeBranch == 'almacen' ? 3 : 4
 
@@ -213,7 +214,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     let managerBranchFilter = this.listUserBranch.filter(user => user.rol_id == ROL)
 
     if (managerFilter.length > 1) {
-      console.log(managerFilter);
+
 
       this.toastService.warning(`No se puede tener mas de ${managerFilter.length - 1} ${managerFilter[0].cargo} en la sucursal`)
       return false
@@ -221,7 +222,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
 
 
     if (managerBranchFilter.length > 0 && managerFilter.length > 0) {
-      console.log(managerBranchFilter);
+
       this.toastService.warning(`Esta sucursal ya tiene asignado un ${managerBranchFilter[0].cargo}`)
       return false
     }
@@ -238,7 +239,6 @@ export class AssignUserToBranchCrudComponent implements OnInit {
    * @memberof AssignUserToBranchCrudComponent
    */
   noMixManagers(users: Sucursal[]): Boolean {
-    console.log(users);
 
     let pass = true
     let nonBelongingUser: boolean =
@@ -251,5 +251,11 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     }
 
     return pass
+  }
+
+  saveElement(){
+    console.log(this.listUserBranch);
+    console.log(this.listUserNotBranch);
+    
   }
 }

@@ -53,8 +53,9 @@
                 <span>Acción</span>
               </th>
               <th *ngIf="selectable_table" class=" text-dark font-medium fs-4 ">
-                <app-input-forms [disabled]="records.length == 0" typeInput="checkbox" (change)="addItemCheck(undefined)"
-                  [(ngModel)]="selectedAllChecks" [labelInput]="'Todos'"></app-input-forms>
+                <app-input-forms [disabled]="records.length == 0" typeInput="checkbox"
+                  (change)="addItemCheck(undefined)" [(ngModel)]="selectedAllChecks"
+                  [labelInput]="'Todos'"></app-input-forms>
               </th>
               <th *ngFor="let column of columns" class=" text-dark font-medium fs-4 ">
                 <app-input-forms typeInput="checkbox" [labelInput]="column.label"></app-input-forms>
@@ -82,8 +83,11 @@
         </table>
       </div>
       <!-- BOTONES -->
-      <div *ngIf="selectable_table" class="d-flex justify-content-end ">
-        <button (click)="acceptChecks()" type="button" class="btn btn-primary ">Aceptar</button>
+      <div class="d-flex justify-content-end gap-4 ">
+        <button *ngIf="type_table =='modal'" (click)="  this.openAndCloseModal()" type="button"
+          class="btn btn-danger">Cerrar</button>
+        <button *ngIf="selectable_table" (click)="acceptChecks()" type="button"
+          class="btn btn-primary ">Aceptar</button>
       </div>
     </div>
   </div>

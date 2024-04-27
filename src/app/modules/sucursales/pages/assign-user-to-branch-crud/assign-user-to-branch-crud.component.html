@@ -1,4 +1,4 @@
-<app-menu-general [(type_view)]="type_view"></app-menu-general>
+<app-menu-general (guardar)="saveElement()" [(type_view)]="type_view"></app-menu-general>
 
 
 <div class="main-contend-card">
@@ -48,4 +48,5 @@
 <app-loading [loading]="loading"></app-loading>
 
 <app-dynamic-table [selectable_table]="true" #table_users [columns]="columns_branch_not_users"
-  [records]="listUserNotBranch" (selectBtnChecks)="assignArrayUsersToBranch($event,true)"></app-dynamic-table>
+  [records]="listUserNotBranch" titleModal="Usuarios sin asignar"
+  (selectBtnChecks)="assignArrayUsersToBranch($event,true)"></app-dynamic-table>
