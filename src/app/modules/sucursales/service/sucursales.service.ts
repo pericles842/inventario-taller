@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Sucursal, typeBranch } from '../models/Sucursal.Model';
+import { BodyBranch } from '../models/bodyBranch';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,16 @@ export class BranchesService {
       id_branch: id_branch
     }
     return this.http.post<Sucursal[]>(`${environments.host}api/branch/users`, body)
+  }
+  /**
+   *Aisgna usuarios ana sucursal
+   *
+   * @param {BodyBranch} body
+   * @return {*}  {Observable<BodyBranch>}
+   * @memberof BranchesService
+   */
+  assignUsersBranch(body: BodyBranch): Observable<BodyBranch> {    
+    let { id_branch, type_branch, ids_users, ids_users_delete } = body
+    return this.http.post<BodyBranch>(`${environments.host}api/branch/assign-users`, { id_branch, type_branch, ids_users, ids_users_delete })
   }
 }

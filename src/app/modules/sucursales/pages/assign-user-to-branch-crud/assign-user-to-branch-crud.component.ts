@@ -5,6 +5,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { oneFirsUppercase } from '../../../../functions/Words';
 import { Sucursal, typeBranch } from '../../models/Sucursal.Model';
 import { BranchesService } from '../../service/sucursales.service';
+import { BodyBranch } from '../../models/bodyBranch';
 
 @Component({
   selector: 'app-assign-user-to-branch-crud',
@@ -16,15 +17,47 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   loading: boolean = false
   loadingSelectBranch: boolean = false
 
+  //columnas de tablas
   columns_branch_not_users: Columns[] = []
   columns_branch_users: Columns[] = []
 
+  /**
+   *lista de usuarios no asignados
+   *
+   * @type {Sucursal[]}
+   * @memberof AssignUserToBranchCrudComponent
+   */
   listUserNotBranch: Sucursal[] = []
+  /**
+   *Lista de sucursales
+   *
+   * @type {any[]}
+   * @memberof AssignUserToBranchCrudComponent
+   */
   listBranch: any[] = []
   idBranch: number = -1
+  /**
+   *Listado de usuarios de la sucursal
+   *
+   * @type {Sucursal[]}
+   * @memberof AssignUserToBranchCrudComponent
+   */
   listUserBranch: Sucursal[] = []
+  /**
+   *Copia listUserBranch
+   *
+   * @type {any[]}
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  copyUserBranch: any[] = []
 
   typeBranch: typeBranch['typeBranch'] | null = null
+  /**
+   *Cabecera del formulario
+   *
+   * @type {Sucursal}
+   * @memberof AssignUserToBranchCrudComponent
+   */
   sucursal: Sucursal = new Sucursal()
 
   @ViewChild('table_users') table_users!: DynamicTableComponent
@@ -109,7 +142,9 @@ export class AssignUserToBranchCrudComponent implements OnInit {
         this.sucursal.sucursal_id = this.idBranch
         this.sucursal.direction = this.listBranch.find(branch => branch.id == this.idBranch && branch.type == this.typeBranch).direction
 
-        this.listUserBranch = users
+        this.listUserBranch = users;
+        this.copyUserBranch = users.slice();
+
         this.loading = false
       },
       error: (err) => {
@@ -168,7 +203,7 @@ export class AssignUserToBranchCrudComponent implements OnInit {
 
     const Sucursales = Array.isArray(items) ? items : [items]
 
-    
+
 
     //valida que no se repitan las sucursales
     if (!this.validateManagers(Sucursales, addInBranchNotUser)) return
@@ -252,10 +287,58 @@ export class AssignUserToBranchCrudComponent implements OnInit {
 
     return pass
   }
+  /**
+   *Guarda el documento completo
+   *
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  saveElement() {
 
-  saveElement(){
-    console.log(this.listUserBranch);
-    console.log(this.listUserNotBranch);
-    
+    let body: BodyBranch = {
+      id_branch: this.idBranch,
+      type_branch: this.typeBranch as typeBranch['typeBranch'],
+      ids_users: [],
+      ids_users_delete: []
+    }
+
+    this.copyUserBranch.filter(user => {
+      if (!this.listUserBranch.includes(user)) {
+        body.ids_users_delete.push(user.user_id)
+      }
+    });
+
+    this.listUserBranch.forEach(users => {
+      body.ids_users.push(users.user_id)
+    })
+
+    if (!this.validateBodyBranch(body)) return
+    this.loading = true
+    this.branchesService.assignUsersBranch(body).subscribe({
+      next: (value) => {
+        this.loading = false
+        this.toastService.success('Guardado con exito')
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('Error al asignar usuarios')
+      },
+    })
+  }
+
+  /**
+   *Valida la carga antes de guardar
+   *
+   * @param {BodyBranch} body
+   * @return {*}  {Boolean}
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  validateBodyBranch(body: BodyBranch): Boolean {
+    let pass = true
+
+    if (body.type_branch == null) {
+      this.toastService.info('Seleccionar una sucursal')
+      return false
+    }
+
+    return pass
   }
 }

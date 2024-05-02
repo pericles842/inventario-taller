@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { InputFormsComponent } from "../input-forms/input-forms.component";
-import { HttpClientModule, HttpResponse } from '@angular/common/http';
-import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
-import { AuthService } from './services/Auth.service';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 import * as toast from 'toastr';
-import {  Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { InputFormsComponent } from "../input-forms/input-forms.component";
+import { AuthService } from './services/Auth.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
-  standalone: true,
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  imports: [
-    InputFormsComponent,
-    HttpClientModule,
-    CommonModule, 
-    FormsModule
-  ]
+    standalone: true,
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [
+        InputFormsComponent,
+        HttpClientModule,
+        CommonModule,
+        FormsModule,
+        LoadingComponent
+    ]
 })
 export class LoginComponent implements OnInit  {
   /**
@@ -43,7 +45,8 @@ export class LoginComponent implements OnInit  {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService:ToastService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +64,7 @@ export class LoginComponent implements OnInit  {
    * @memberof LoginComponent
    */
   callServiceAutenticarLogin(): any {
-    if (!this.validateLogin()) return toast.info('Campos no validos')
+    if (!this.validateLogin()) return this.toastService.info('Campos no validos')
     this.loading = true
 
     this.authService.login(this.usuario).subscribe({
@@ -81,7 +84,7 @@ export class LoginComponent implements OnInit  {
       error: (err) => {
         this.loading = false;
         
-        toast.error('Credenciales inválidas')
+        this.toastService.error('Credenciales inválidas')
 
       }
     });
