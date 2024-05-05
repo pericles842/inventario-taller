@@ -135,6 +135,8 @@ export class AssignUserToBranchCrudComponent implements OnInit {
    * @memberof AssignUserToBranchCrudComponent
    */
   listBranchUsers(type_branch: typeBranch["typeBranch"], id_branch: number) {
+    if (!this.validateBranchUsers(id_branch, type_branch)) return
+
     this.loading = true
 
     this.branchesService.listBranchUsers(type_branch, id_branch).subscribe({
@@ -152,6 +154,24 @@ export class AssignUserToBranchCrudComponent implements OnInit {
         this.toastService.error('Error al cargar usuarios de la sucursal')
       },
     })
+  }
+  /**
+   *valida la existencia de las sucursales
+   *
+   * @param {number} id_branch id sucursal
+   * @param {typeBranch["typeBranch"]} type_branch tipo
+   * @return {boolean} 
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  validateBranchUsers(id_branch: number, type_branch: typeBranch["typeBranch"]): boolean {
+    let pass = true
+    console.log(id_branch);
+    
+    if (id_branch == undefined) {
+      pass = false
+      this.toastService.warning(`No existen ${type_branch == 'almacen'? 'almacenes':'Tiendas'}`);
+    }
+    return pass;
   }
   /**
    *Realiza el procedimiento para cambiar una sucursal

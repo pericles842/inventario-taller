@@ -8,7 +8,7 @@
       <div class="nav-small-cap ms-2 mt-4 mb-1 fs-4" *ngIf="sidebarnavItem.extralink ">{{sidebarnavItem.title}}
       </div>
 
-      <div *ngIf="!sidebarnavItem.extralink ">
+      <div *ngIf="!sidebarnavItem.extralink && sidebarnavItem.authorized  ">
         <!-- MENU PRINCIPAL -->
         <a class="cursor-pointer  sidebar-link waves-effect waves-dark d-flex justify-content-between"
           (click)="toggleSubMenu(sidebarnavItem)" [routerLink]="sidebarnavItem.path === '' ? null:sidebarnavItem.path"
@@ -38,3 +38,5 @@
     </li>
   </ul>
 </nav>
+
+<app-loading [loading]="loading" ></app-loading>

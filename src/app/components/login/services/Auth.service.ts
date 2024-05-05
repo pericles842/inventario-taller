@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environments } from 'environments/environment.local';
@@ -20,7 +20,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { }
+  ) {}
 
   /**
    *Autentica un usuario
@@ -59,6 +59,20 @@ export class AuthService {
   }
 
   /**
+   *Obtine los permisos del usuario
+   *
+   * @private
+   * @memberof AuthService
+   */
+  public accessUser() {
+
+    let user: Usuario = this.getUser();
+    const headers = new HttpHeaders().set('user_id', user?.id.toString());
+
+    return this.http.get<any[]>(`${environments.host}api/access/user`, { headers })
+  }
+
+  /**
    *Otiene el usuario
    *
    * @return {*} 
@@ -67,7 +81,7 @@ export class AuthService {
   getUser() {
     return this.getCookie('user_info') as Usuario
   }
-  
+
   /**
    *Salir de la session
    *
