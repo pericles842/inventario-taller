@@ -1,4 +1,4 @@
-<nav class="sidebar-nav " >
+<nav class="sidebar-nav ">
   <ul id="sidebarnav ">
     <!-- First level menu -->
     <li class="sidebar-item " [class.active]="showMenu === sidebarnavItem.title"
@@ -18,20 +18,20 @@
             <i [ngClass]="[sidebarnavItem.icon]"></i>
             <span class="hide-menu">{{sidebarnavItem.title}}</span>
           </div>
-          
+
           <i class="bi bi-caret-down-fill" *ngIf="hasSubMenu(sidebarnavItem)"></i>
         </a>
         <!-- SUBMENUS -->
-        <ul class="" *ngIf="showSubMenu === sidebarnavItem.title">
-          <li class="" *ngFor="let subItem of sidebarnavItem.submenu">
+        <ul class=" cursor-pointer" *ngIf="showSubMenu === sidebarnavItem.title">
+          <li  *ngFor="let subItem of sidebarnavItem.submenu">
             <!-- <i [ngClass]="[subItem.icon]"></i>
             <a class="sidebar-link waves-effect waves-dark fs-3 ms-5 py-2"
               [routerLink]="subItem.path">{{subItem.title}}</a> -->
-
-              <div class="d-flex sidebar-link waves-effect waves-dark fs-3 ms-4 py-2">
-                <i [ngClass]="[subItem.icon]"></i>
-                <span class="hide-menu">{{subItem.title}}</span>
-              </div>
+ 
+            <div *ngIf="subItem.authorized"  class="d-flex sidebar-link waves-effect waves-dark fs-3 ms-4 py-2">
+              <i  [ngClass]="[subItem.icon]"></i>
+              <span class="hide-menu">{{subItem.title}}</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -39,4 +39,4 @@
   </ul>
 </nav>
 
-<app-loading [loading]="loading" ></app-loading>
+<app-loading [loading]="loading"></app-loading>

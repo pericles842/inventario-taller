@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environments } from 'environments/environment.local';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 
 
@@ -15,12 +16,13 @@ export class AuthService {
 
   private isAuthenticated: boolean = false;
 
-  public usuario: Usuario = new Usuario()
+  public usuario: Usuario = new Usuario();
 
   constructor(
     private http: HttpClient,
-    private router: Router
-  ) {}
+    private router: Router,
+    private toastService:ToastService
+  ) { }
 
   /**
    *Autentica un usuario
@@ -46,6 +48,15 @@ export class AuthService {
     sessionStorage.setItem('authenticated', JSON.stringify(this.isAuthenticated))
   }
 
+  public async getAccessModuleUser(module_id: number): Promise<any> {
+    try {
+      const modules = await firstValueFrom(this.accessUser());
+      return modules ;
+    } catch (err) {
+      this.toastService.error('Error en permisos');
+      throw err;
+    }
+  }
   /**
    *Sete el usuario
    *

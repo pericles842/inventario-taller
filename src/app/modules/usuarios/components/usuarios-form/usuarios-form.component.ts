@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
+import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { ToastService } from 'src/app/services/toast/toast.service';
 import { AuthService } from '../../../../components/login/services/Auth.service';
 import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
-import { findIndex } from 'rxjs';
-import { ToastService } from 'src/app/services/toast/toast.service';
+import { Modules } from 'src/app/enum/Modules';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -24,14 +24,20 @@ export class UsuariosFormComponent implements OnInit {
   loading: boolean = false;
   listUsers: Usuario[] = [];
 
+  access:any
+
   constructor(
     private usuariosService: UsuariosService,
-    private toastService:ToastService
+    private toastService: ToastService,
+    private authService: AuthService
 
   ) { }
   ngOnInit(): void {
     this.callServiceListRoles()
     this.columns = this.usuariosService.columns
+    this.access = this.authService.getAccessModuleUser(Modules.usuarios)
+    console.log(this.access);
+    
 
   }
   saveElement() {
@@ -112,7 +118,7 @@ export class UsuariosFormComponent implements OnInit {
         }
         this.type_view = 1
         this.loading = false
-        setTimeout(() => {  this.toastService.success('Usuario guardado exitosamente ') }, 200);
+        setTimeout(() => { this.toastService.success('Usuario guardado exitosamente ') }, 200);
       },
       error: (err) => {
         this.loading = false

@@ -18,7 +18,8 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
-  {id:2,
+  {
+    id:2,
     path: '',
     title: 'Moneda',
     icon: 'bi bi-currency-exchange',

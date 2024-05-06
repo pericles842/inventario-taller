@@ -10,10 +10,10 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 //declare var $: any;
 
 @Component({
-    selector: 'app-sidebar',
-    standalone: true,
-    templateUrl: './sidebar.component.html',
-    imports: [RouterModule, CommonModule, NgIf, LoadingComponent]
+  selector: 'app-sidebar',
+  standalone: true,
+  templateUrl: './sidebar.component.html',
+  imports: [RouterModule, CommonModule, NgIf, LoadingComponent]
 })
 export class SidebarComponent implements OnInit {
 
@@ -38,27 +38,39 @@ export class SidebarComponent implements OnInit {
     this.getAccessUser()
   }
 
-
-  getAccessUser() {
+/**
+ *Configura los menu eb base a la permisologia del usuario
+ *
+ * @memberof SidebarComponent
+ */
+getAccessUser() {
     this.loading = true
     this.authService.accessUser().subscribe({
       next: (config_permissions) => {
-        for (let index_menu = 0; index_menu < this.sidebarnavItems.length; index_menu++) {
-          const menu = this.sidebarnavItems[index_menu];
-            
-           for (let index_config = 0; index_config < config_permissions.length; index_config++) {
-             const config = config_permissions[index_config];
-            
-             if(menu.id == config.id){
-              menu.authorized = config.authorized
-              break
-             } 
-          
-           }
+        
+        //*ITERAMOS LOS MENU DEL PROYECTO
+        for (let menu of this.sidebarnavItems) {
 
+          //*ITERAMOS LA CONFIGURACIÓN
+          for (let index_config = 0; index_config < config_permissions.length; index_config++) {
+            const config = config_permissions[index_config];
+            
+            //*SI HAY MACH ASIGNA LA AUTORIZACIÓN EN TRUE
+            if (menu.id == config.id) {
+              menu.authorized = config.authorized;
 
+              //*IEAMOS SUB MENUS 
+              for (let i = 0; i < menu.submenu.length; i++) {
+                let submenu = menu.submenu[i];
+
+                if (submenu.id == config[index_config + i + 1].id) {
+                  submenu.authorized = config[index_config + i + 1].authorized;
+                }
+              }
+            }
+          }
         }
-
+        
         this.loading = false
       }, error: (err) => {
         this.loading = false
