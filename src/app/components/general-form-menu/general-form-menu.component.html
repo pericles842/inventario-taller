@@ -1,9 +1,9 @@
 <div class="card shadow rounded">
   <div class="d-flex flex justify-content-start align-items-center gap-2 m-2">
 
-    <div *ngIf="view_buttons.create">
-      <button (click)="guardar.emit()" type="button" class="btn  btn-primary text-white touch "
-        data-bs-placement="bottom" title="Crear registro">
+    <div *ngIf="view_buttons.create ">
+      <button (click)="guardar.emit()" [ngClass]="access.create? '':'disabled'" type="button"
+        class="btn  btn-primary text-white touch " data-bs-placement="bottom" title="Crear registro">
         <i class="bi bi-cloud-download"></i>
         <span class="ms-2">Guardar</span>
       </button>
@@ -16,7 +16,8 @@
     </button> -->
 
     <div *ngIf="view_buttons.descartar">
-      <button data-bs-placement="bottom" (click)="descartar.emit()" title="Descartar" type="button"
+      <button data-bs-placement="bottom" (click)="descartar.emit()"
+        [ngClass]="access.create|| access.update? '':'disabled'" title="Descartar" type="button"
         class="btn  btn-secondary  text-white touch">
         <i class="bi bi-arrow-repeat"></i>
         <span class="ms-2">Descartar</span>
@@ -24,24 +25,24 @@
     </div>
 
     <div *ngIf="view_buttons.search">
-      <button data-bs-placement="bottom" (click)="search.emit()" title="Buscar registros" type="button"
-        class="btn  btn-info text-white touch">
+      <button data-bs-placement="bottom" [ngClass]="access.authorized? '':'disabled'" (click)="search.emit()"
+        title="Buscar registros" type="button" class="btn  btn-info text-white touch">
         <i class="bi bi-search"></i>
         <span class="ms-2">Listar</span>
       </button>
     </div>
 
     <div *ngIf="view_buttons.delete">
-      <button data-bs-placement="bottom" (click)="deleteInput()" title="Eliminar elemento" type="button"
-        class="btn  btn-danger text-white touch">
+      <button data-bs-placement="bottom" [ngClass]="access.delete? '':'disabled'" (click)="deleteInput()"
+        title="Eliminar elemento" type="button" class="btn  btn-danger text-white touch">
         <i class="bi bi-trash-fill"></i>
         <span class="ms-2">Eliminar</span>
       </button>
     </div>
 
     <div *ngIf="view_buttons.archivar">
-      <button data-bs-placement="bottom" (click)="archiveInput()" title="Archivar elemento" type="button"
-        class="btn  btn-warning text-white touch">
+      <button data-bs-placement="bottom" [ngClass]="access.create|| access.update? '':'disabled'"
+        (click)="archiveInput()" title="Archivar elemento" type="button" class="btn  btn-warning text-white touch">
         <i class="bi bi-archive-fill"></i>
         <span class="ms-2">Archivar</span>
       </button>

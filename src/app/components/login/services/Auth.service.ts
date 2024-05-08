@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environments } from 'environments/environment.local';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, catchError, from, map } from 'rxjs';
+import { Access } from 'src/app/models/Access';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
@@ -21,7 +22,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toastService:ToastService
+    private toastService: ToastService
   ) { }
 
   /**
@@ -48,15 +49,31 @@ export class AuthService {
     sessionStorage.setItem('authenticated', JSON.stringify(this.isAuthenticated))
   }
 
-  public async getAccessModuleUser(module_id: number): Promise<any> {
-    try {
-      const modules = await firstValueFrom(this.accessUser());
-      return modules ;
-    } catch (err) {
-      this.toastService.error('Error en permisos');
-      throw err;
-    }
+  /**
+   *Obtiene la permisologia del usuario por modulo
+   *
+   * @param {number} module_id
+   * @return {*}  {Observable<Access>}
+   * @memberof AuthService
+   */
+  public accessModule(module_id: number): Observable<Access> {
+    return from(this.accessUser()).pipe(
+      map(modules => modules.find(module => module.id === module_id)),
+      catchError(err => {
+        throw err;
+      })
+    );
   }
+
+  // public async accessModule(module_id: number): Promise<Access> {    
+  //   try {
+  //     const modules = await firstValueFrom(this.accessUser());
+  //     return modules.find(module => module.id == module_id) ;
+  //   } catch (err) {
+  //     this.toastService.error('Error en permisos');
+  //     throw err;
+  //   }
+  // }
   /**
    *Sete el usuario
    *

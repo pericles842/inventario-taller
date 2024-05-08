@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
+import { Access } from 'src/app/models/Access';
+
 
 @Component({
   standalone: true,
@@ -13,8 +15,15 @@ import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
 })
 export class GeneralFormMenuComponent implements OnChanges, OnInit {
 
-   
-  @Input() 
+  /**
+   *Acceso de los botones
+   *
+   * @type {Access}
+   * @memberof GeneralFormMenuComponent
+   */
+  @Input() access: Access = new Access()
+
+  @Input()
   set type_view(value: number) {
     this._type_view = value;
     this.type_viewChange.emit(value); // Emitir el valor recibido inmediatamente
@@ -29,7 +38,7 @@ export class GeneralFormMenuComponent implements OnChanges, OnInit {
   get type_view(): number {
     return this._type_view;
   }
-
+  
   private _type_view: number = 0;
 
   @Output() type_viewChange: EventEmitter<number> = new EventEmitter<number>()
@@ -49,7 +58,7 @@ export class GeneralFormMenuComponent implements OnChanges, OnInit {
     search: true,
     descartar: true
   }
-
+constructor(private cdr: ChangeDetectorRef){}
   ngOnInit(): void {
     this.presentation()
   }
@@ -63,10 +72,10 @@ export class GeneralFormMenuComponent implements OnChanges, OnInit {
     if ('type_view' in changes) {
       const cambio = changes.type_view;
 
-      
+
       //? Valor anterior cambio.previousValue 
       //?  Valor actual cambio.currentValue 
-      
+
       switch (this.type_view) {
         case 0:
           this.presentation()

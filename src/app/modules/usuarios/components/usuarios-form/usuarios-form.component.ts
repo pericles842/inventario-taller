@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
+import { Modules } from 'src/app/enum/Modules';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { AuthService } from '../../../../components/login/services/Auth.service';
 import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Modules } from 'src/app/enum/Modules';
+import { Access } from 'src/app/models/Access';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -24,7 +25,7 @@ export class UsuariosFormComponent implements OnInit {
   loading: boolean = false;
   listUsers: Usuario[] = [];
 
-  access:any
+  access: Access = new Access()
 
   constructor(
     private usuariosService: UsuariosService,
@@ -33,13 +34,28 @@ export class UsuariosFormComponent implements OnInit {
 
   ) { }
   ngOnInit(): void {
+    this.accessModule();
     this.callServiceListRoles()
     this.columns = this.usuariosService.columns
-    this.access = this.authService.getAccessModuleUser(Modules.usuarios)
-    console.log(this.access);
-    
-
   }
+  /**
+   *permisologia del usuario
+   *
+   * @memberof UsuariosFormComponent
+   */
+  accessModule() {
+    this.loading = true
+    this.authService.accessModule(Modules.usuarios).subscribe({
+      next: (access) => {
+        this.access = access
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en permisos')
+      },
+    })
+  }
+
   saveElement() {
     this.userForm.rol = parseInt(this.userForm.rol as unknown as string)
 

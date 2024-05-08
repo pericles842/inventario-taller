@@ -1,0 +1,1 @@
+export type configuration = 'production'|'local'|'qa'

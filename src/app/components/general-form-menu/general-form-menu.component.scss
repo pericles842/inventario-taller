@@ -1,0 +1,5 @@
+.disabled {
+    pointer-events: none; /* Evita que el botón responda a eventos del mouse */
+    opacity: 0.5; /* Opcional: reduce la opacidad para indicar visualmente que está deshabilitado */
+    cursor: not-allowed; /* Opcional: cambia el cursor a 'not-allowed' para indicar visualmente que no se puede interactuar */
+}  
