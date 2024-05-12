@@ -4,6 +4,10 @@ import { StoreService } from '../../../service/almacenes.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { GeneralMenu } from 'src/app/models/Menu';
+import { AuthService } from 'src/app/components/login/services/Auth.service';
+import { Modules } from 'src/app/enum/Modules';
+import { Access } from 'src/app/models/Access';
 
 
 @Component({
@@ -11,7 +15,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
   templateUrl: './almacen-crud.component.html',
   styleUrls: ['./almacen-crud.component.scss']
 })
-export class AlmacenCrudComponent implements OnInit {
+export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
   @ViewChild('table') table!: DynamicTableComponent
 
   store: Store = new Store()
@@ -19,15 +23,30 @@ export class AlmacenCrudComponent implements OnInit {
   type_view: number = 0
   listStores: Store[] = []
   columns: Columns[] = []
+  access: Access = new Access()
 
 
   constructor(
     private storeService: StoreService,
-    private toastService:ToastService
-  ) { }
+    private toastService: ToastService,
+    private authService: AuthService
+  ) { super() }
 
   ngOnInit(): void {
+    this.accessModule()
     this.columns = this.storeService.columns_store
+  }
+  accessModule() {
+    this.loading = true
+    this.authService.accessModule(Modules.almacenes).subscribe({
+      next: (access) => {
+        this.access = access
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en permisos')
+      },
+    })
   }
   /**
    *Guarda un almacen
@@ -52,7 +71,7 @@ export class AlmacenCrudComponent implements OnInit {
         }
 
         this.loading = false;
-        this.type_view = 1
+        this.totalMenu()
 
 
         this.toastService.success('Guardado exitosamente')
@@ -114,7 +133,7 @@ export class AlmacenCrudComponent implements OnInit {
 
   selectItem(event: Store) {
     this.store = event
-    this.type_view = 1
+    this.totalMenu()
     this.table.openAndCloseModal()
   }
   /**
@@ -122,7 +141,8 @@ export class AlmacenCrudComponent implements OnInit {
    *
    * @memberof AlmacenCrudComponent
    */
-  delete() {
+  deleteStore() {
+    
     this.loading = true
     this.storeService.deleteStore(this.store.id).subscribe({
       next: (value) => {
@@ -132,6 +152,7 @@ export class AlmacenCrudComponent implements OnInit {
         this.store = new Store()
         this.toastService.success('Almacen eliminado exitosamente')
         this.loading = false
+        this.presentation()
       },
       error: (err) => {
 
@@ -147,7 +168,7 @@ export class AlmacenCrudComponent implements OnInit {
    */
   descartar() {
     this.store = new Store()
-    this.type_view = 0
+    this.presentation()
   }
   /**
    *Cierra un alamcen

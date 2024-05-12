@@ -6,14 +6,18 @@ import { oneFirsUppercase } from '../../../../functions/Words';
 import { Sucursal, typeBranch } from '../../models/Sucursal.Model';
 import { BranchesService } from '../../service/sucursales.service';
 import { BodyBranch } from '../../models/bodyBranch';
+import { GeneralMenu } from 'src/app/models/Menu';
+import { AuthService } from 'src/app/components/login/services/Auth.service';
+import { Modules } from 'src/app/enum/Modules';
+import { Access } from 'src/app/models/Access';
 
 @Component({
   selector: 'app-assign-user-to-branch-crud',
   templateUrl: './assign-user-to-branch-crud.component.html',
   styleUrls: ['./assign-user-to-branch-crud.component.scss']
 })
-export class AssignUserToBranchCrudComponent implements OnInit {
-  type_view: number = 0
+export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnInit {
+
   loading: boolean = false
   loadingSelectBranch: boolean = false
 
@@ -62,21 +66,65 @@ export class AssignUserToBranchCrudComponent implements OnInit {
 
   @ViewChild('table_users') table_users!: DynamicTableComponent
 
+  access: Access = new Access()
+
   constructor(
     private branchesService: BranchesService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private authService: AuthService
+  ) { super() }
 
   ngOnInit(): void {
-
+    this.accessModule()
     // Mostrar la notificación con la configuración personalizada
 
     this.columns_branch_not_users = this.branchesService.columns_branch_not_users
     this.columns_branch_users = this.branchesService.columns_branch_users
 
     this.listAllBranch()
+
+    //Botones personalizados
+    this.personalizedView({
+      create: true,
+      search: false,
+      descartar: true,
+      delete: false,
+      archivar: false
+    })
+  }
+  /**
+   *Permisologia del modulo
+   *
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  accessModule() {
+    this.loading = true
+    this.authService.accessModule(Modules.sucursales).subscribe({
+      next: (access) => {
+        this.access = access
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en permisos')
+      },
+    })
   }
 
+  /**
+   *Descarta el formulario
+   *
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  discard() {
+    this.typeBranch = null
+    this.listUserBranch = []
+  }
+  /**
+   *Filtra las sucrusales segun el tipo
+   *
+   * @readonly
+   * @memberof AssignUserToBranchCrudComponent
+   */
   get branch() {
     let filterBranch = this.listBranch.filter(branch => branch.type === this.typeBranch);
     return filterBranch;
@@ -166,10 +214,10 @@ export class AssignUserToBranchCrudComponent implements OnInit {
   validateBranchUsers(id_branch: number, type_branch: typeBranch["typeBranch"]): boolean {
     let pass = true
     console.log(id_branch);
-    
+
     if (id_branch == undefined) {
       pass = false
-      this.toastService.warning(`No existen ${type_branch == 'almacen'? 'almacenes':'Tiendas'}`);
+      this.toastService.warning(`No existen ${type_branch == 'almacen' ? 'almacenes' : 'Tiendas'}`);
     }
     return pass;
   }
@@ -212,6 +260,16 @@ export class AssignUserToBranchCrudComponent implements OnInit {
     this.table_users.openAndCloseModal()
   }
 
+  /**
+   *accion de selecionar un elemento
+   *
+   * @param {Sucursal} item
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  selectItem(item: Sucursal) {
+    this.assignArrayUsersToBranch(item, true)
+    this.openModalListNotBranch()
+  }
   /**
    *Se encarga de  hacer el cambio de una tabla a la otra
    *

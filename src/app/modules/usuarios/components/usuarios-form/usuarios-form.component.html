@@ -1,5 +1,5 @@
-<app-menu-general [access]="access" (descartar)="descartar()" (delete)="deleteUser()" (archivar)="archiveUser()" (search)="searchUser()" (guardar)="saveElement()"
-  [(type_view)]="type_view"></app-menu-general>
+<app-menu-general [view_buttons]="viewButtons" [access]="access" (descartar)="descartar()" (delete)="deleteUser()" (archivar)="archiveUser()"
+  (search)="searchUser()" (guardar)="saveElement()"></app-menu-general>
 
 <!-- TABLA MODAL -->
 <app-dynamic-table #table [columns]="columns" (selectItem)="selectItem($event)" [records]="listUsers"
@@ -49,7 +49,8 @@
       </div>
 
       <div class="col-3">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.repeat_password" labelInput="Confirmar Contraseña"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="userForm.repeat_password"
+          labelInput="Confirmar Contraseña"></app-input-forms>
       </div>
 
       <div class="col-3">

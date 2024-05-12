@@ -17,7 +17,7 @@
 
     <div *ngIf="view_buttons.descartar">
       <button data-bs-placement="bottom" (click)="descartar.emit()"
-        [ngClass]="access.create|| access.update? '':'disabled'" title="Descartar" type="button"
+        [ngClass]="access.create || access.update? '':'disabled'" title="Descartar" type="button"
         class="btn  btn-secondary  text-white touch">
         <i class="bi bi-arrow-repeat"></i>
         <span class="ms-2">Descartar</span>
@@ -33,16 +33,16 @@
     </div>
 
     <div *ngIf="view_buttons.delete">
-      <button data-bs-placement="bottom" [ngClass]="access.delete? '':'disabled'" (click)="deleteInput()"
-        title="Eliminar elemento" type="button" class="btn  btn-danger text-white touch">
+      <button data-bs-placement="bottom" [ngClass]="access.delete? '':'disabled'" title="Eliminar elemento"
+        type="button" class="btn  btn-danger text-white touch"  (click)="delete.emit()">
         <i class="bi bi-trash-fill"></i>
         <span class="ms-2">Eliminar</span>
       </button>
     </div>
 
     <div *ngIf="view_buttons.archivar">
-      <button data-bs-placement="bottom" [ngClass]="access.create|| access.update? '':'disabled'"
-        (click)="archiveInput()" title="Archivar elemento" type="button" class="btn  btn-warning text-white touch">
+      <button data-bs-placement="bottom" [ngClass]="access.create || access.update? '':'disabled'"
+        title="Archivar elemento" type="button" class="btn  btn-warning text-white touch" (click)="archivar.emit()">
         <i class="bi bi-archive-fill"></i>
         <span class="ms-2">Archivar</span>
       </button>

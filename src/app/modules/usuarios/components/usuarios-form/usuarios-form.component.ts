@@ -8,13 +8,14 @@ import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
 import { Access } from 'src/app/models/Access';
+import { GeneralMenu, ViewButtons } from 'src/app/models/Menu';
 
 @Component({
   selector: 'app-usuarios-form',
   templateUrl: './usuarios-form.component.html',
   styleUrls: ['./usuarios-form.component.scss']
 })
-export class UsuariosFormComponent implements OnInit {
+export class UsuariosFormComponent extends GeneralMenu implements OnInit {
 
   @ViewChild('table') table !: DynamicTableComponent
 
@@ -24,7 +25,6 @@ export class UsuariosFormComponent implements OnInit {
   userForm: Usuario = new Usuario();
   loading: boolean = false;
   listUsers: Usuario[] = [];
-
   access: Access = new Access()
 
   constructor(
@@ -32,7 +32,8 @@ export class UsuariosFormComponent implements OnInit {
     private toastService: ToastService,
     private authService: AuthService
 
-  ) { }
+
+  ) { super() }
   ngOnInit(): void {
     this.accessModule();
     this.callServiceListRoles()
@@ -132,7 +133,7 @@ export class UsuariosFormComponent implements OnInit {
 
           this.listUsers[index] = this.userForm
         }
-        this.type_view = 1
+        this.totalMenu()
         this.loading = false
         setTimeout(() => { this.toastService.success('Usuario guardado exitosamente ') }, 200);
       },
@@ -217,7 +218,7 @@ export class UsuariosFormComponent implements OnInit {
     this.userForm = event
     this.userForm.repeat_password = event.password;
     this.table.openAndCloseModal()
-    this.type_view = 1
+    this.totalMenu()
   }
 
   /**
@@ -227,7 +228,7 @@ export class UsuariosFormComponent implements OnInit {
    */
   descartar() {
     this.userForm = new Usuario()
-    this.type_view = 0
+    this.presentation()
   }
   /**
    *Elimina un usuario
@@ -247,6 +248,7 @@ export class UsuariosFormComponent implements OnInit {
         this.userForm = new Usuario()
 
         this.toastService.success('Usuario eliminado')
+        this.presentation()
       },
       error: (err) => {
         this.toastService.error('Error al listar usuarios')

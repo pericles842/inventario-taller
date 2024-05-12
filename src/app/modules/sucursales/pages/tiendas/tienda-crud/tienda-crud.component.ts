@@ -4,13 +4,17 @@ import { Shop } from '../../../models/Tienda.Model';
 import { ShopService } from '../../../service/tiendas.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { GeneralMenu } from 'src/app/models/Menu';
+import { Access } from 'src/app/models/Access';
+import { AuthService } from 'src/app/components/login/services/Auth.service';
+import { Modules } from 'src/app/enum/Modules';
 
 @Component({
   selector: 'app-tienda-crud',
   templateUrl: './tienda-crud.component.html',
   styleUrls: ['./tienda-crud.component.scss']
 })
-export class TiendaCrudComponent implements OnInit {
+export class TiendaCrudComponent extends GeneralMenu implements OnInit {
 
   @ViewChild('table') table!: DynamicTableComponent
 
@@ -20,13 +24,28 @@ export class TiendaCrudComponent implements OnInit {
   listShops: Shop[] = []
   columns: Columns[] = []
 
+  access: Access = new Access()
   constructor(
     private shopService: ShopService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private authService: AuthService
+  ) { super() }
 
   ngOnInit(): void {
+    this.accessModule()
     this.columns = this.shopService.columns_shop
+  }
+  accessModule() {
+    this.loading = true
+    this.authService.accessModule(Modules.tiendas).subscribe({
+      next: (access) => {
+        this.access = access
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en permisos')
+      },
+    })
   }
   /**
    *Guardar dinamicamente una  tienda
@@ -50,7 +69,7 @@ export class TiendaCrudComponent implements OnInit {
         }
 
         this.loading = false;
-        this.type_view = 1
+        this.totalMenu()
 
 
         this.toastService.success('Guardado exitosamente')
@@ -116,7 +135,7 @@ export class TiendaCrudComponent implements OnInit {
    */
   descartar() {
     this.shop = new Shop()
-    this.type_view = 0
+    this.presentation()
   }
 
   /**
@@ -127,7 +146,7 @@ export class TiendaCrudComponent implements OnInit {
    */
   selectItem(shop: Shop) {
     this.shop = shop
-    this.type_view = 1
+    this.totalMenu()
     this.table.openAndCloseModal()
   }
   /**
@@ -144,6 +163,7 @@ export class TiendaCrudComponent implements OnInit {
         this.listShops.splice(index, 1);
         this.shop = new Shop()
 
+        this.descartar()
         this.loading = false
         this.toastService.success('Tienda eliminada exitosamente')
       },
