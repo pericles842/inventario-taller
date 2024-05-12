@@ -4,7 +4,7 @@ import { authGuardGuard } from './auth-guard.guard';
 import { LoginComponent } from './components/login/login.component';
 import { FullComponent } from './layouts/full/full.component';
 
-export const Approutes: Routes = [
+export const AppRoutes: Routes = [
   
   { path: 'login', component: LoginComponent },
   {
@@ -26,7 +26,7 @@ export const Approutes: Routes = [
       },
       {
         path: 'usuarios',
-        loadChildren: () => import('./modules/usuarios/usuarios.module').then(m => m.UsuariosModule)
+        loadChildren: () => import('./modules/usuarios/configuracion.module').then(m => m.ConfigurationModule)
       },
       {
         path: 'sucursales',

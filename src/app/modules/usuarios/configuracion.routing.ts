@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
 
 
-export const UsuariosRoutes: Routes = [
+export const ConfigRoutes: Routes = [
   {
     path: '',
     children: [

@@ -9,7 +9,8 @@ import { HeaderFormComponent } from "../../components/header-form/header-form.co
 import { InputFormsComponent } from "../../components/input-forms/input-forms.component";
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
-import { UsuariosRoutes } from './usuarios.routing';
+import { ConfigRoutes } from './configuracion.routing';
+
 
 
 
@@ -21,7 +22,7 @@ import { UsuariosRoutes } from './usuarios.routing';
         CommonModule,
         FormsModule,
         GeneralFormMenuComponent,
-        RouterModule.forChild(UsuariosRoutes),
+        RouterModule.forChild(ConfigRoutes),
         HeaderFormComponent,
         InputFormsComponent,
         HttpClientModule,
@@ -29,4 +30,4 @@ import { UsuariosRoutes } from './usuarios.routing';
         DynamicTableComponent
     ]
 })
-export class UsuariosModule { }
+export class ConfigurationModule { }
