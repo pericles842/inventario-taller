@@ -8,4 +8,5 @@ export interface Columns {
     label: string,
     key: string,
     visible?:boolean
+    filterable ?:boolean
 }

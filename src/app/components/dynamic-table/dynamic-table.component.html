@@ -36,6 +36,7 @@
         <div class="col-4">
           <app-input-forms [disabled]="records.length == 0" typeInput="text" [(ngModel)]="search"
             labelInput="Buscar"></app-input-forms>
+          {{search}}
         </div>
         <!-- BOTON AGREGAR -->
         <div *ngIf="viewBtnAdd">
@@ -57,13 +58,14 @@
                   (change)="addItemCheck(undefined)" [(ngModel)]="selectedAllChecks"
                   [labelInput]="'Todos'"></app-input-forms>
               </th>
+              <!-- CHECKS PARA LOS FILTROS -->
               <th *ngFor="let column of columns" class=" text-dark font-medium fs-4 ">
-                <app-input-forms typeInput="checkbox" [labelInput]="column.label"></app-input-forms>
+                <app-input-forms typeInput="checkbox" [(ngModel)]="column.filterable" [labelInput]="column.label"></app-input-forms>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of records">
+            <tr *ngFor="let item of FilterRecords">
               <!-- TABLA SELECCIONABLE -->
               <td *ngIf="selectable_table">
                 <app-input-forms class="text-white" (change)="addItemCheck(item)" [(ngModel)]="item.check"

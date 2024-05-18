@@ -4,6 +4,7 @@ import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
 import { FormsModule } from '@angular/forms';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -20,7 +21,6 @@ import { FormsModule } from '@angular/forms';
 export class DynamicTableComponent {
 
   search: string = ''
-  filters: boolean = false
   /**
    *Columnas de la tabla importante definir correctamente el key
    *
@@ -63,7 +63,6 @@ export class DynamicTableComponent {
   @Input() viewBtnAdd: Boolean = false
 
   @Input() disabledBtnAdd: Boolean = false
-
 
   /**
    *Ver boton eliminar
@@ -128,7 +127,40 @@ export class DynamicTableComponent {
    */
   itemsSelected: any[] = []
 
+  /**
+   *Se encarga del filtrado en los registros
+   *
+   * @readonly
+   * @memberof DynamicTableComponent
+   */
+  get FilterRecords() {
+    let keys: string[] = []
+    let registros = [];
 
+    // Obtener las claves de columnas filtrables 
+    this.columns.forEach(column => {
+      if (column.filterable === true) {
+        keys.push(column.key);
+      }
+    });
+
+    //FIltra los reistros e la tabla en base a some filter
+    registros = this.records.filter(reg => {
+      return keys.some(key => {
+        const value = reg[key];
+        if (value) {
+          //importante convertir a string
+          return value.toString().toLowerCase().includes(this.search.toLowerCase());
+        }
+        return false;
+      });
+    });
+
+    //si no se filtra nada se llenara con recrs
+    if (registros.length == 0) registros = this.records
+
+    return registros;
+  }
 
   constructor(
     private renderer: Renderer2

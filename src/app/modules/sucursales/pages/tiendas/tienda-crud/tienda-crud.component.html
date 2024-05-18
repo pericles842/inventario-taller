@@ -10,7 +10,7 @@
     <h4 correlative_number class=" fs-6 mt-5 mb-1">TDA-{{shop.id | sequence}}</h4>
     <p *ngIf="shop.id != -1" chip-right
       [ngClass]="shop.status_id == 1 ? ' bg-primary text-primary ':' bg-danger text-danger '"
-      class="p-2  fs-5 rounded-3" style="--bs-bg-opacity: .3; ">{{shop.estatus
+      class="p-2  fw-medium fs-5 rounded-3" style="--bs-bg-opacity: .3; ">{{shop.estatus
       |uppercase}}</p>
   </app-header-form>
 
