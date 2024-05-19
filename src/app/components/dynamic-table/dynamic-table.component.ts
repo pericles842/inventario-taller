@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
-import { FormsModule } from '@angular/forms';
-import { filter } from 'rxjs';
 
 
 @Component({
@@ -204,7 +203,7 @@ export class DynamicTableComponent {
    * @memberof DynamicTableComponent
    */
   addItemCheck(item: any) {
-    //!REFACTORIZAR LOS RECORDS DE LA TABLA SE DEBERIAN ELIMNAR DESDE ESTE COMPONENTE
+    //!REFACTORIZAR LOS RECORDS DE LA TABLA SE DEBERÍAN ELIMINAR DESDE ESTE COMPONENTE
     if (item == undefined) {
       //para la visualizacion de chenk en la tabla
       this.records.forEach(item => item.check = this.selectedAllChecks)
