@@ -8,7 +8,7 @@ import { ConfirmDialogService } from './components/confirm-dialog/service/confir
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent   {
+export class AppComponent implements OnInit {
   //evalua maus y los controles del teclado
   @HostListener('document:contextmenu', ['$event'])
   @HostListener('document:keydown', ['$event'])
@@ -29,8 +29,18 @@ export class AppComponent   {
     private confirmDialogService: ConfirmDialogService
   ) { }
 
-  confirmar(){
-    this.confirmDialogService.confirm()
+  ngOnInit() {
+    this.confirmDialogService.confirm({
+      message: 'OLa mamaguebo pajuo',
+      reject: () => {
+        console.log('rejext');
+
+      },
+      accept: () => {
+        console.log('acetp');
+
+      }
+    })
   }
   title = 'app';
 }

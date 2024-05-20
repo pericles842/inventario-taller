@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogService } from './service/confirmDialog.service';
+import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -15,15 +16,36 @@ import { ConfirmDialogService } from './service/confirmDialog.service';
 })
 export class ConfirmDialogComponent implements OnInit {
 
-  title: string = 'Titulo';
-  message: string = 'Mensaje';
+  title: string = '';
+  message: string = 'Mensaje de prueba';
   rejectLabel: string = 'Rechazar'
   acceptLabel: string = 'Aceptar'
+  closeDialog: boolean = false
+  /**
+   *Edita directamente la etiqueta i , se le puede agregar estilos
+   *
+   * @type {string}
+   * @memberof ConfirmDialogComponent
+   */
+  classIcon: string = ' bi bi-exclamation-triangle-fill '//text-warning
+  /**
+   *Observable para el reject
+   *
+   * @memberof ConfirmDialogComponent
+   */
+  rejectObservable = new Observable<boolean>()
+
+  /**
+   *Aceptar objservable
+   *
+   * @memberof ConfirmDialogComponent
+   */
+  acceptObservable = new Observable<boolean>()
+
 
 
   constructor(
-    private renderer: Renderer2,
-    private cdr: ChangeDetectorRef
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +57,7 @@ export class ConfirmDialogComponent implements OnInit {
    *
    * @memberof ConfirmDialogComponent
    */
-  openAndCloseModal( ) {
+  openAndCloseModal() {
     //Crear un nuevo div
     const div = this.renderer.createElement('div');
 
@@ -46,11 +68,18 @@ export class ConfirmDialogComponent implements OnInit {
     this.renderer.appendChild(document.body, div);
     //Disparar el evento de clic en el div recién creado
     div.click();
-    
+
     //Remover el div después de abrir el modal (opcional)
     setTimeout(() => {
       this.renderer.removeChild(document.body, div);
     }, 1000); // Ajusta el tiempo según sea necesario
+
+  }
+
+  reject() {
+
+  }
+  accept() {
 
   }
 

@@ -1,6 +1,7 @@
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Injectable, Injector } from '@angular/core';
 import { ConfirmDialogComponent } from '../confirm-dialog.component';
 import { Subject } from 'rxjs';
+import { ConfirmDialog } from '../interface/ConfirmDialog';
 
 
 @Injectable({
@@ -16,26 +17,28 @@ export class ConfirmDialogService {
         private injector: Injector
     ) { }
 
-    confirm() {
+    confirm(config: ConfirmDialog) {
         // Crear el componente dinámicamente
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ConfirmDialogComponent);
-        console.log(componentFactory);
-        
         const componentRef = componentFactory.create(this.injector);
 
-        
         // Adjuntar el componente al DOM
         this.appRef.attachView(componentRef.hostView);
         const domElem = (componentRef.hostView as any).rootNodes[0] as HTMLElement;
-        
-        componentRef.instance.title = 'SSSSSSSSSSSSSSSSSSSSS'
 
+        // Agregar el elemento al DOM
         document.body.appendChild(domElem);
 
+        //componentRef.changeDetectorRef.detectChanges();
+        componentRef.instance.message = config.message
+        componentRef.instance.title = !config.title ? '' : config.title as string
+        componentRef.instance.classIcon = !config.classIcon ? 'bi bi-exclamation-triangle-fill' : config.classIcon as string
+        componentRef.instance.acceptLabel = !config.acceptLabel ? 'Aceptar' : config.acceptLabel as string
+        componentRef.instance.rejectLabel = !config.rejectLabel ? 'Rechazar' : config.rejectLabel as string
+        componentRef.instance.closeDialog = !config.closeDialog ? false : config.closeDialog as boolean
 
+        //Abrir o cerrar el modal
         componentRef.instance.openAndCloseModal();
-         
-        
 
         // Limpiar el componente cuando sea necesario
         componentRef.onDestroy(() => {
@@ -43,4 +46,5 @@ export class ConfirmDialogService {
             componentRef.destroy();
         });
     }
+
 }
