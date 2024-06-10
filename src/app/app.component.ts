@@ -25,22 +25,11 @@ export class AppComponent implements OnInit {
     }
   }
   constructor(
-    private toastService: ToastService,
-    private confirmDialogService: ConfirmDialogService
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
-    this.confirmDialogService.confirm({
-      message: 'OLa mamaguebo pajuo',
-      reject: () => {
-        console.log('rejext');
 
-      },
-      accept: () => {
-        console.log('acetp');
-
-      }
-    })
   }
   title = 'app';
 }

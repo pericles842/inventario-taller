@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogService } from './service/confirmDialog.service';
 import { Observable } from 'rxjs';
@@ -28,19 +28,9 @@ export class ConfirmDialogComponent implements OnInit {
    * @memberof ConfirmDialogComponent
    */
   classIcon: string = ' bi bi-exclamation-triangle-fill '//text-warning
-  /**
-   *Observable para el reject
-   *
-   * @memberof ConfirmDialogComponent
-   */
-  rejectObservable = new Observable<boolean>()
 
-  /**
-   *Aceptar objservable
-   *
-   * @memberof ConfirmDialogComponent
-   */
-  acceptObservable = new Observable<boolean>()
+  @Output() acceptEvent: EventEmitter<boolean> = new EventEmitter()
+  @Output() rejectEvent: EventEmitter<boolean> = new EventEmitter()
 
 
 
@@ -76,11 +66,23 @@ export class ConfirmDialogComponent implements OnInit {
 
   }
 
+  /**
+   *Botón rechazar del modal
+   *
+   * @return {*} 
+   * @memberof ConfirmDialogComponent
+   */
   reject() {
-
+    return this.rejectEvent.emit()
   }
+  /**
+   * boron de aceptar modal
+   *
+   * @return {*} 
+   * @memberof ConfirmDialogComponent
+   */
   accept() {
-
+    return this.acceptEvent.emit()
   }
 
 }

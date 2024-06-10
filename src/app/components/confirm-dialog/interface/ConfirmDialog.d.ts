@@ -4,7 +4,5 @@ export interface ConfirmDialog {
     classIcon?: string,
     rejectLabel?: string,
     acceptLabel?: string
-    reject: any
-    accept: any
     closeDialog?: boolean
 }
