@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
 
 
@@ -81,7 +81,7 @@ export class DynamicTableComponent {
   /**
    *item seleccionado
    *
-   * @type {EventEmitter<Usuario>}
+   * @type {EventEmitter<any>}
    * @memberof DynamicTableComponent
    */
   @Output() selectItem: EventEmitter<any> = new EventEmitter()

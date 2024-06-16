@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { environments } from 'environments/environment.local';
 import { Observable, catchError, from, map } from 'rxjs';
 import { Access } from 'src/app/models/Access';
-import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output, OnInit } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
-import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 
 
 

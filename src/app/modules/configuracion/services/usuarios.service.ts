@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from 'environments/environment.local';
 import { Observable } from 'rxjs';
-import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { RolUser } from '../models/Status.Interface';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';

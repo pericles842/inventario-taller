@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/modules/usuarios/models/UsuariosModel';
+import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import * as toast from 'toastr';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
 import { AuthService } from './services/Auth.service';
