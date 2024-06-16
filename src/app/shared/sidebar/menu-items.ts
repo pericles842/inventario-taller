@@ -11,7 +11,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     id:1,
-    path: 'usuarios/create-users',
+    path: 'setting/create-users',
     title: 'Usuarios',
     icon: 'bi bi-person-fill-add',
     class: '',
@@ -20,8 +20,8 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     id:2,
-    path: '',
-    title: 'Moneda',
+    path: 'setting/create-coins',
+    title: 'Monedas',
     icon: 'bi bi-currency-exchange',
     class: '',
     extralink: false,

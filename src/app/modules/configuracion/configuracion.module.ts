@@ -10,13 +10,15 @@ import { InputFormsComponent } from "../../components/input-forms/input-forms.co
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
 import { ConfigRoutes } from './configuracion.routing';
+import { MonedasCrudComponent } from './pages/monedas-crud/monedas-crud/monedas-crud.component';
 
 
 
 
 @NgModule({
     declarations: [
-        UsuariosFormComponent
+        UsuariosFormComponent,
+        MonedasCrudComponent
     ],
     imports: [
         CommonModule,

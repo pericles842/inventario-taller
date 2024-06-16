@@ -25,7 +25,7 @@ export const AppRoutes: Routes = [
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       },
       {
-        path: 'usuarios',
+        path: 'setting',
         loadChildren: () => import('./modules/configuracion/configuracion.module').then(m => m.ConfigurationModule)
       },
       {
