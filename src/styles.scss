@@ -36,7 +36,8 @@
 .main-contend-form{
   @extend .d-flex !optional;
   @extend .flex-column !optional;
-  @extend .my-4 !optional;
+  margin-top:17px ;
+  @extend .mb-4 !optional;
   @extend .p-2 !optional;
   gap:37px;
 }

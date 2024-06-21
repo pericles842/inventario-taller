@@ -1,1 +1,28 @@
-<p>monedas-crud works!</p>
+<app-menu-general [access]="access"></app-menu-general>
+
+<section class="main-contend-card">
+  <app-header-form header="Monedas" description="Configuración de monedas segundarías después del Bolivar">
+    <h4 correlative_number class=" fs-6 mt-5 mb-1">Numero Registro: 1</h4>
+  </app-header-form>
+
+  <section class=" main-contend-form">
+    <div class="row">
+      <div class="col-4">
+        <app-input-forms  typeInput="text" labelInput="Nombre Moneda"></app-input-forms>
+      </div>
+      <div class="col-1">
+        <app-input-forms typeInput="text" labelInput="Iso"></app-input-forms>
+      </div>
+      <div class="col-4">
+        <app-input-forms typeInput="number" labelInput="Precio"></app-input-forms>
+      </div>
+      <div class="col-3">
+        <app-input-forms typeInput="checkbox" labelInput="Usar moneda"></app-input-forms>
+      </div>
+    </div> 
+  </section>
+
+  
+</section>
+
+<app-loading [loading]="loading"></app-loading>
