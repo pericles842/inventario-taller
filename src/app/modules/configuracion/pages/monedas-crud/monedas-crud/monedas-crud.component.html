@@ -1,28 +1,29 @@
-<app-menu-general [access]="access"></app-menu-general>
+<app-menu-general (search)="table_monedas.openAndCloseModal()" [access]="access"></app-menu-general>
+
+<app-dynamic-table #table_monedas [records]="list_monedas" [columns]="columns_monedas" (selectItem)="selectItem($event)"
+  titleModal="Monedas"></app-dynamic-table>
 
 <section class="main-contend-card">
   <app-header-form header="Monedas" description="Configuración de monedas segundarías después del Bolivar">
-    <h4 correlative_number class=" fs-6 mt-5 mb-1">Numero Registro: 1</h4>
+    <h4 correlative_number class=" fs-6 mt-5 mb-1">#{{moneda.id}}</h4>
   </app-header-form>
 
-  <section class=" main-contend-form">
+  <section class="main-contend-form">
     <div class="row">
       <div class="col-4">
-        <app-input-forms  typeInput="text" labelInput="Nombre Moneda"></app-input-forms>
-      </div>
-      <div class="col-1">
-        <app-input-forms typeInput="text" labelInput="Iso"></app-input-forms>
+        <app-input-forms [(ngModel)]="moneda.name" typeInput="text" labelInput="Nombre Moneda"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms typeInput="number" labelInput="Precio"></app-input-forms>
+        <app-input-forms typeInput="text" [(ngModel)]="moneda.iso" labelInput="Iso"></app-input-forms>
       </div>
-      <div class="col-3">
-        <app-input-forms typeInput="checkbox" labelInput="Usar moneda"></app-input-forms>
+      <div class="col-4">
+        <app-input-forms typeInput="checkbox" [(ngModel)]="moneda.default" labelInput="Usar moneda"></app-input-forms>
       </div>
-    </div> 
+    </div>
   </section>
 
-  
+  <app-dynamic-table [records]="moneda.tasas" [type_table]="'table'" [titleModal]="'Ultimas Tasas'"
+    [columns]="columns_tasas"></app-dynamic-table>
 </section>
 
 <app-loading [loading]="loading"></app-loading>
