@@ -3,10 +3,11 @@ import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Modules } from 'src/app/enum/Modules';
 import { Access } from 'src/app/models/Access';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { Moneda } from '../../../models/Moneda.model';
+import { Moneda, Tasa } from '../../../models/Moneda.model';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { MonedasService } from '../../../services/monedas.service';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
+import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
 
 @Component({
   selector: 'app-monedas-crud',
@@ -15,11 +16,26 @@ import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-
 })
 export class MonedasCrudComponent implements OnInit {
 
+  /**
+   *referencia de la tabla monedas
+   *
+   * @type {DynamicTableComponent}
+   * @memberof MonedasCrudComponent
+   */
   @ViewChild('table_monedas') table_monedas!: DynamicTableComponent
 
+  /**
+   *modal de tasas
+   *
+   * @type {DynamicModalComponent}
+   * @memberof MonedasCrudComponent
+   */
+  @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
   access: Access = new Access();
-  loading: boolean = false;
   moneda: Moneda = new Moneda();
+  tasa: Tasa = new Tasa();
+
+  loading: boolean = false;
 
   columns_monedas: Columns[] = []
   columns_tasas: Columns[] = [];
@@ -70,9 +86,24 @@ export class MonedasCrudComponent implements OnInit {
       },
     })
   }
-
-  selectItem(event: Moneda) {
+  /**
+   *seleccionar moneda
+   *
+   * @param {Moneda} event
+   * @memberof MonedasCrudComponent
+   */
+  selectMoneda(event: Moneda) {
     this.moneda = event
     this.table_monedas.openAndCloseModal()
+  }
+  /**
+   *selecciona una tasas
+   *
+   * @param {Tasa} tasas
+   * @memberof MonedasCrudComponent
+   */
+  selectTasa(tasa: Tasa) {
+    this.dynamic_modal.openAndCloseModal()
+    this.tasa = tasa
   }
 }

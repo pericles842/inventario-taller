@@ -11,6 +11,9 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { UsuariosFormComponent } from './components/usuarios-form/usuarios-form.component';
 import { ConfigRoutes } from './configuracion.routing';
 import { MonedasCrudComponent } from './pages/monedas-crud/monedas-crud/monedas-crud.component';
+import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
+import { TasasComponent } from "../../components/tasas/tasas.component";
+import { SequencePipe } from 'src/app/pipes/sequence.pipe';
 
 
 
@@ -18,7 +21,8 @@ import { MonedasCrudComponent } from './pages/monedas-crud/monedas-crud/monedas-
 @NgModule({
     declarations: [
         UsuariosFormComponent,
-        MonedasCrudComponent
+        MonedasCrudComponent,
+        SequencePipe
     ],
     imports: [
         CommonModule,
@@ -29,7 +33,9 @@ import { MonedasCrudComponent } from './pages/monedas-crud/monedas-crud/monedas-
         InputFormsComponent,
         HttpClientModule,
         LoadingComponent,
-        DynamicTableComponent
+        DynamicTableComponent,
+        DynamicModalComponent,
+        TasasComponent
     ]
 })
 export class ConfigurationModule { }

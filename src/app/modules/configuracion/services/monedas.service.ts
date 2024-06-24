@@ -19,7 +19,8 @@ export class MonedasService {
 
     columns_tasas: Columns[] = [
         { label: 'id', key: 'id' },
-        { label: 'Fecha', key: 'created_at' },
+        { label: 'Fecha Creación', key: 'created_at' },
+        { label: 'Ultima actualización', key: 'updated_at' },
         { label: 'Tasa', key: 'price' }
     ];
 

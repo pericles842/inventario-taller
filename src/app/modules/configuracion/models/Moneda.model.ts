@@ -20,6 +20,8 @@ export class Moneda {
 export class Tasa {
     id: number = -1;
     id_coin: number = -1;
+    father_currency: string = '';
     price: number = 0;
-    created_at: Date = new Date()
+    created_at: Date = new Date();
+    updated_at: Date = new Date();
 }   

@@ -1,0 +1,19 @@
+<section class="my-3">
+  <div class="row">
+    <div class="col-1">
+      <p class="fs-4 my-1 text-primary">id</p>
+      <span class="fs-6 fw-normal">{{tasa.id}}</span>
+    </div>
+    <div class="col-2">
+      <p class="fs-4 my-1 text-primary">Moneda</p>
+      <span class="fs-6 fw-normal">{{tasa.father_currency}}</span>
+    </div>
+    <div class="col-5">
+      <p class="fs-4 my-1 text-primary">Fecha actualización</p>
+      <span class="fs-6 fw-normal">{{tasa.updated_at}}</span>
+    </div>
+    <div class="col-4 py-3">
+      <app-input-forms typeInput="number" labelInput="Precio" [(ngModel)]="tasa.price"></app-input-forms>
+    </div>
+  </div>
+</section>

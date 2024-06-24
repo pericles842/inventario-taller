@@ -64,7 +64,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of FilterRecords">
+            <tr  *ngFor="let item of FilterRecords">
               <!-- TABLA SELECCIONABLE -->
               <td *ngIf="selectable_table">
                 <app-input-forms class="text-white" (change)="addItemCheck(item)" [(ngModel)]="item.check"
@@ -76,7 +76,7 @@
                   <i class="bi bi-trash-fill "></i>
                 </button>
               </td>
-              <td style="cursor: pointer" (click)="selectItem.emit(item)" *ngFor="let column of columns">{{
+              <td style="cursor: pointer;" (click)="selectItem.emit(item)" *ngFor="let column of columns">{{
                 item[column.key] }}
               </td>
             </tr>
