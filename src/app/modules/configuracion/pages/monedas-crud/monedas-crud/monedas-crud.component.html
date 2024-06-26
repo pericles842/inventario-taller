@@ -6,7 +6,7 @@
 
 <section class="main-contend-card">
   <app-header-form header="Monedas" description="Configuración de monedas segundarías después del Bolivar">
-    <h4 correlative_number class=" fs-6 fw-normal mt-5 mb-1">#{{moneda.id == -1? 0:moneda.id|sequence }}</h4>
+    <h4 correlative_number class=" fs-6 fw-normal mt-5 mb-1">#{{moneda.id|sequence }}</h4>
   </app-header-form>
 
   <!-- FOMULARIO DE MONEDA -->
@@ -29,10 +29,10 @@
     [titleModal]="'Ultimas Tasas'" [columns]="columns_tasas"></app-dynamic-table>
 
   <!-- MODAL PARA EDITAR TASAS -->
-  <app-dynamic-modal #dynamic_modal title="Editar Tasas">
+  <app-dynamic-modal #dynamic_modal [backdropStatic]="true" title="Editar Tasas">
     <app-tasas modal-body [tasa]="tasa"></app-tasas>
   </app-dynamic-modal>
-
+{{cloneTasa|json}}
 </section>
 
 <app-loading [loading]="loading"></app-loading>

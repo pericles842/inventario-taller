@@ -14,6 +14,7 @@ import { MonedasCrudComponent } from './pages/monedas-crud/monedas-crud/monedas-
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
 import { TasasComponent } from "../../components/tasas/tasas.component";
 import { SequencePipe } from 'src/app/pipes/sequence.pipe';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 
 
@@ -21,10 +22,10 @@ import { SequencePipe } from 'src/app/pipes/sequence.pipe';
 @NgModule({
     declarations: [
         UsuariosFormComponent,
-        MonedasCrudComponent,
-        SequencePipe
+        MonedasCrudComponent
     ],
     imports: [
+        PipesModule,
         CommonModule,
         FormsModule,
         GeneralFormMenuComponent,

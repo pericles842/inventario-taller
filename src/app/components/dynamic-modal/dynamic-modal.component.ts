@@ -1,14 +1,31 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 
 @Component({
   standalone: true,
   selector: 'app-dynamic-modal',
   templateUrl: './dynamic-modal.component.html',
-  styleUrls: ['./dynamic-modal.component.scss']
+  styleUrls: ['./dynamic-modal.component.scss'],
+  imports: [CommonModule]
 })
 export class DynamicModalComponent {
 
   @Input() title: string = ''
+  /**
+   *El modal se escapa con click
+   *
+   * @type {boolean}
+   * @memberof DynamicModalComponent
+   */
+  @Input() backdropStatic: boolean = false
+
+  /**
+   *boton x de cerrar modal
+   *
+   * @type {boolean}
+   * @memberof DynamicModalComponent
+   */
+  @Input() btnClose: boolean = false
   /**
    *emite el botón aceptar
    *

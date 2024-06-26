@@ -1,10 +1,11 @@
-<div class="modal fade" id="exampleModalDynamic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalDynamic" [attr.data-bs-backdrop]="backdropStatic?'static':'modal'" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
 
       <div class="d-flex justify-content-between  p-3 m-0">
         <h1 class="modal-title fs-6 " id="exampleModalLabel">{{ title }}</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button *ngIf="btnClose" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">

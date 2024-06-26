@@ -14,21 +14,17 @@ import { AlmacenCrudComponent } from './pages/almacenes/almacen-crud/almacen-cru
 import { AssignUserToBranchCrudComponent } from './pages/assign-user-to-branch-crud/assign-user-to-branch-crud.component';
 import { TiendaCrudComponent } from './pages/tiendas/tienda-crud/tienda-crud.component';
 import { BranchRoutes } from './sucursales.routing';
-
-
-
-
-
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
     declarations: [
         AlmacenCrudComponent,
-        SequencePipe,
         AddPrefixDirective,
         TiendaCrudComponent,
         AssignUserToBranchCrudComponent
     ],
     imports: [
+        PipesModule,
         FormsModule,
         CommonModule,
         GeneralFormMenuComponent,

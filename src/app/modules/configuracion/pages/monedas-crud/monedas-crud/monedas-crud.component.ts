@@ -34,6 +34,7 @@ export class MonedasCrudComponent implements OnInit {
   access: Access = new Access();
   moneda: Moneda = new Moneda();
   tasa: Tasa = new Tasa();
+  cloneTasa: Tasa = new Tasa();
 
   loading: boolean = false;
 
@@ -105,5 +106,6 @@ export class MonedasCrudComponent implements OnInit {
   selectTasa(tasa: Tasa) {
     this.dynamic_modal.openAndCloseModal()
     this.tasa = tasa
+    this.cloneTasa = Object.assign({}, this.tasa);
   }
 }
