@@ -8,6 +8,7 @@ import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { MonedasService } from '../../../services/monedas.service';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
+import { TasasComponent } from 'src/app/components/tasas/tasas.component';
 
 @Component({
   selector: 'app-monedas-crud',
@@ -33,8 +34,15 @@ export class MonedasCrudComponent implements OnInit {
   @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
   access: Access = new Access();
   moneda: Moneda = new Moneda();
+
+  /**
+   *Componente tasas
+   *
+   * @type {TasasComponent}
+   * @memberof MonedasCrudComponent
+   */
+  tasasComponent: TasasComponent = new TasasComponent()
   tasa: Tasa = new Tasa();
-  cloneTasa: Tasa = new Tasa();
 
   loading: boolean = false;
 
@@ -105,7 +113,21 @@ export class MonedasCrudComponent implements OnInit {
    */
   selectTasa(tasa: Tasa) {
     this.dynamic_modal.openAndCloseModal()
-    this.tasa = tasa
-    this.cloneTasa = Object.assign({}, this.tasa);
+    this.tasa = Object.assign({}, tasa);
+  }
+
+  /**
+   *Cepta el modal
+   *
+   * @memberof MonedasCrudComponent
+   */
+  aceptarModal() {
+    
+
+    this.tasa = this.tasasComponent.returnObjectComponent();
+
+    console.log(this.tasa);
+    
+    this.dynamic_modal.openAndCloseModal()
   }
 }

@@ -32,7 +32,7 @@ export class DynamicModalComponent {
    * @type {EventEmitter<any>}
    * @memberof DynamicModalComponent
    */
-  @Output() saveBtn: EventEmitter<any> = new EventEmitter()
+  @Output() acceptBtn:EventEmitter<any> = new EventEmitter()
   /**
    *emite el boton de rechazar
    *

@@ -29,10 +29,9 @@
     [titleModal]="'Ultimas Tasas'" [columns]="columns_tasas"></app-dynamic-table>
 
   <!-- MODAL PARA EDITAR TASAS -->
-  <app-dynamic-modal #dynamic_modal [backdropStatic]="true" title="Editar Tasas">
+  <app-dynamic-modal (acceptBtn)="aceptarModal()"  #dynamic_modal [backdropStatic]="true" title="Editar Tasas">
     <app-tasas modal-body [tasa]="tasa"></app-tasas>
   </app-dynamic-modal>
-{{cloneTasa|json}}
 </section>
 
 <app-loading [loading]="loading"></app-loading>

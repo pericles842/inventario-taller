@@ -18,4 +18,14 @@ export class TasasComponent {
    * @memberof TasasComponent
    */
   @Input() tasa: Tasa = new Tasa()
+
+  /**
+   *retorna el objeto
+   *
+   * @return {*}  {Tasa}
+   * @memberof TasasComponent
+   */
+  returnObjectComponent(): Tasa {
+    return this.tasa
+  }
 }
