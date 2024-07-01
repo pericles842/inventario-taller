@@ -46,7 +46,7 @@ export class GeneralMenu {
     this.viewButtons.search = true
     this.viewButtons.descartar = true
     this.viewButtons.delete = true
-    this.viewButtons.archivar = true
+    this.viewButtons.archivar = false
     this.mode_presentation = TypeViewMenu.TOTAL_MENU
     return this.viewButtons
   }

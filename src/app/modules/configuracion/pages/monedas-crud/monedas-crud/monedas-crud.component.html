@@ -1,5 +1,5 @@
-<app-menu-general (search)="table_monedas.openAndCloseModal()" [access]="access"></app-menu-general>
-
+<app-menu-general [view_buttons]="viewButtons" (search)="table_monedas.openAndCloseModal()"
+  [access]="access" (guardar)="saveCurrency()"></app-menu-general>
 <!-- tabla de monedas -->
 <app-dynamic-table #table_monedas [records]="list_monedas" [columns]="columns_monedas"
   (selectItem)="selectMoneda($event)" titleModal="Monedas"></app-dynamic-table>
@@ -29,9 +29,8 @@
     [titleModal]="'Ultimas Tasas'" [columns]="columns_tasas"></app-dynamic-table>
 
   <!-- MODAL PARA EDITAR TASAS -->
-  <app-dynamic-modal (acceptBtn)="aceptarModal()"  #dynamic_modal [backdropStatic]="true" title="Editar Tasas">
+  <app-dynamic-modal (acceptBtn)="aceptarModal()" #dynamic_modal [backdropStatic]="true" title="Editar Tasas">
     <app-tasas modal-body [tasa]="tasa"></app-tasas>
   </app-dynamic-modal>
 </section>
-
 <app-loading [loading]="loading"></app-loading>

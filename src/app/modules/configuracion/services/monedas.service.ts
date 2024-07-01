@@ -6,7 +6,7 @@ import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { RolUser } from '../models/Status.Interface';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { Moneda } from '../models/Moneda.model';
+import { Moneda, RequestCreateCurrency, RequestUpdateTasa, ResponseCreateCurrency } from '../models/Moneda.model';
 
 
 @Injectable({
@@ -44,5 +44,32 @@ export class MonedasService {
      */
     getConfiguredCoins() {
         return this.http.get<Moneda[]>(`${environments.host}api/coin`)
+    }
+    /**
+     *acuatizar una tasa
+     *
+     * @param {number} id
+     * @param {number} price
+     * @return {*}  {Observable<{ price: number, id: number }>}
+     * @memberof MonedasService
+     */
+    updateCurrencyPrice(id: number, price: number): Observable<{ price: number, id: number }> {
+        let body: RequestUpdateTasa = { config: { id, price } };
+        return this.http.put<{ price: number, id: number }>(`${environments.host}api/coin/price`, body)
+    }
+
+    /**
+     *creara o actualizar nueva tasa
+     *
+     * @param {string} iso
+     * @param {string} name
+     * @param {boolean} por_defecto
+     * @param {number} [id]
+     * @return {*} 
+     * @memberof MonedasService
+     */
+    saveNewCurrency(iso: string, name: string, por_defecto: boolean, id?: number): Observable<ResponseCreateCurrency> {
+        let body: RequestCreateCurrency = { moneda: { iso, name, default: por_defecto, id } }
+        return this.http.post<ResponseCreateCurrency>(`${environments.host}api/coin`, body)
     }
 }

@@ -9,13 +9,14 @@ import { MonedasService } from '../../../services/monedas.service';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
 import { TasasComponent } from 'src/app/components/tasas/tasas.component';
+import { GeneralMenu } from 'src/app/models/Menu';
 
 @Component({
   selector: 'app-monedas-crud',
   templateUrl: './monedas-crud.component.html',
   styleUrls: ['./monedas-crud.component.scss']
 })
-export class MonedasCrudComponent implements OnInit {
+export class MonedasCrudComponent extends GeneralMenu implements OnInit {
 
   /**
    *referencia de la tabla monedas
@@ -54,7 +55,7 @@ export class MonedasCrudComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private monedasService: MonedasService
-  ) { }
+  ) { super() }
 
   ngOnInit(): void {
     this.accessModule()
@@ -104,6 +105,7 @@ export class MonedasCrudComponent implements OnInit {
   selectMoneda(event: Moneda) {
     this.moneda = event
     this.table_monedas.openAndCloseModal()
+    this.totalMenu()
   }
   /**
    *selecciona una tasas
@@ -117,17 +119,40 @@ export class MonedasCrudComponent implements OnInit {
   }
 
   /**
-   *Cepta el modal
+   * llama al servicio actualizar tasas y cierra el modal
    *
    * @memberof MonedasCrudComponent
    */
   aceptarModal() {
-    
+    this.loading = true
 
-    this.tasa = this.tasasComponent.returnObjectComponent();
-
-    console.log(this.tasa);
-    
+    let { id, price } = this.tasa
+    this.monedasService.updateCurrencyPrice(id, price).subscribe({
+      next: (response) => {
+        let { price } = response
+        //buscamos index
+        let index = this.moneda.tasas.findIndex(item => item.id == id)
+        //asignamos precio nuevo
+        this.moneda.tasas[index].price = price
+        this.loading = false
+        this.toastService.success('Tasa actualizada con éxito')
+      },
+      error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en actualizar tasa')
+      },
+    })
     this.dynamic_modal.openAndCloseModal()
+  }
+
+  saveCurrency() {
+    let { id, iso, name, default: por_defecto } = this.moneda;
+    this.monedasService.saveNewCurrency(iso, name, por_defecto, id).subscribe({
+      next: (response) => {
+        if (id != -1) {
+
+        }
+      },
+    })
   }
 }
