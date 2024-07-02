@@ -145,13 +145,29 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     this.dynamic_modal.openAndCloseModal()
   }
 
+  /**
+   *guarda una moneda
+   *
+   * @memberof MonedasCrudComponent
+   */
   saveCurrency() {
-    let { id, iso, name, default: por_defecto } = this.moneda;
+    this.loading = true
+    let { id, iso, name, default: por_defecto, tasas } = this.moneda;
     this.monedasService.saveNewCurrency(iso, name, por_defecto, id).subscribe({
       next: (response) => {
-        if (id != -1) {
 
+        if (id == -1) {
+          this.list_monedas.push({ id: response.id, iso, name, default: por_defecto, tasas })
+        } else {
+          let index = this.list_monedas.findIndex(item => item.id == id)
+          this.list_monedas[index] = { id, iso, name, default: por_defecto, tasas }
         }
+        this.loading = false
+        this.toastService.success('Moneda guardada correctamente')
+      },
+      error: (err) => {
+        this.loading = false
+        this.toastService.error('error al guardar moneda')
       },
     })
   }
