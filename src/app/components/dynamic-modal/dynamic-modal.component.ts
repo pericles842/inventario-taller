@@ -10,6 +10,9 @@ import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core
 })
 export class DynamicModalComponent {
 
+  @Input() discartBtn: string = 'Descartar'
+  @Input() confirmBtn: string = 'Guardar'
+  
   @Input() title: string = ''
   /**
    *El modal se escapa con click
@@ -32,7 +35,7 @@ export class DynamicModalComponent {
    * @type {EventEmitter<any>}
    * @memberof DynamicModalComponent
    */
-  @Output() acceptBtn:EventEmitter<any> = new EventEmitter()
+  @Output() acceptBtn: EventEmitter<any> = new EventEmitter()
   /**
    *emite el boton de rechazar
    *

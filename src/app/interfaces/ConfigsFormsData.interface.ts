@@ -7,6 +7,7 @@
 export interface Columns {
     label: string,
     key: string,
-    visible?:boolean
-    filterable ?:boolean
+    visible?: boolean
+    filterable?: boolean
+    type?: 'boolean' | 'decimal' | 'fecha' 
 }

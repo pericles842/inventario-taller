@@ -19,8 +19,8 @@ export class MonedasService {
 
     columns_tasas: Columns[] = [
         { label: 'id', key: 'id' },
-        { label: 'Fecha Creación', key: 'created_at' },
-        { label: 'Ultima actualización', key: 'updated_at' },
+        { label: 'Fecha Creación', key: 'created_at', type: 'fecha' },
+        { label: 'Ultima actualización', key: 'updated_at', type: 'fecha' },
         { label: 'Tasa', key: 'price' }
     ];
 
@@ -28,7 +28,7 @@ export class MonedasService {
         { label: 'id', key: 'id' },
         { label: 'Nombre', key: 'name' },
         { label: 'iso', key: 'iso' },
-        { label: 'Por defecto', key: 'default' }
+        { label: 'Por defecto', key: 'default', type: 'boolean' }
     ];
 
     constructor(

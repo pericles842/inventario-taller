@@ -24,6 +24,10 @@ export class Tasa {
   price: number = 0;
   created_at: Date = new Date();
   updated_at: Date = new Date();
+
+  constructor(father_currency: string = '') {
+    this.father_currency = father_currency
+  }
 }
 
 

@@ -236,4 +236,31 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
 
     return pass
   }
+  /**
+   *Agregar una tasas nueva
+   *
+   * @memberof MonedasCrudComponent
+   */
+  addTasa() {
+
+    if (!this.validateBtnAddTasa()) return
+
+    this.tasa = new Tasa(this.moneda.name)
+    this.dynamic_modal.openAndCloseModal()
+  }
+  /**
+   *Valida el agregar tasas
+   *
+   * @return {*}  {boolean}
+   * @memberof MonedasCrudComponent
+   */
+  validateBtnAddTasa(): boolean {
+    let pass = true
+    if (this.moneda.id == -1) {
+      this.toastService.info('Por favor cree o guarde una moneda')
+      pass = false
+    }
+
+    return pass
+  }
 }
