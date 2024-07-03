@@ -72,4 +72,15 @@ export class MonedasService {
         let body: RequestCreateCurrency = { moneda: { iso, name, default: por_defecto, id } }
         return this.http.post<ResponseCreateCurrency>(`${environments.host}api/coin`, body)
     }
+
+    /**
+     *Elimina una tasas
+     *
+     * @param {number} id
+     * @return {*} 
+     * @memberof MonedasService
+     */
+    deleteCurrency(id: number) {
+        return this.http.delete<number>(`${environments.host}api/coin/${id}`)
+    }
 }

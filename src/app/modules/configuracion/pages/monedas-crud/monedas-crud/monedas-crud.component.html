@@ -1,5 +1,5 @@
-<app-menu-general [view_buttons]="viewButtons" (search)="table_monedas.openAndCloseModal()"
-  [access]="access" (guardar)="saveCurrency()"></app-menu-general>
+<app-menu-general [view_buttons]="viewButtons" (search)="table_monedas.openAndCloseModal()" [access]="access"
+  (guardar)="saveCurrency()" (descartar)="descartar()" (delete)="deleteCurrency()"></app-menu-general>
 <!-- tabla de monedas -->
 <app-dynamic-table #table_monedas [records]="list_monedas" [columns]="columns_monedas"
   (selectItem)="selectMoneda($event)" titleModal="Monedas"></app-dynamic-table>
@@ -16,7 +16,7 @@
         <app-input-forms [(ngModel)]="moneda.name" typeInput="text" labelInput="Nombre Moneda"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms typeInput="text" [(ngModel)]="moneda.iso" labelInput="Iso"></app-input-forms>
+        <app-input-forms typeInput="text" textUppercase [(ngModel)]="moneda.iso" labelInput="Iso"></app-input-forms>
       </div>
       <div class="col-4">
         <app-input-forms typeInput="checkbox" [(ngModel)]="moneda.default" labelInput="Usar moneda"></app-input-forms>
@@ -25,7 +25,7 @@
   </section>
 
   <!-- TABLA DE TASAS -->
-  <app-dynamic-table (selectItem)="selectTasa($event)" [records]="moneda.tasas" [type_table]="'table'"
+  <app-dynamic-table (selectItem)="selectTasa($event)" class="my-2" [records]="moneda.tasas" [type_table]="'table'"
     [titleModal]="'Ultimas Tasas'" [columns]="columns_tasas"></app-dynamic-table>
 
   <!-- MODAL PARA EDITAR TASAS -->

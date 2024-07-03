@@ -21,6 +21,7 @@ export class ConfirmDialogService {
    *
    * @param {ConfirmDialog} config
    * @memberof ConfirmDialogService
+   * @returns  Observable<boolean> false|rechazar, true|aceptar
    */
   confirm(config: ConfirmDialog): Observable<boolean> {
     return new Observable<boolean>(observer => {
