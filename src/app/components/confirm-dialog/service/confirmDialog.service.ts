@@ -51,14 +51,14 @@ export class ConfirmDialogService {
       //CLICK EN ACEPTAR MODAL
       componentRef.instance.acceptEvent.subscribe(() => {
         observer.next(true);
-        observer.complete();
+      //  observer.complete();
         componentRef.instance.openAndCloseModal();
       });
 
       //CLICK EN RECHAZAR MODAL
       componentRef.instance.rejectEvent.subscribe(() => {
         observer.next(false);
-        observer.complete();
+       // observer.complete();
         componentRef.instance.openAndCloseModal();
       });
 

@@ -189,16 +189,11 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   deleteCurrency() {
-    console.log('delete');
-
     //modal de confirmación
     this.confirmDialogService.confirm({ message: "¿Seguro desea eliminar esta moneda?" }).subscribe({
       next: (confirmar) => {
-        console.log(confirmar);
-
         //confrimar
         if (confirmar) {
-          console.log(confirmar);
           //metodo eliminar
           this.loading = true
           this.monedasService.deleteCurrency(this.moneda.id).subscribe({
