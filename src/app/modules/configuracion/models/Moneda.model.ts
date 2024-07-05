@@ -25,9 +25,6 @@ export class Tasa {
   created_at: Date = new Date();
   updated_at: Date = new Date();
 
-  constructor(father_currency: string = '') {
-    this.father_currency = father_currency
-  }
 }
 
 
@@ -53,4 +50,10 @@ export type RequestCreateCurrency = { moneda: { iso: string, name: string, defau
  * @export
  * @type RequestUpdateTasa
  */
-export type ResponseCreateCurrency = { iso: string, name: string, default: boolean, id: number } 
+export type ResponseCreateCurrency = { iso: string, name: string, default: boolean, id: number }
+
+
+export interface HttpTasaCreate {
+  response: { id_coin: number, price: number, id: number }
+  request: { config: { id_coin: number, price: number } }
+}

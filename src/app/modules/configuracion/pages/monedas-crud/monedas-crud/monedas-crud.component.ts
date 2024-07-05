@@ -127,11 +127,26 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   aceptarModal() {
-    this.loading = true
 
-    let { id, price } = this.tasa
+    if (this.tasa.id == -1) {
+      this.createTasa(this.moneda.id, this.tasa.price)
+    } else {
+      this.updateTasa(this.tasa.id, this.tasa.price)
+    }
+    this.dynamic_modal.openAndCloseModal()
+  }
+  /**
+   *Actualiza una tasa
+   *
+   * @param {number} id tasas
+   * @param {number} price
+   * @memberof MonedasCrudComponent
+   */
+  updateTasa(id: number, price: number) {
+    this.loading = true
     this.monedasService.updateCurrencyPrice(id, price).subscribe({
       next: (response) => {
+
         let { price } = response
         //buscamos index
         let index = this.moneda.tasas.findIndex(item => item.id == id)
@@ -145,7 +160,37 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
         this.toastService.error('Error en actualizar tasa')
       },
     })
-    this.dynamic_modal.openAndCloseModal()
+  }
+  /**
+   *Crear una tasas
+   *
+   * @param {number} id_coin id de la moneda padre
+   * @param {number} price
+   * @memberof MonedasCrudComponent
+   */
+  createTasa(id_coin: number, price: number) {
+    this.loading = true
+    this.monedasService.createCurrencyPrice(id_coin, price).subscribe({
+      next: (response) => {
+
+        let tasa = new Tasa()
+        tasa.id = response.id
+        tasa.price = response.price
+        tasa.father_currency = this.moneda.name
+        tasa.id_coin = this.moneda.id
+        tasa.updated_at = new Date()
+        tasa.updated_at = new Date()
+
+        //asignamos precio nuevo
+        this.moneda.tasas.push(tasa)
+        this.loading = false
+        this.toastService.success('Tasa creada con éxito')
+      },
+      error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en actualizar tasa')
+      },
+    })
   }
 
   /**
@@ -244,8 +289,12 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
   addTasa() {
 
     if (!this.validateBtnAddTasa()) return
+    let { id, name } = this.moneda
 
-    this.tasa = new Tasa(this.moneda.name)
+    this.tasa = new Tasa()
+    this.tasa.father_currency = name
+    this.tasa.id_coin = id
+
     this.dynamic_modal.openAndCloseModal()
   }
   /**

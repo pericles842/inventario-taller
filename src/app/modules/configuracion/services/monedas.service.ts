@@ -6,7 +6,7 @@ import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { RolUser } from '../models/Status.Interface';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { Moneda, RequestCreateCurrency, RequestUpdateTasa, ResponseCreateCurrency } from '../models/Moneda.model';
+import { HttpTasaCreate, Moneda, RequestCreateCurrency, RequestUpdateTasa, ResponseCreateCurrency } from '../models/Moneda.model';
 
 
 @Injectable({
@@ -56,6 +56,19 @@ export class MonedasService {
     updateCurrencyPrice(id: number, price: number): Observable<{ price: number, id: number }> {
         let body: RequestUpdateTasa = { config: { id, price } };
         return this.http.put<{ price: number, id: number }>(`${environments.host}api/coin/price`, body)
+    }
+    /**
+    *actualizar tasas
+    *
+    * @param {number} id_coin idd de la moneda
+    * @param {number} price
+    * @return {*}  {Observable<HttpTasaCreate['response']>}
+    * @memberof MonedasService
+    */
+    createCurrencyPrice(id_coin: number, price: number): Observable<HttpTasaCreate['response']> {
+
+        let body: HttpTasaCreate['request'] = { config: { id_coin, price } };
+        return this.http.post<HttpTasaCreate['response']>(`${environments.host}api/coin/price`, body)
     }
 
     /**
