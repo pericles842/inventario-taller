@@ -94,6 +94,6 @@ export class MonedasService {
      * @memberof MonedasService
      */
     deleteCurrency(id: number) {
-        return this.http.delete<number>(`${environments.host}api/coin/${id}`)
+        return this.http.delete<number>(`${environments.host}api/coin/price/${id}`)
     }
 }

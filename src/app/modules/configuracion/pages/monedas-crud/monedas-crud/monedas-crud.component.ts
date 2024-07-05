@@ -106,9 +106,35 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   selectMoneda(event: Moneda) {
+
+    this.eliminarTasasViejas(event.tasas)
     this.moneda = event
     this.table_monedas.openAndCloseModal()
     this.totalMenu()
+  }
+  eliminarTasasViejas(tasas: Tasa[]) {
+    if (tasas.length >= 7) {
+      tasas.sort((a, b) => {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      });
+      let lastIndex = tasas.length - 1
+      this.deleteTasaService(tasas[lastIndex].id)
+      tasas.splice(lastIndex, 1)
+
+    }
+  }
+  /**
+   *Elimina una tasas
+   *
+   * @param {number} id_tasa
+   * @memberof MonedasCrudComponent
+   */
+  deleteTasaService(id_tasa: number) {
+    this.monedasService.deleteCurrency(id_tasa).subscribe({
+      error: (err) => {
+        this.toastService.error(err.error.text, 'Error en eliminar tasas')
+      },
+    })
   }
   /**
    *selecciona una tasas
@@ -152,6 +178,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
         let index = this.moneda.tasas.findIndex(item => item.id == id)
         //asignamos precio nuevo
         this.moneda.tasas[index].price = price
+        this.moneda.tasas[index].updated_at = new Date()
         this.loading = false
         this.toastService.success('Tasa actualizada con éxito')
       },
@@ -289,6 +316,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
   addTasa() {
 
     if (!this.validateBtnAddTasa()) return
+    if (!this.validateCreateTasa()) return
     let { id, name } = this.moneda
 
     this.tasa = new Tasa()
@@ -306,10 +334,35 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
   validateBtnAddTasa(): boolean {
     let pass = true
     if (this.moneda.id == -1) {
-      this.toastService.info('Por favor cree o guarde una moneda')
+      this.toastService.info('Por favor cree o seleccione una moneda')
       pass = false
     }
 
     return pass
+  }
+  /**
+   *Valida si se puede crear otra tasa
+   *
+   * @return {*}  {boolean}
+   * @memberof MonedasCrudComponent
+   */
+  validateCreateTasa(): boolean {
+    let pass = true
+
+    // Obtener la fecha de hoy en formato 'YYYY-MM-DD'
+    let today = new Date().toISOString().slice(0, 10);
+
+    // Verificar si alguna de las tasas tiene la misma fecha que hoy (solo día, mes y año)
+    let tasas_fecha_hoy = this.moneda.tasas.some(item => {
+      let fechaItem = new Date(item.created_at).toISOString().slice(0, 10);
+      return fechaItem === today;
+    });
+
+    if (tasas_fecha_hoy) {
+      this.toastService.warning('Mañana podrá crear una tasa con la fecha correspondiente', 'Numero máximo de tasas por hoy')
+      pass = false
+    }
+    return pass;
+
   }
 }
