@@ -46,7 +46,7 @@ export class MonedasService {
         return this.http.get<Moneda[]>(`${environments.host}api/coin`)
     }
     /**
-     *acuatizar una tasa
+     *acuatizar una tasa enlazada a la moneda
      *
      * @param {number} id
      * @param {number} price
@@ -58,7 +58,7 @@ export class MonedasService {
         return this.http.put<{ price: number, id: number }>(`${environments.host}api/coin/price`, body)
     }
     /**
-    *actualizar tasas
+    * creara una tasa enlazada a la moneda
     *
     * @param {number} id_coin idd de la moneda
     * @param {number} price
@@ -72,7 +72,7 @@ export class MonedasService {
     }
 
     /**
-     *creara o actualizar nueva tasa
+     *creara o actualizar nueva moneda
      *
      * @param {string} iso
      * @param {string} name

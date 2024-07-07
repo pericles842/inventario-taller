@@ -19,3 +19,13 @@ export class Usuario {
     repeat_password: string = '';
     archivado: number = 0;
 }
+
+export interface AuthUser extends Usuario {
+    config: ConfigUser
+}
+
+export interface ConfigUser {
+    id: number,
+    iso: string,
+    name: string
+}

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { environments } from 'environments/environment.local';
 import { Observable, catchError, from, map } from 'rxjs';
 import { Access } from 'src/app/models/Access';
-import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
+import { AuthUser, Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
 
@@ -107,7 +107,7 @@ export class AuthService {
    * @memberof AuthService
    */
   getUser() {
-    return this.getCookie('user_info') as Usuario
+    return this.getCookie('user_info') as AuthUser
   }
 
   /**

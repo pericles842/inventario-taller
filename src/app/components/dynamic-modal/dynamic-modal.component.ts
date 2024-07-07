@@ -9,10 +9,16 @@ import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core
   imports: [CommonModule]
 })
 export class DynamicModalComponent {
+  /**
+   *tamano del modal
+   *
+   * @type {string}
+   * @memberof DynamicModalComponent
+   */
+  @Input() modalSize: string = '60%';
+  @Input() discardBtnLabel: string = 'Descartar'
+  @Input() confirmBtnLabel: string = 'Guardar'
 
-  @Input() discartBtn: string = 'Descartar'
-  @Input() confirmBtn: string = 'Guardar'
-  
   @Input() title: string = ''
   /**
    *El modal se escapa con click
@@ -29,6 +35,13 @@ export class DynamicModalComponent {
    * @memberof DynamicModalComponent
    */
   @Input() btnClose: boolean = false
+  /**
+   *Deshabilita el botón de descartar
+   *
+   * @type {boolean}
+   * @memberof DynamicModalComponent
+   */
+  @Input() viewDiscardBtn: boolean = true
   /**
    *emite el botón aceptar
    *

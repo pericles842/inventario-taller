@@ -58,8 +58,8 @@
   <!-- ============================================================== -->
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
-  <aside id="sidebar" class="left-sidebar overflow-y-scroll"  style="height:100vh; width: auto;" data-sidebarbg="skin5" (mouseover)="Logo()"
-    (mouseout)="Logo()">
+  <aside id="sidebar" class="left-sidebar overflow-y-scroll" style="height:100vh; width: auto;" data-sidebarbg="skin5"
+    (mouseover)="Logo()" (mouseout)="Logo()">
     <app-sidebar></app-sidebar>
   </aside>
   <!-- ============================================================== -->
@@ -68,15 +68,20 @@
   <!-- ============================================================== -->
   <!-- Page wrapper  -->
   <!-- ============================================================== -->
-  <div class="page-wrapper" >
+  <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
-    <div id="sidebar" class="p-3 overflow-y-scroll"  style="background-color: #eaeaea;height:90vh "  >
+    <div id="sidebar" class="p-3 overflow-y-scroll" style="background-color: #eaeaea;height:90vh ">
       <!-- ============================================================== -->
       <!-- Start Page Content -->
       <!-- ============================================================== -->
       <router-outlet></router-outlet>
+
+      <app-dynamic-modal [title]="'Guardar tasas del dia'" [viewDiscardBtn]="false" [backdropStatic]="true"
+        modalSize="70%" (acceptBtn)="saveCurrency()" #modalCurrency>
+        <app-tasas modal-body [tasa]="tasa"></app-tasas>
+      </app-dynamic-modal>
       <!-- ============================================================== -->
       <!-- End Start Page Content -->
       <!-- ============================================================== -->

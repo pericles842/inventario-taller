@@ -8,11 +8,15 @@
       <p class="fs-4 my-1 text-primary">Moneda</p>
       <span class="fs-6 fw-normal">{{tasa.father_currency}}</span>
     </div>
-    <div class="col-5">
-      <p class="fs-4 my-1 text-primary">Fecha actualización</p>
-      <span class="fs-6 fw-normal">{{tasa.updated_at | date:'MMM d, y, h:mm a'}}</span>
+    <div class="col-3">
+      <p class="fs-4 my-1 text-primary">Fecha creación</p>
+      <span class="fs-4 fw-normal">{{tasa.created_at | date:'MMM d, y, h:mm a'}}</span>
     </div>
-    <div class="col-4 py-3">
+    <div class="col-3">
+      <p class="fs-4 my-1 text-primary">Fecha actualización</p>
+      <span class="fs-4 fw-normal">{{tasa.updated_at | date:'MMM d, y, h:mm a'}}</span>
+    </div>
+    <div class="col-3 py-3">
       <app-input-forms typeInput="number" labelInput="Precio" [(ngModel)]="tasa.price"></app-input-forms>
     </div>
   </div>

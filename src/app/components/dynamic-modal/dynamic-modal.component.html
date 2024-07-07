@@ -1,6 +1,6 @@
 <div class="modal fade" id="exampleModalDynamic" [attr.data-bs-backdrop]="backdropStatic?'static':'modal'" tabindex="-1"
   aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " [ngStyle]="{'max-width': modalSize}">
     <div class="modal-content">
 
       <div class="d-flex justify-content-between  p-3 m-0">
@@ -11,10 +11,11 @@
       <div class="modal-body">
         <ng-content select="[modal-body]"></ng-content>
       </div>
+
       <div class="modal-footer p-2">
-        <button type="button" (click)="rejectBtn.emit()" class="btn btn-secondary"
-          data-bs-dismiss="modal">{{discartBtn}}</button>
-        <button type="button" (click)="acceptBtn.emit()" class="btn btn-primary">{{confirmBtn}}</button>
+        <button *ngIf="viewDiscardBtn" type="button" (click)="rejectBtn.emit()" class="btn btn-secondary"
+          data-bs-dismiss="modal">{{discardBtnLabel}}</button>
+        <button type="button" (click)="acceptBtn.emit()" class="btn btn-primary">{{confirmBtnLabel}}</button>
       </div>
     </div>
   </div>
