@@ -9,5 +9,5 @@ export interface Columns {
     key: string,
     visible?: boolean
     filterable?: boolean
-    type?: 'boolean' | 'decimal' | 'fecha' 
+    type?: 'boolean' | 'decimal' | 'fecha'
 }
