@@ -18,35 +18,22 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
 
   @ViewChild('table') table!: DynamicTableComponent
 
-  loading: boolean = false
+
   type_view: number = 0
   shop: Shop = new Shop()
   listShops: Shop[] = []
   columns: Columns[] = []
-
-  access: Access = new Access()
   constructor(
     private shopService: ShopService,
     private toastService: ToastService,
-    private authService: AuthService
-  ) { super() }
+    authService: AuthService
+  ) { super(authService, Modules.tiendas) }
 
   ngOnInit(): void {
-    this.accessModule()
+
     this.columns = this.shopService.columns_shop
   }
-  accessModule() {
-    this.loading = true
-    this.authService.accessModule(Modules.tiendas).subscribe({
-      next: (access) => {
-        this.access = access
-        this.loading = false
-      }, error: (err) => {
-        this.loading = false
-        this.toastService.error('Error en permisos')
-      },
-    })
-  }
+
   /**
    *Guardar dinamicamente una  tienda
    *

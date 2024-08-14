@@ -23,39 +23,20 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
   columns: Columns[] = [];
   listRoles: RolUser[] = [];
   userForm: Usuario = new Usuario();
-  loading: boolean = false;
   listUsers: Usuario[] = [];
-  access: Access = new Access()
 
   constructor(
     private usuariosService: UsuariosService,
     private toastService: ToastService,
-    private authService: AuthService
+    authService: AuthService
 
-
-  ) { super() }
+  ) { super(authService, Modules.usuarios) }
   ngOnInit(): void {
-    this.accessModule();
+
     this.callServiceListRoles()
     this.columns = this.usuariosService.columns
   }
-  /**
-   *permisologia del usuario
-   *
-   * @memberof UsuariosFormComponent
-   */
-  accessModule() {
-    this.loading = true
-    this.authService.accessModule(Modules.usuarios).subscribe({
-      next: (access) => {
-        this.access = access
-        this.loading = false
-      }, error: (err) => {
-        this.loading = false
-        this.toastService.error('Error en permisos')
-      },
-    })
-  }
+
 
   saveElement() {
     this.userForm.rol = parseInt(this.userForm.rol as unknown as string)

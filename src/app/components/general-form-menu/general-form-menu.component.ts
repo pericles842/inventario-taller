@@ -14,9 +14,9 @@ import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
     CommonModule,
   ]
 })
-export class GeneralFormMenuComponent   {
+export class GeneralFormMenuComponent {
 
-   
+
   /**
    *Acceso de los botones
    *
@@ -31,7 +31,13 @@ export class GeneralFormMenuComponent   {
    * @type {ViewButtons}
    * @memberof GeneralFormMenuComponent
    */
-  @Input() view_buttons: ViewButtons = new GeneralMenu().viewButtons
+  @Input() view_buttons: ViewButtons = {
+    create: false,
+    search: false,
+    descartar: false,
+    delete: false,
+    archivar: false
+  }
 
 
   //EMITIR DE LOS BOTONES

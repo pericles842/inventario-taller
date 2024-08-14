@@ -20,4 +20,6 @@ export enum Modules {
     salida = 13,
     venta = 14,
     reportes = 15,
+    categorías = 16,
+    lista_de_precios = 17
 }
