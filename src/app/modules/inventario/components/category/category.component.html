@@ -1,1 +1,27 @@
-<app-menu-general></app-menu-general>
+<app-menu-general [access]="access" (guardar)="saveCategory()" [view_buttons]="viewButtons"></app-menu-general>
+
+<section class="main-contend-card">
+  <app-header-form header="Categorías" description="Creación de Categorías">
+    <h4 correlative_number class=" fs-6 fw-normal mt-5 mb-1">#{{category.id|sequence:1 }}</h4>
+  </app-header-form>
+
+  <!-- FORMULARIO DE CATEGORÍA -->
+  <section class="main-contend-form">
+    <div class="row align-items-center">
+      <div class="col-6">
+        <app-input-forms [(ngModel)]="category.name" typeInput="text" labelInput="Nombre"></app-input-forms>
+      </div>
+      <div class="col-6">
+        <!-- SELECCIONABLE DE CATEGORÍA -->
+        <div class="d-flex gap-2 justify-content-between">
+          <app-input-forms typeInput="select" class="w-100" [(ngModel)]="category.father_category_id"
+            [resources]="category.father_category_id !=null? list_categories_dropdown:[]" labelInput="Categoría padre"
+            (click)="resetSelectableCategory()"></app-input-forms>
+          <button class="btn text-white bg-primary bi bi-x-lg fw-bolder fs-4"
+            (click)="eliminateFatherCategory()"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<app-loading [loading]="loading"></app-loading>
