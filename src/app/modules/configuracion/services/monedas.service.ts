@@ -1,9 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from 'environments/environment.local';
 import { Observable } from 'rxjs';
-import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
-import { RolUser } from '../models/Status.Interface';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { HttpTasaCreate, Moneda, RequestCreateCurrency, RequestUpdateTasa, ResponseCreateCurrency } from '../models/Moneda.model';
@@ -13,9 +11,6 @@ import { HttpTasaCreate, Moneda, RequestCreateCurrency, RequestUpdateTasa, Respo
     providedIn: 'root'
 })
 export class MonedasService {
-
-    protected userAuthenticated: Usuario = this.authService.getUser();
-
 
     columns_tasas: Columns[] = [
         { label: 'id', key: 'id' },

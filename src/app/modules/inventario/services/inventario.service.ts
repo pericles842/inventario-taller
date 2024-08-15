@@ -21,4 +21,15 @@ export class InventarioService {
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environments.host}api/category`)
   }
+  /**
+   * Crea una nueva categoria
+   *
+   * @param {Category} category
+   * @return {*}  {Observable<Category>}
+   * @memberof InventarioService
+   */
+  createCategory(category: Category): Observable<Category> {
+    let body: { category: Category } = { category: category }
+    return this.http.post<Category>(`${environments.host}api/category`, body)
+  }
 }

@@ -2,13 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { Modules } from 'src/app/enum/Modules';
 import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { GeneralMenu } from 'src/app/models/Menu';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { AuthService } from '../../../../components/login/services/Auth.service';
 import { RolUser } from '../../models/Status.Interface';
 import { Usuario } from '../../models/UsuariosModel';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Access } from 'src/app/models/Access';
-import { GeneralMenu, ViewButtons } from 'src/app/models/Menu';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -139,9 +138,9 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
         this.loading = false
       },
       error: (err) => {
-
+        
         this.loading = false
-        this.toastService.error('Los datos no coinciden');
+        this.toastService.error('Problema al cargar los roles');
       }
     })
   }
@@ -184,7 +183,6 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
 
       },
       error: (e) => {
-
         this.toastService.error('Error al listar usuarios')
       }
     })
@@ -232,7 +230,7 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
         this.presentation()
       },
       error: (err) => {
-        this.toastService.error('Error al listar usuarios')
+        this.toastService.error('Error al eliminar usuario')
       },
     })
   }

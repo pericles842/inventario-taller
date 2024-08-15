@@ -2,7 +2,7 @@ import {
   CommonModule, LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,6 +22,7 @@ import { AppComponent } from './app.component';
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { InputFormsComponent } from './components/input-forms/input-forms.component';
 import { SpinnerComponent } from './shared/spinner.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 
@@ -31,10 +32,8 @@ import { SpinnerComponent } from './shared/spinner.component';
     SpinnerComponent
   ],
   providers: [
-    {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy
-    },
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   imports: [

@@ -42,7 +42,15 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   }
   saveCategory(): void {
     this.category.father_category_id = this.category.father_category_id !== null ? parseInt(this.category.father_category_id.toString()) : null;
-    console.log(this.category)
+    this.inventarioService.createCategory(this.category).subscribe({
+      next: (res) => {
+        
+        this.toastService.success('Categoría creada')
+      },
+      error: (err) => {
+        this.toastService.error('Error en categoría')
+      },
+    })
   }
   /**
    *coloca el father_category_id en null de la categoria
