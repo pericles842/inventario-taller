@@ -13,22 +13,24 @@ import { TreeNode } from 'src/app/interfaces/ConfigsFormsData.interface';
 export class TreeViewComponent {
   @Input() nodes: TreeNode[] = [
     {
-      name: 'Root 1',
+      name: 'Zapatos',
       children: [
-        { name: 'Child 1.1' },
-        { name: 'Child 1.2',
-           children: [
-            { name: 'Child 1.2.1' },
-            { name: 'Child 1.2.1' },
-            { name: 'Child 1.2.1' },
-          ] }
+        { name: 'Deportivos' },
+        {
+          name: 'Vestir',
+          children: [
+            { name: 'Punta' },
+            { name: 'Cuero' },
+            { name: 'Cuero sintético' },
+          ]
+        }
       ]
     },
     {
-      name: 'Root 2',
+      name: 'Franelas',
       children: [
-        { name: 'Child 2.1' },
-        { name: 'Child 2.2' }
+        { name: 'Camisas' },
+        { name: 'Chemises' }
       ]
     }
   ];

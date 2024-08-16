@@ -1,31 +1,35 @@
 @import '../../../assets/scss/variable';
 @import '../../../assets/scss/style';
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+
 }
 
 li {
     margin-left: 20px;
     position: relative;
 }
-li > span{
-    font-size: 23px;
+
+.tree-item-name {
+    font-size: 18px;
 }
 
 li:before {
     content: '';
     position: absolute;
     top: 0;
-    left: -10px;
+    left: -5px;
     border-left: 1px solid $primary;
     border-bottom: 1px solid $primary;
-    width: 10px;
-    height: 38px;
+    width: 20px;
+    height: 35px;
 }
-.father-filling{
+
+.father-filling {
     color: $primary;
     padding: 5px;
-    border-bottom: 1px solid $primary;
+
 }
