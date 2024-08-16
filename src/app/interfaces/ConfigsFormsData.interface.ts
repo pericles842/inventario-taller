@@ -11,3 +11,9 @@ export interface Columns {
     filterable?: boolean
     type?: 'boolean' | 'decimal' | 'fecha'
 }
+
+export interface TreeNode {
+    name: string;
+    children?: TreeNode[];
+    expanded?: boolean;
+}

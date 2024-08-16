@@ -13,7 +13,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FullComponent } from './layouts/full/full.component';
 
-
 import { NavigationComponent } from './shared/header/navigation.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
@@ -21,8 +20,8 @@ import { AppRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { InputFormsComponent } from './components/input-forms/input-forms.component';
-import { SpinnerComponent } from './shared/spinner.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SpinnerComponent } from './shared/spinner.component';
 
 
 

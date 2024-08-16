@@ -1,0 +1,22 @@
+<ul>
+  <li *ngFor="let node of nodes">
+    <span (click)="toggleNode(node)" style="cursor: pointer;" [class]="node.expanded ? 'father-filling' : ''">
+      <!-- Mostrar flecha dependiendo si está expandido o no -->
+      <span *ngIf="node?.children && node.children">
+        <i [class]=" node.expanded ? 'bi bi-caret-down-fill' : 'bi bi-caret-right-fill'"></i>
+      </span>
+      <!-- Mostrar nombre del nodo -->
+      <span >{{ node.name }}</span>
+      <button  type="button" class="btn btn-danger" style="--bs-btn-padding-y: .25rem;
+       --bs-btn-padding-x: .5rem; --bs-btn-font-size: .85rem;">
+        <i class="bi bi-trash-fill"></i>
+      </button>
+      <button type="button" class="btn btn-info" style="--bs-btn-padding-y: .25rem;
+       --bs-btn-padding-x: .5rem; --bs-btn-font-size: .85rem;">
+        <i class="bi bi-pencil-fill"></i>
+      </button>
+    </span>
+    <!-- Mostrar los hijos solo si el nodo está expandido -->
+    <app-tree-view *ngIf="node.expanded && node.children" [nodes]="node.children"></app-tree-view>
+  </li>
+</ul>

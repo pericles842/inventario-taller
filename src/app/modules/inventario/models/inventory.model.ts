@@ -9,4 +9,5 @@ export class Category {
 	name: string = ''
 	father_category_id: number|null = 0
 	user_id: number = 0
+	father_name: string = ''
 }

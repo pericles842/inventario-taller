@@ -9,6 +9,8 @@ import { HeaderFormComponent } from "../../components/header-form/header-form.co
 import { InputFormsComponent } from "../../components/input-forms/input-forms.component";
 import { FormsModule } from '@angular/forms';
 import { PipesModule } from "../../pipes/pipes.module";
+import { DynamicTableComponent } from "../../components/dynamic-table/dynamic-table.component";
+import { TreeViewComponent } from "../../components/tree-view/tree-view.component";
 
 
 
@@ -24,7 +26,9 @@ import { PipesModule } from "../../pipes/pipes.module";
     LoadingComponent,
     HeaderFormComponent,
     InputFormsComponent,
-    PipesModule
+    PipesModule,
+    DynamicTableComponent,
+    TreeViewComponent
 ]
 })
 export class InventarioModule { }
