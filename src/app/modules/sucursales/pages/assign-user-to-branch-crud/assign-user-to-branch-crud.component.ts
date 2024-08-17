@@ -81,6 +81,7 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
 
     //Botones personalizados
     this.personalizedView({
+      create_label: 'guardar',
       create: true,
       search: false,
       descartar: true,

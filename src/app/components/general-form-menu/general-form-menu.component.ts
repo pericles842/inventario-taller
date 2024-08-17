@@ -32,6 +32,7 @@ export class GeneralFormMenuComponent {
    * @memberof GeneralFormMenuComponent
    */
   @Input() view_buttons: ViewButtons = {
+    create_label: 'Guardar',
     create: false,
     search: false,
     descartar: false,

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { PipesModule } from "../../pipes/pipes.module";
 import { DynamicTableComponent } from "../../components/dynamic-table/dynamic-table.component";
 import { TreeViewComponent } from "../../components/tree-view/tree-view.component";
+import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
 
 
 
@@ -28,7 +29,8 @@ import { TreeViewComponent } from "../../components/tree-view/tree-view.componen
     InputFormsComponent,
     PipesModule,
     DynamicTableComponent,
-    TreeViewComponent
+    TreeViewComponent,
+    DynamicModalComponent
 ]
 })
 export class InventarioModule { }

@@ -12,8 +12,11 @@ export interface Columns {
     type?: 'boolean' | 'decimal' | 'fecha'
 }
 
-export interface TreeNode {
+export interface TreeNodeCategory {
+    id: number;
     name: string;
-    children?: TreeNode[];
-    expanded?: boolean;
+    father_category_id: number | null;
+    user_id: number;
+    children: TreeNodeCategory[];
+    expanded: boolean;
 }

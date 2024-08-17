@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
 
 @Component({
   selector: 'app-tree-view',
@@ -11,32 +11,39 @@ import { TreeNode } from 'src/app/interfaces/ConfigsFormsData.interface';
   styleUrls: ['./tree-view.component.scss']
 })
 export class TreeViewComponent {
-  @Input() nodes: TreeNode[] = [
-    {
-      name: 'Zapatos',
-      children: [
-        { name: 'Deportivos' },
-        {
-          name: 'Vestir',
-          children: [
-            { name: 'Punta' },
-            { name: 'Cuero' },
-            { name: 'Cuero sintético' },
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Franelas',
-      children: [
-        { name: 'Camisas' },
-        { name: 'Chemises' }
-      ]
-    }
-  ];
+  @Output() edit = new EventEmitter<TreeNodeCategory>();
+  @Output() delete = new EventEmitter<TreeNodeCategory>();
+  @Input() nodes: TreeNodeCategory[] = []
 
-  toggleNode(node: TreeNode): void {
+  /**
+   *Desplega el arbol
+   *
+   * @param {TreeNodeCategory} node
+   * @return {*}  {void}
+   * @memberof TreeViewComponent
+   */
+  toggleNode(node: TreeNodeCategory): void {
     if (!node.children) return;
     node.expanded = !node.expanded;
+  }
+  /**
+   *Emite editar
+   *
+   * @param {TreeNodeCategory} node
+   * @memberof TreeViewComponent
+   */
+  editEvent(node: TreeNodeCategory): void {
+    node.expanded = false;
+    this.edit.emit(node);
+  }
+  /**
+   *emite borrar
+   *
+   * @param {TreeNodeCategory} node
+   * @memberof TreeViewComponent
+   */
+  deleteEvent(node: TreeNodeCategory): void {
+    node.expanded = false;
+    this.delete.emit(node);
   }
 }

@@ -13,6 +13,7 @@ export class GeneralMenu {
   access: Access = new Access()
 
   public viewButtons: ViewButtons = {
+    create_label: 'Guardar',
     create: false,
     search: false,
     descartar: false,
@@ -88,6 +89,7 @@ export class GeneralMenu {
     this.viewButtons.descartar = config_btn.descartar
     this.viewButtons.delete = config_btn.delete
     this.viewButtons.archivar = config_btn.archivar
+    this.viewButtons.create_label = config_btn.create_label == undefined ? 'Guardar' : config_btn.create_label
     this.mode_presentation = TypeViewMenu.PERSONALIZED_VIEW
     return this.viewButtons
   }
@@ -147,6 +149,7 @@ export enum TypeViewMenu {
  * @interface ViewButtons
  */
 export interface ViewButtons {
+  create_label: string;
   create: boolean;
   delete: boolean;
   archivar: boolean;

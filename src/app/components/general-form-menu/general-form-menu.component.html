@@ -5,7 +5,7 @@
       <button (click)="guardar.emit()" [ngClass]="access.create? '':'disabled'" type="button"
         class="btn  btn-primary text-white touch " data-bs-placement="bottom" title="Crear registro">
         <i class="bi bi-cloud-download"></i>
-        <span class="ms-2">Guardar</span>
+        <span class="ms-2">{{view_buttons.create_label }}</span>
       </button>
     </div>
 
@@ -34,7 +34,7 @@
 
     <div *ngIf="view_buttons.delete">
       <button data-bs-placement="bottom" [ngClass]="access.delete? '':'disabled'" title="Eliminar elemento"
-        type="button" class="btn  btn-danger text-white touch"  (click)="delete.emit()">
+        type="button" class="btn  btn-danger text-white touch" (click)="delete.emit()">
         <i class="bi bi-trash-fill"></i>
         <span class="ms-2">Eliminar</span>
       </button>
