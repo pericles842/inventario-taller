@@ -43,4 +43,14 @@ export class InventarioService {
   getCategoryTree(): Observable<TreeNodeCategory[]> {
     return this.http.get<TreeNodeCategory[]>(`${environments.host}api/category/tree`)
   }
+  /**
+   *Elimina una categoría, si esta tiene hijos se eliminara por completo
+   *
+   * @param {number} id
+   * @return {*}  {Observable<number>}
+   * @memberof InventarioService
+   */
+  deleteCategory(id: number): Observable<number> {
+    return this.http.delete<number>(`${environments.host}api/category/${id}`)
+  }
 }

@@ -1,6 +1,5 @@
 <app-menu-general [access]="access" (guardar)="openModalCategory(dynamic_modal)"
   [view_buttons]="viewButtons"></app-menu-general>
-  {{category|json}}
 <!-- MODAL DE CATEGORÍA -->
 <app-dynamic-modal (acceptBtn)="saveCategory()" (rejectBtn)="discardCategory(dynamic_modal)" #dynamic_modal
   [backdropStatic]="false">
@@ -26,15 +25,19 @@
               (click)="eliminateFatherCategory()"></button>
           </div>
         </div>
-        <div class="mt-2 col-6">
-          <p class="  text-start fs-4">{{tree_minimalist_category}}</p>
+        <!-- INFORMACION DE HIJOS DE  LA CATEGORIA -->
+        <div class="mt-4 col-6 d-flex flex-column">
+          <span *ngIf="tree_minimalist_category?.name" class="text-primary  text-start fs-2 fw-medium"> Subcategorias de
+            {{tree_minimalist_category?.name}}</span>
+          <span class="text-start fs-4">{{tree_minimalist_category?.tree_minimalist ?? 'Sin subcategorias'}}</span>
         </div>
       </div>
     </section>
   </div>
+  
 </app-dynamic-modal>
 
-<!-- ARBOL DE CATEGORIAS -->
+<!-- ÁRBOL DE CATEGORIAS -->
 <section class="main-contend-card">
   <app-header-form header="Árbol de categorías" description="observa todo el árbol de la categorías"></app-header-form>
   <!-- VISTA DE ARBOL -->
@@ -42,6 +45,6 @@
     <app-tree-view (edit)="editCategory($event)" (delete)="deleteCategory($event)"
       [nodes]="list_categories_tree"></app-tree-view>
   </div>
-
+{{category|json}}
 </section>
 <app-loading [loading]="loading"></app-loading>

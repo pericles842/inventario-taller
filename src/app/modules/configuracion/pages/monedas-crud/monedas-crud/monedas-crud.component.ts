@@ -236,6 +236,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     })
   }
   descartar() {
+    this.presentation()
     this.moneda = new Moneda()
   }
   /**

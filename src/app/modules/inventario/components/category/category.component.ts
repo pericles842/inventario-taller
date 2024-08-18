@@ -35,9 +35,8 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @type {string}
    * @memberof CategoryComponent
    */
-  get tree_minimalist_category(): string {
-    return this.list_categories_dropdown.find(category => category.id == this.category.father_category_id)
-      ?.tree_minimalist ?? 'Sin categoría hija';
+  get tree_minimalist_category(): Category | undefined {
+    return this.list_categories_dropdown.find(category => category.id == this.category.father_category_id);
   }
   ngOnInit(): void {
 
@@ -82,6 +81,8 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
         if (res.length != 0) {
           this.category.father_category_id = res[0].id
           this.list_categories_dropdown = res;
+          //eliminarmos categoria padre diuplicada en caso de existir
+          this.eliminateDuplicateFather(this.category)
         }
 
         this.loading = false
@@ -92,16 +93,18 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
       },
     })
   }
+  /**
+   *Guarda una categoría
+   *
+   * @memberof CategoryComponent
+   */
   saveCategory() {
     if (!this.validateForm()) return
-    console.log(this.category);
     
     //dialog de confirmacion
     this.confirmDialogService.confirm({
-      title: 'Advertencia',
-      message: `¿Desea asignar la categoría ${this.category.name.toLocaleUpperCase()} 
-      siendo hijo de la categoría
-       ${this.category.father_category_id}?`
+      message: `¿Está seguro de que desea asignar la categoría "${this.category.name.toLocaleUpperCase()}" 
+    ${this.labelCategoryFather(this.category)}?`
     }).subscribe(accept => {
       if (accept) {//*CONFIRMAR ACCION
 
@@ -111,7 +114,6 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
         //EJECUTA EL SERVICIO
         this.inventarioService.createCategory(this.category).subscribe({
           next: (res) => {
-
             this.getCategoryTree()
             this.toastService.success('Categoría creada');
 
@@ -123,6 +125,31 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
       }
       this.category = new Category();
     })
+  }
+  /**
+   *label de catgegria padre
+   *
+   * @param {Category} categoria
+   * @return {*} 
+   * @memberof CategoryComponent
+   */
+  labelCategoryFather(categoria: Category) {
+    let category = this.list_categories_dropdown.find(category => category.id == categoria.father_category_id)
+    console.log(category);
+    return category ? `como subcategoría de "${category?.name.toLocaleUpperCase()}"` : ''
+  }
+  /**
+   *Elimina la categoria padre  duplicadas
+   *
+   * @param {Category} categoria
+   * @memberof CategoryComponent
+   */
+  eliminateDuplicateFather(categoria: Category): void {
+    if (categoria.id == 0) return
+    let index = this.list_categories_dropdown.findIndex(category => category.id == categoria.id)
+
+    categoria.father_category_id = null
+    this.list_categories_dropdown.splice(index, 1);
   }
   /**
    *Válida el formulario
@@ -164,6 +191,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @memberof CategoryComponent
    */
   openModalCategory(dynamic_modal: DynamicModalComponent): void {
+    this.category = new Category()
     this.getCategories()
     dynamic_modal.openAndCloseModal()
   }
@@ -198,5 +226,27 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    */
   deleteCategory(category: TreeNodeCategory): void {
     console.log(category);
+    
+    this.confirmDialogService.confirm({
+      message: `¿Está seguro de que desea eliminar la categoría "${category.name.toLocaleUpperCase()}"
+      ? se borraran todas sus subcategorías de esta`
+    }).subscribe(accept => {
+      this.loading = true
+      if (accept) {
+        this.inventarioService.deleteCategory(category.id).subscribe({
+          next: (res) => {
+            this.getCategoryTree()
+            this.getCategories()
+            this.category = new Category()
+            this.toastService.success('Categoría eliminada')
+          },
+          error: (err) => {
+            this.loading = false
+            this.toastService.error('Error en eliminar categoría')
+          },
+        })
+      }
+      this.loading = false
+    })
   }
 }
