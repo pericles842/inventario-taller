@@ -44,7 +44,7 @@ export class ConfirmDialogService {
       componentRef.instance.acceptLabel = !config.acceptLabel ? 'Aceptar' : config.acceptLabel as string
       componentRef.instance.rejectLabel = !config.rejectLabel ? 'Rechazar' : config.rejectLabel as string
       componentRef.instance.closeDialog = !config.closeDialog ? false : config.closeDialog as boolean
-console.log(componentRef.instance.message = config.message);
+      console.log(componentRef.instance);
 
       //Abrir o cerrar el modal
       componentRef.instance.openAndCloseModal();
@@ -52,14 +52,15 @@ console.log(componentRef.instance.message = config.message);
       //CLICK EN ACEPTAR MODAL
       componentRef.instance.acceptEvent.subscribe(() => {
         observer.next(true);
-      //  observer.complete();
+        //  observer.complete();
         componentRef.instance.openAndCloseModal();
       });
 
       //CLICK EN RECHAZAR MODAL
       componentRef.instance.rejectEvent.subscribe(() => {
+        console.log(componentRef.instance);
         observer.next(false);
-       // observer.complete();
+        // observer.complete();
         componentRef.instance.openAndCloseModal();
       });
 

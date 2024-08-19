@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfirmDialogService } from './service/confirmDialog.service';
-import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -48,6 +46,8 @@ export class ConfirmDialogComponent implements OnInit {
    * @memberof ConfirmDialogComponent
    */
   openAndCloseModal() {
+    console.log(this.message);
+    
     //Crear un nuevo div
     const div = this.renderer.createElement('div');
 

@@ -245,30 +245,20 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   deleteCurrency() {
-    //modal de confirmación
-    this.confirmDialogService.confirm({ message: "¿Seguro desea eliminar esta moneda?" }).subscribe({
-      next: (confirmar) => {
-        //confrimar
-        if (confirmar) {
-          //metodo eliminar
-          this.loading = true
-          this.monedasService.deleteCurrency(this.moneda.id).subscribe({
-            next: (value) => {
+    //metodo eliminar
+    this.loading = true
+    this.monedasService.deleteCurrency(this.moneda.id).subscribe({
+      next: (value) => {
 
-              let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
-              this.list_monedas.splice(index, 1)
-              this.moneda = new Moneda()
+        let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
+        this.list_monedas.splice(index, 1)
+        this.moneda = new Moneda()
 
-              this.presentation()
-              this.loading = false
-            }, error: (err) => {
-              this.loading = false
-              this.toastService.error(err.error.text, 'Error al borrar moneda')
-            },
-          })
-        }
-      }, error(err) {
-        console.log(err);
+        this.presentation()
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error(err.error.text, 'Error al borrar moneda')
       },
     })
   }

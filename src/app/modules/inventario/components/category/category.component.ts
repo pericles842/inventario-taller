@@ -100,30 +100,20 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    */
   saveCategory() {
     if (!this.validateForm()) return
-    
-    //dialog de confirmacion
-    this.confirmDialogService.confirm({
-      message: `¿Está seguro de que desea asignar la categoría "${this.category.name.toLocaleUpperCase()}" 
-    ${this.labelCategoryFather(this.category)}?`
-    }).subscribe(accept => {
-      if (accept) {//*CONFIRMAR ACCION
 
-        this.category.father_category_id = this.category.father_category_id !== null ?
-          parseInt(this.category.father_category_id.toString()) : null;
+    this.category.father_category_id = this.category.father_category_id !== null ?
+      parseInt(this.category.father_category_id.toString()) : null;
 
-        //EJECUTA EL SERVICIO
-        this.inventarioService.createCategory(this.category).subscribe({
-          next: (res) => {
-            this.getCategoryTree()
-            this.toastService.success('Categoría creada');
+    //EJECUTA EL SERVICIO
+    this.inventarioService.createCategory(this.category).subscribe({
+      next: (res) => {
+        this.getCategoryTree()
+        this.toastService.success('Categoría creada');
 
-          },
-          error: (err) => {
-            this.toastService.error('Error en categoría')
-          },
-        })
-      }
-      this.category = new Category();
+      },
+      error: (err) => {
+        this.toastService.error('Error en categoría')
+      },
     })
   }
   /**
@@ -135,7 +125,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    */
   labelCategoryFather(categoria: Category) {
     let category = this.list_categories_dropdown.find(category => category.id == categoria.father_category_id)
-    console.log(category);
+
     return category ? `como subcategoría de "${category?.name.toLocaleUpperCase()}"` : ''
   }
   /**
@@ -225,28 +215,17 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @memberof CategoryComponent
    */
   deleteCategory(category: TreeNodeCategory): void {
-    console.log(category);
-    
-    this.confirmDialogService.confirm({
-      message: `¿Está seguro de que desea eliminar la categoría "${category.name.toLocaleUpperCase()}"
-      ? se borraran todas sus subcategorías de esta`
-    }).subscribe(accept => {
-      this.loading = true
-      if (accept) {
-        this.inventarioService.deleteCategory(category.id).subscribe({
-          next: (res) => {
-            this.getCategoryTree()
-            this.getCategories()
-            this.category = new Category()
-            this.toastService.success('Categoría eliminada')
-          },
-          error: (err) => {
-            this.loading = false
-            this.toastService.error('Error en eliminar categoría')
-          },
-        })
-      }
-      this.loading = false
+    this.inventarioService.deleteCategory(category.id).subscribe({
+      next: (res) => {
+        this.getCategoryTree()
+        this.getCategories()
+        this.category = new Category()
+        this.toastService.success('Categoría eliminada')
+      },
+      error: (err) => {
+        this.loading = false
+        this.toastService.error('Error en eliminar categoría')
+      },
     })
   }
 }
