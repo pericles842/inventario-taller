@@ -8,6 +8,7 @@ import { InventarioService } from '../../services/inventario.service';
 import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
 import { ConfirmDialogService } from 'src/app/components/confirm-dialog/service/confirmDialog.service';
 import { TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-category',
@@ -17,6 +18,7 @@ import { TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface'
 export class CategoryComponent extends GeneralMenu implements OnInit {
 
   @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
+  @ViewChild('swal') swal!: SwalComponent
 
   category: Category = new Category();
   list_categories_tree: TreeNodeCategory[] = [];
@@ -38,6 +40,8 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   get tree_minimalist_category(): Category | undefined {
     return this.list_categories_dropdown.find(category => category.id == this.category.father_category_id);
   }
+
+
   ngOnInit(): void {
 
     this.personalizedView({
@@ -101,20 +105,30 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   saveCategory() {
     if (!this.validateForm()) return
 
-    this.category.father_category_id = this.category.father_category_id !== null ?
-      parseInt(this.category.father_category_id.toString()) : null;
+    this.confirmDialogService.showAlert(
+      `Advertencia`,
+      `¿Está seguro de que desea asignar la categoría "${this.category.name}"
+       ${this.labelCategoryFather(this.category)}?`,
+      'warning'
+    ).then((result) => {
+      if (result.isConfirmed) {
+        this.category.father_category_id = this.category.father_category_id !== null ?
+          parseInt(this.category.father_category_id.toString()) : null;
 
-    //EJECUTA EL SERVICIO
-    this.inventarioService.createCategory(this.category).subscribe({
-      next: (res) => {
-        this.getCategoryTree()
-        this.toastService.success('Categoría creada');
+        //EJECUTA EL SERVICIO
+        this.inventarioService.createCategory(this.category).subscribe({
+          next: (res) => {
+            this.getCategoryTree()
+            this.toastService.success('Categoría creada');
+            this.dynamic_modal.openAndCloseModal()
 
-      },
-      error: (err) => {
-        this.toastService.error('Error en categoría')
-      },
-    })
+          },
+          error: (err) => {
+            this.toastService.error('Error en categoría')
+          },
+        })
+      }
+    });
   }
   /**
    *label de catgegria padre
@@ -215,17 +229,25 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @memberof CategoryComponent
    */
   deleteCategory(category: TreeNodeCategory): void {
-    this.inventarioService.deleteCategory(category.id).subscribe({
-      next: (res) => {
-        this.getCategoryTree()
-        this.getCategories()
-        this.category = new Category()
-        this.toastService.success('Categoría eliminada')
-      },
-      error: (err) => {
-        this.loading = false
-        this.toastService.error('Error en eliminar categoría')
-      },
+
+    this.confirmDialogService.showAlert(
+      'Advertencia',
+      `Esta seguro que desea eliminar la categoria "${category.name}" se eliminaran las subcategorias`
+    ).then((result) => {
+      if (result.isConfirmed) {
+        this.inventarioService.deleteCategory(category.id).subscribe({
+          next: (res) => {
+            this.getCategoryTree()
+            this.getCategories()
+            this.category = new Category()
+            this.toastService.success('Categoría eliminada')
+          },
+          error: (err) => {
+            this.loading = false
+            this.toastService.error('Error en eliminar categoría')
+          },
+        })
+      }
     })
   }
 }

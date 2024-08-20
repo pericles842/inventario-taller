@@ -18,7 +18,6 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 import { AppRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConfirmDialogComponent } from "./components/confirm-dialog/confirm-dialog.component";
 import { InputFormsComponent } from './components/input-forms/input-forms.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SpinnerComponent } from './shared/spinner.component';
@@ -47,8 +46,7 @@ import { SpinnerComponent } from './shared/spinner.component';
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    InputFormsComponent,
-    ConfirmDialogComponent
+    InputFormsComponent
   ]
 })
 export class AppModule { }

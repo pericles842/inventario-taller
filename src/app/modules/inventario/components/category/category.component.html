@@ -1,3 +1,4 @@
+
 <app-menu-general [access]="access" (guardar)="openModalCategory(dynamic_modal)"
   [view_buttons]="viewButtons"></app-menu-general>
 <!-- MODAL DE CATEGORÍA -->
@@ -45,6 +46,5 @@
     <app-tree-view (edit)="editCategory($event)" (delete)="deleteCategory($event)"
       [nodes]="list_categories_tree"></app-tree-view>
   </div>
-{{category|json}}
 </section>
 <app-loading [loading]="loading"></app-loading>

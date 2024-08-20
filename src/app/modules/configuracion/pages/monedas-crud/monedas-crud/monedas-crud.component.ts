@@ -96,6 +96,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     this.totalMenu()
   }
   eliminarTasasViejas(tasas: Tasa[]) {
+
     if (tasas.length >= 7) {
       tasas.sort((a, b) => {
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -245,22 +246,30 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   deleteCurrency() {
-    //metodo eliminar
-    this.loading = true
-    this.monedasService.deleteCurrency(this.moneda.id).subscribe({
-      next: (value) => {
+    this.confirmDialogService.showAlert(
+      'Advertencia',
+      'Seguro desea eliminar esta moneda, puede afectar a su sistema'
+    ).then((result) => {
+      if (result.isConfirmed) {
+        //metodo eliminar
+        this.loading = true
+        this.monedasService.deleteCurrency(this.moneda.id).subscribe({
+          next: (value) => {
 
-        let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
-        this.list_monedas.splice(index, 1)
-        this.moneda = new Moneda()
+            let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
+            this.list_monedas.splice(index, 1)
+            this.moneda = new Moneda()
 
-        this.presentation()
-        this.loading = false
-      }, error: (err) => {
-        this.loading = false
-        this.toastService.error(err.error.text, 'Error al borrar moneda')
-      },
+            this.presentation()
+            this.loading = false
+          }, error: (err) => {
+            this.loading = false
+            this.toastService.error(err.error.text, 'Error al borrar moneda')
+          },
+        })
+      }
     })
+
   }
   /**
    *Valida el formulario
