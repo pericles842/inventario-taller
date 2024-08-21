@@ -27,7 +27,8 @@ export class ConfirmDialogService {
       confirmButtonText,
       cancelButtonText,
       confirmButtonColor,
-      cancelButtonColor
+      cancelButtonColor,
+      reverseButtons: true
     });
   }
 

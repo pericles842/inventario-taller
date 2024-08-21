@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
 
@@ -14,7 +14,13 @@ export class TreeViewComponent {
   @Output() edit = new EventEmitter<TreeNodeCategory>();
   @Output() delete = new EventEmitter<TreeNodeCategory>();
   @Input() nodes: TreeNodeCategory[] = []
+  @Input() displayed: boolean = false
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['displayed']) {
+      this.nodes.map(node => node.expanded = changes['displayed'].currentValue)
+    }
+  }
   /**
    *Desplega el arbol
    *

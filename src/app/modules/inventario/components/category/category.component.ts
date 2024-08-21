@@ -23,6 +23,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   category: Category = new Category();
   list_categories_tree: TreeNodeCategory[] = [];
   list_categories_dropdown: Category[] = [];
+  config_tree: { search: string, displayed: boolean } = { search: '', displayed: true }
 
   constructor(
     private toastService: ToastService,

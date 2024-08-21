@@ -9,7 +9,7 @@
         </span>
         <!-- Mostrar nombre del nodo -->
         <span class="tree-item-name">{{ node.name }}</span>
-        <span class="tree-item-name ms-4">{{ node.id }}</span>
+        <span *ngIf="node.children.length != 0" class="fs-2 fw-bold ms-4">( {{ node.children.length }} )</span>
       </div>
       <div class="d-flex gap-2">
         <button type="button" (click)="editEvent(node)" class="btn btn-outline-info btn-sm">

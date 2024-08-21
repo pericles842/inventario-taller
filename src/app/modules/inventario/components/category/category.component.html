@@ -1,4 +1,3 @@
-
 <app-menu-general [access]="access" (guardar)="openModalCategory(dynamic_modal)"
   [view_buttons]="viewButtons"></app-menu-general>
 <!-- MODAL DE CATEGORÍA -->
@@ -35,15 +34,24 @@
       </div>
     </section>
   </div>
-  
+
 </app-dynamic-modal>
 
 <!-- ÁRBOL DE CATEGORIAS -->
 <section class="main-contend-card">
   <app-header-form header="Árbol de categorías" description="observa todo el árbol de la categorías"></app-header-form>
+
   <!-- VISTA DE ARBOL -->
-  <div class="m-3" style="width: 40%;">
-    <app-tree-view (edit)="editCategory($event)" (delete)="deleteCategory($event)"
+  <div class="d-flex flex-column gap-4 my-4" style="width: 50%;">
+    <!-- BOTONES DE ACCIONES -->
+    <div class="ms-3 d-flex justify-content-between">
+      <button (click)="config_tree.displayed = !config_tree.displayed" type="button" class=" btn btn-primary btn-info" style="width: 50px;">
+      <i [class]="config_tree.displayed? 'bi bi-eye-fill fs-6':'bi bi-eye-slash-fill  fs-6'"></i>   
+      </button>
+      <app-input-forms [(ngModel)]="config_tree.search" icon="bi bi-search" typeInput="text" labelInput="Buscar"></app-input-forms>
+    </div>
+    <!-- VISTA DE ARBOL -->
+    <app-tree-view [displayed]="config_tree.displayed" (edit)="editCategory($event)" (delete)="deleteCategory($event)"
       [nodes]="list_categories_tree"></app-tree-view>
   </div>
 </section>
