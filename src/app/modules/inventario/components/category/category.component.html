@@ -22,7 +22,6 @@
             (touchedSelectEvent)="resetSelectableCategory()" [selectInNull]="true"
             (selectInNullEvent)="eliminateFatherCategory()" [loading]="loading"></app-input-forms>
         </div>
-        {{category.father_category_id}}
         <!-- INFORMACION DE HIJOS DE  LA CATEGORIA -->
         <div class="mt-4 col-6 d-flex flex-column">
           <span *ngIf="tree_minimalist_category?.name" class="text-primary  text-start fs-2 fw-medium"> Subcategorias de

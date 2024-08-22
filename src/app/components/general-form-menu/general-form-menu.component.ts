@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DirectiveModule } from 'src/app/directives/directive.module';
 import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
 import { Access } from 'src/app/models/Access';
 import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
@@ -12,6 +13,7 @@ import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
   styleUrls: ['./general-form-menu.component.scss'],
   imports: [
     CommonModule,
+    DirectiveModule
   ]
 })
 export class GeneralFormMenuComponent {

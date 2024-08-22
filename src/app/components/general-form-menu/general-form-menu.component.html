@@ -2,49 +2,47 @@
   <div class="d-flex flex justify-content-start align-items-center gap-2 m-2">
 
     <div *ngIf="view_buttons.create ">
-      <button (click)="guardar.emit()" [ngClass]="access.create? '':'disabled'" type="button"
-        class="btn  btn-primary text-white touch " data-bs-placement="bottom" title="Crear registro">
-        <i class="bi bi-cloud-download"></i>
-        <span class="ms-2">{{view_buttons.create_label }}</span>
+      <button [tooltip]="view_buttons.create_label" (click)="guardar.emit()" [ngClass]="access.create? '':'disabled'"
+        type="button" class="btn-custom  text-primary  touch ">
+        <i class="bi bi-plus-lg "></i>
       </button>
     </div>
 
-    <!-- <button data-bs-placement="bottom" (click)="editar.emit()" title="Editar registro" type="button"
-      class="btn  btn-info text-white touch">
+    <!-- <button  (click)="editar.emit()" title="Editar registro" type="button"
+      class="btn-custom  btn-custom-info  touch border-2 border- border ">
       <i class="bi bi-pencil-fill"></i>
-      <span class="ms-2">Editar</span>
+      
     </button> -->
 
     <div *ngIf="view_buttons.descartar">
-      <button data-bs-placement="bottom" (click)="descartar.emit()"
-        [ngClass]="access.create || access.update? '':'disabled'" title="Descartar" type="button"
-        class="btn  btn-secondary  text-white touch">
-        <i class="bi bi-arrow-repeat"></i>
-        <span class="ms-2">Descartar</span>
+      <button tooltip="Descartar" (click)="descartar.emit()" [ngClass]="access.create || access.update? '':'disabled'"
+        type="button" class="btn-custom touch   ">
+        <i class="bi bi-arrow-repeat "></i>
       </button>
     </div>
 
     <div *ngIf="view_buttons.search">
-      <button data-bs-placement="bottom" [ngClass]="access.authorized? '':'disabled'" (click)="search.emit()"
-        title="Buscar registros" type="button" class="btn  btn-info text-white touch">
-        <i class="bi bi-search"></i>
-        <span class="ms-2">Listar</span>
+      <button tooltip="Buscar" [ngClass]="access.authorized? '':'disabled'" (click)="search.emit()" type="button"
+        class="btn-custom  text-info touch    ">
+        <i class="bi bi-search "></i>
       </button>
     </div>
 
     <div *ngIf="view_buttons.delete">
-      <button data-bs-placement="bottom" [ngClass]="access.delete? '':'disabled'" title="Eliminar elemento"
-        type="button" class="btn  btn-danger text-white touch" (click)="delete.emit()">
-        <i class="bi bi-trash-fill"></i>
-        <span class="ms-2">Eliminar</span>
+      <button tooltip="Eliminar" [ngClass]="access.delete? '':'disabled'" type="button" class="btn-custom     touch   "
+        (click)="delete.emit()">
+        <i class="bi bi-trash text-danger "></i>
+
       </button>
     </div>
-
+    <div class="col-auto d-flex align-items-center">
+      <div class="vr"></div> <!-- Línea vertical -->
+    </div>
     <div *ngIf="view_buttons.archivar">
-      <button data-bs-placement="bottom" [ngClass]="access.create || access.update? '':'disabled'"
-        title="Archivar elemento" type="button" class="btn  btn-warning text-white touch" (click)="archivar.emit()">
-        <i class="bi bi-archive-fill"></i>
-        <span class="ms-2">Archivar</span>
+      <button tooltip="Archivar" [ngClass]="access.create || access.update? '':'disabled'" title="Archivar elemento"
+        type="button" class="btn-custom  text-warning touch  " (click)="archivar.emit()">
+        <i class="bi bi-archive"></i>
+
       </button>
     </div>
 
