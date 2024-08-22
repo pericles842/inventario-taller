@@ -2,8 +2,8 @@
   [view_buttons]="viewButtons"></app-menu-general>
 <!-- MODAL DE CATEGORÍA -->
 <app-dynamic-modal (acceptBtn)="saveCategory()" (rejectBtn)="discardCategory(dynamic_modal)" #dynamic_modal
-  [backdropStatic]="false">
-  <div modal-body>
+  [backdropStatic]="false"  >
+  <div modal-body class="p-3">
     <app-header-form header="Categorías" description="Creación de Categorías">
       <h4 *ngIf="category.id != 0" correlative_number class=" fs-6 fw-normal mt-3 mb-5">#{{category.id|sequence:1 }}
       </h4>
@@ -44,11 +44,13 @@
   <!-- VISTA DE ARBOL -->
   <div class="d-flex flex-column gap-4 my-4" style="width: 50%;">
     <!-- BOTONES DE ACCIONES -->
-    <div class="ms-3 d-flex justify-content-between">
-      <button (click)="config_tree.displayed = !config_tree.displayed" type="button" class=" btn btn-primary btn-info" style="width: 50px;">
-      <i [class]="config_tree.displayed? 'bi bi-eye-fill fs-6':'bi bi-eye-slash-fill  fs-6'"></i>   
+    <div class="ms-3 d-flex gap-2 justify-content-between">
+      <app-input-forms [(ngModel)]="config_tree.search" icon="bi bi-search" style="width: 100%;" typeInput="text"
+        labelInput="Buscar"></app-input-forms>
+      <button (click)="config_tree.displayed = !config_tree.displayed" type="button" class=" btn btn-primary btn-info"
+        style="width: 50px;">
+        <i [class]="'bi bi-arrows-angle-expand fs-6'"></i>
       </button>
-      <app-input-forms [(ngModel)]="config_tree.search" icon="bi bi-search" typeInput="text" labelInput="Buscar"></app-input-forms>
     </div>
     <!-- VISTA DE ARBOL -->
     <app-tree-view [displayed]="config_tree.displayed" (edit)="editCategory($event)" (delete)="deleteCategory($event)"

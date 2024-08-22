@@ -5,7 +5,7 @@
       <div class="d-flex align-items-center">
         <!-- Mostrar flecha dependiendo si está expandido o no -->
         <span *ngIf="node.children.length != 0">
-          <i class="me-3" [class]="node.expanded ? 'bi bi-caret-down-fill' : 'bi bi-caret-right-fill'"></i>
+          <i class="me-2" [class]="node.expanded ? 'bi bi-caret-down-fill' : 'bi bi-caret-right-fill'"></i>
         </span>
         <!-- Mostrar nombre del nodo -->
         <span class="tree-item-name">{{ node.name }}</span>
@@ -22,6 +22,6 @@
     </div>
     <!-- Mostrar los hijos solo si el nodo está expandido -->
     <app-tree-view (delete)="deleteEvent($event)" (edit)="editEvent($event)" *ngIf="node.expanded && node.children"
-      [nodes]="node.children" class="mt-2 "></app-tree-view>
+      [nodes]="node.children" [displayed]="displayed" class="mt-2 "></app-tree-view>
   </li>
 </ul>

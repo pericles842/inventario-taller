@@ -9,7 +9,7 @@ ul {
 }
 
 li {
-    margin-left: 20px;
+    margin-left: 45px;
     position: relative;
 }
 
@@ -17,19 +17,8 @@ li {
     font-size: 20px;
 }
 
-li:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -5px;
-    border-left: 1px solid $primary;
-    border-bottom: 1px solid $primary;
-    width: 20px;
-    height: 35px;
-}
 
 .father-filling {
     color: $primary;
     font-style: italic;
-
 }
