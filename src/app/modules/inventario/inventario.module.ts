@@ -12,12 +12,14 @@ import { PipesModule } from "../../pipes/pipes.module";
 import { DynamicTableComponent } from "../../components/dynamic-table/dynamic-table.component";
 import { TreeViewComponent } from "../../components/tree-view/tree-view.component";
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
+import { PriceListComponent } from './pages/price-list/price-list.component';
 
 
 
 @NgModule({
   declarations: [
-    CategoryComponent
+    CategoryComponent,
+    PriceListComponent
   ],
   imports: [
     RouterModule.forChild(inventory),

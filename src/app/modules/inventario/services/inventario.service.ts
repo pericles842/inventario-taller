@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from 'environments/environment.local';
-import { Category } from '../models/inventory.model';
+import { Category, PriceList } from '../models/inventory.model';
 import { Observable } from 'rxjs';
 import { Columns, TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
 
@@ -10,6 +10,12 @@ import { Columns, TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.i
 })
 export class InventarioService {
 
+  columns_price_list: Columns[] = [
+    { label: 'ID', key: 'id', visible: true },
+    { label: 'Nombre', key: 'name', visible: true },
+    { label: 'Fecha de creación', key: 'createdAt', visible: true },
+    { label: 'Fecha de finalización', key: 'updatedAt', visible: true },
+  ]
 
   constructor(
     private http: HttpClient
@@ -52,5 +58,16 @@ export class InventarioService {
    */
   deleteCategory(id: number): Observable<number> {
     return this.http.delete<number>(`${environments.host}api/category/${id}`)
+  }
+
+  /**
+   * Crea una lista de precios
+   *
+   * @param {PriceList} priceList - Objeto lista de precios
+   * @return {Observable<PriceList>} The created price list.
+   */
+  createPriceList(priceList: PriceList): Observable<PriceList> {
+    let body: { priceList: PriceList } = { priceList: priceList }
+    return this.http.post<PriceList>(`${environments.host}api/price-list`, body)
   }
 }

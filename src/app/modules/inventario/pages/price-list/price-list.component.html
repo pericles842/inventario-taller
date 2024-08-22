@@ -1,0 +1,34 @@
+<app-menu-general (descartar)="discardForm()" [access]="access" [view_buttons]="viewButtons"
+  (guardar)="createPriceList()" (search)="openModalPriceList()"></app-menu-general>
+
+<app-dynamic-table #table_price_list titleModal="Lista de precios" [columns]="columns_price_list"></app-dynamic-table>
+
+<section class="main-contend-card">
+  <!-- HEADER DEL FORMULARIO -->
+  <app-header-form header="Lista de precios" description="Creación de lista de precios">
+    <h4 correlative_number class=" fs-6 fw-normal mt-3 mb-2">#{{price_list.id|sequence:1 }}</h4>
+  </app-header-form>
+
+  <!-- FORMULARIO -->
+  <section class="main-contend-form">
+    <div class="row align-items-center ">
+      <div class="col-4">
+        <app-input-forms [(ngModel)]="price_list.name" typeInput="text" labelInput="Nombre"></app-input-forms>
+      </div>
+      <div class="col-4">
+        <app-input-forms [(ngModel)]="price_list.fecha_inicio" typeInput="date" textUppercase
+          labelInput="Fecha inicio"></app-input-forms>
+      </div>
+      <div class="col-4">
+        <app-input-forms [(ngModel)]="price_list.fecha_fin" typeInput="date" labelInput="Fecha fin"></app-input-forms>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <app-input-forms [(ngModel)]="price_list.description" typeInput="text"
+          labelInput="Description"></app-input-forms>
+      </div>
+    </div>
+  </section>
+  {{price_list|json}}
+</section>

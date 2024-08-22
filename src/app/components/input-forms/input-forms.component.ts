@@ -20,7 +20,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class InputFormsComponent {
-   
+
   /**
    *Label de  input
    *

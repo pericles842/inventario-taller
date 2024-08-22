@@ -30,25 +30,27 @@
   @extend .flex-column !optional;
   @extend .rounded-3 !optional;
   @extend .shadow !optional;
-  @extend .container !optional;
+  padding: 25px !important;
+
 }
 
-.main-contend-form{
+.main-contend-form {
   @extend .d-flex !optional;
   @extend .flex-column !optional;
-  margin-top:17px ;
+  margin-top: 17px;
   @extend .mb-4 !optional;
   @extend .p-2 !optional;
-  gap:37px;
+  gap: 37px;
 }
+
 //clase padre de los toast
 .ngx-toastr {
-  opacity: 10 !important; 
-  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.222) !important;  
+  opacity: 10 !important;
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.222) !important;
 }
 
 /* Tamaño personalizado para el popup si se necesita */
 .custom-popup {
-  width: 50%; /* Ajusta el tamaño del modal si es necesario */
+  width: 50%;
+  /* Ajusta el tamaño del modal si es necesario */
 }
- 

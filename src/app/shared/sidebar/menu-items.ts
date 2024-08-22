@@ -91,7 +91,7 @@ export const ROUTES: RouteInfo[] = [
 
   {
     id: 17,
-    path: '',
+    path: 'inventario/price-list',
     title: 'Lista de precios',
     icon: 'bi bi-card-list',
     class: '',
