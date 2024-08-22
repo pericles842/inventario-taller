@@ -2,7 +2,7 @@
   [view_buttons]="viewButtons"></app-menu-general>
 <!-- MODAL DE CATEGORÍA -->
 <app-dynamic-modal (acceptBtn)="saveCategory()" (rejectBtn)="discardCategory(dynamic_modal)" #dynamic_modal
-  [backdropStatic]="false"  >
+  [backdropStatic]="false">
   <div modal-body class="p-3">
     <app-header-form header="Categorías" description="Creación de Categorías">
       <h4 *ngIf="category.id != 0" correlative_number class=" fs-6 fw-normal mt-3 mb-5">#{{category.id|sequence:1 }}
@@ -17,14 +17,12 @@
         </div>
         <div class="col-6">
           <!-- SELECCIONABLE DE CATEGORÍA -->
-          <div class="d-flex gap-2 justify-content-between">
-            <app-input-forms typeInput="select" class="w-100" [(ngModel)]="category.father_category_id"
-              [resources]="category.father_category_id !=null? list_categories_dropdown:[]" labelInput="Categoría padre"
-              (click)="resetSelectableCategory()"></app-input-forms>
-            <button class="btn text-white bg-primary bi bi-x-lg fw-bolder fs-4"
-              (click)="eliminateFatherCategory()"></button>
-          </div>
+          <app-input-forms typeInput="select" class="w-100" [(ngModel)]="category.father_category_id"
+            [resources]="category.father_category_id !=null? list_categories_dropdown:[]" labelInput="Categoría padre"
+            (touchedSelectEvent)="resetSelectableCategory()" [selectInNull]="true"
+            (selectInNullEvent)="eliminateFatherCategory()" [loading]="loading"></app-input-forms>
         </div>
+        {{category.father_category_id}}
         <!-- INFORMACION DE HIJOS DE  LA CATEGORIA -->
         <div class="mt-4 col-6 d-flex flex-column">
           <span *ngIf="tree_minimalist_category?.name" class="text-primary  text-start fs-2 fw-medium"> Subcategorias de

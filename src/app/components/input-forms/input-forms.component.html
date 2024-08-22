@@ -53,25 +53,28 @@
 
   <div *ngSwitchCase="'checkbox'">
     <label style="user-select: none;" class="checkbox-container  m-0">{{labelInput}}
-      <input  [ngClass]="disabled? 'disabled':''" [value]="value" [checked]="value" (change)="onCheckboxChange($event)"
+      <input [ngClass]="disabled? 'disabled':''" [value]="value" [checked]="value" (change)="onCheckboxChange($event)"
         [disabled]="disabled" type="checkbox">
-      <span  class="checkmark"></span>
+      <span class="checkmark"></span>
     </label>
   </div>
 
   <div *ngSwitchCase="'select'">
-    <div class="custom-input-container">
-      <select [ngClass]="disabled? 'disabled':''" [disabled]="disabled" aria-readonly="true"
-        (change)="onInputChange($event)" class="custom-input" style="width: 100%;" id="select">
-        <option style="padding: 20px;" *ngFor="let item of resources" [selected]=" item.id == value" [value]="item.id ">
-          {{item.name}}</option>
-      </select>
-
-      <label class="custom-input-label">{{labelInput}}
-        <!-- spinner -->
-        <span *ngIf="loading" class="ms-2 spinner-border spinner-border-sm" aria-hidden="true"></span>
-      </label>
+    <div class="d-flex gap-2 justify-content-between">
+      <div class="custom-input-container" (click)="touchedSelectEvent.emit()">
+        <select [ngClass]="disabled? 'disabled':''" [disabled]="disabled" aria-readonly="true"
+          (change)="onInputChange($event)" class="custom-input" style="width: 100%;" id="select">
+          <option style="padding: 20px;" *ngFor="let item of resources" [selected]=" item.id == value"
+            [value]="item.id ">
+            {{item.name}}</option>
+        </select>
+        <label class="custom-input-label">{{labelInput}}
+          <!-- spinner -->
+          <span *ngIf="loading" class="ms-2 spinner-border spinner-border-sm" aria-hidden="true"></span>
+        </label>
+      </div>
+      <button *ngIf="selectInNull" (click)="selectInNullEvent.emit(true)"
+        class="btn text-white bg-primary bi bi-x-lg fw-bolder fs-4"></button>
     </div>
-
   </div>
 </div>

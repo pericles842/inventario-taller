@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -20,6 +20,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class InputFormsComponent {
+   
   /**
    *Label de  input
    *
@@ -42,6 +43,27 @@ export class InputFormsComponent {
    * @memberof InputFormsComponent
    */
   @Input() resources: { id: number, name: string }[] = [];
+  /**
+   *Define si un selec puede ser nulo, mostrara el bton de limpiar
+   *
+   * @type {boolean}
+   * @memberof InputFormsComponent
+   */
+  @Input() selectInNull: boolean = false
+  /**
+   *Evento del boton x del select 
+   *
+   * @memberof InputFormsComponent
+   */
+  @Output() selectInNullEvent: EventEmitter<any> = new EventEmitter<boolean>()
+
+  /**
+   *Este evento se emite al presionar la caja del select , diferenciando entree el boton del null y el select
+   *
+   * @type {EventEmitter<any>}
+   * @memberof InputFormsComponent
+   */
+  @Output() touchedSelectEvent: EventEmitter<any> = new EventEmitter<any>()
 
   /**
    *define si los campos se pueden editar o no
