@@ -83,14 +83,14 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
     this.loading = true
     this.inventarioService.getCategories().subscribe({
       next: (res) => {
-        if (res.length != 0) {
-          this.category.father_category_id = res[0].id
-          this.list_categories_dropdown = res;
-          //eliminarmos categoria padre diuplicada en caso de existir
-          this.eliminateDuplicateFather(this.category)
-        }
+        if (res.length == 0) return this.toastService.info('No hay categorías creadas')
 
-        this.loading = false
+        this.list_categories_dropdown = res;
+        //eliminarmos categoria padre diuplicada en caso de existir
+        this.eliminateDuplicateFather(this.category)
+        this.resetSelectableCategory()
+        return this.loading = false
+
       },
       error: (err) => {
         this.toastService.error('Error en listar categorías')
@@ -152,9 +152,9 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   eliminateDuplicateFather(categoria: Category): void {
     if (categoria.id == 0) return
     let index = this.list_categories_dropdown.findIndex(category => category.id == categoria.id)
-
-    categoria.father_category_id = null
     this.list_categories_dropdown.splice(index, 1);
+    
+    
   }
   /**
    *Válida el formulario
@@ -185,8 +185,20 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @memberof CategoryComponent
    */
   resetSelectableCategory(): void {
-    if (this.category.father_category_id == null) {
-      this.category.father_category_id = this.list_categories_dropdown[0].id
+    //es nueva categoria
+    const isCategoryNew = this.category.id === 0;
+
+    //no tiene categoria padre
+    const hasNoFatherCategory = this.category.father_category_id == null || this.category.father_category_id === 0;
+
+    //si es nueva y no tiene categoria padre
+    if (isCategoryNew && hasNoFatherCategory) {
+      //asignamos el item como padre al crear nuevo registro
+      this.category.father_category_id = this.list_categories_dropdown[0].id;
+
+    } else if (!isCategoryNew && this.category.father_category_id != null) {
+      const index = this.list_categories_dropdown.findIndex(categoria => categoria.id === this.category.father_category_id);
+      this.category.father_category_id = this.list_categories_dropdown[index].id;
     }
   }
 
@@ -219,9 +231,8 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    */
   editCategory(category: TreeNodeCategory): void {
     this.category = category
-    this.dynamic_modal.openAndCloseModal()
     this.getCategories()
-
+    this.dynamic_modal.openAndCloseModal()
   }
   /**
    *prepara la eliminacion de la categoria

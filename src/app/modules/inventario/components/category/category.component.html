@@ -8,7 +8,6 @@
       <h4 *ngIf="category.id != 0" correlative_number class=" fs-6 fw-normal mt-3 mb-5">#{{category.id|sequence:1 }}
       </h4>
     </app-header-form>
-
     <!-- FORMULARIO DE CATEGORÍA -->
     <section class="main-contend-form">
       <div class="row align-items-center">
@@ -17,6 +16,7 @@
         </div>
         <div class="col-6">
           <!-- SELECCIONABLE DE CATEGORÍA -->
+           <!-- !LEER LINEA 21 PROBLAME EN EL RENDEREIZADO DE CATEGORIA  -->
           <app-input-forms typeInput="select" class="w-100" [(ngModel)]="category.father_category_id"
             [resources]="category.father_category_id !=null? list_categories_dropdown:[]" labelInput="Categoría padre"
             (touchedSelectEvent)="resetSelectableCategory()" [selectInNull]="true"
@@ -39,7 +39,7 @@
   <app-header-form header="Árbol de categorías" description="observa todo el árbol de la categorías"></app-header-form>
 
   <!-- VISTA DE ARBOL -->
-  <div class="d-flex flex-column gap-4 my-4" style="width: 50%;">
+  <div class="d-flex flex-column gap-4 my-4 w-100">
     <!-- BOTONES DE ACCIONES -->
     <div class="ms-3 d-flex gap-2 justify-content-between">
       <app-input-forms [(ngModel)]="config_tree.search" icon="bi bi-search" style="width: 100%;" typeInput="text"
@@ -53,5 +53,6 @@
     <app-tree-view [displayed]="config_tree.displayed" (edit)="editCategory($event)" (delete)="deleteCategory($event)"
       [nodes]="list_categories_tree"></app-tree-view>
   </div>
+  
 </section>
 <app-loading [loading]="loading"></app-loading>
