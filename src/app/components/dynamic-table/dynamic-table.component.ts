@@ -245,4 +245,13 @@ export class DynamicTableComponent {
     this.openAndCloseModal()
   }
 
+  /**
+   *Clona el objeto  evitando modificar por referencia
+   * @param {*} objeto
+   * @return {*} 
+   * @memberof DynamicTableComponent
+   */
+  cloneObjet(objeto: any) {
+    return { ...objeto }
+  }
 }

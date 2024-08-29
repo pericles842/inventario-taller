@@ -114,9 +114,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
       'warning'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.category.father_category_id = this.category.father_category_id !== null ?
-          parseInt(this.category.father_category_id.toString()) : null;
-
+        this.category.father_category_id = this.category.father_category_id ? parseInt(this.category.father_category_id.toString()) : null;
         //EJECUTA EL SERVICIO
         this.inventarioService.createCategory(this.category).subscribe({
           next: (res) => {
@@ -145,15 +143,19 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
     return category ? `como subcategoría de "${category?.name.toLocaleUpperCase()}"` : ''
   }
   /**
-   *Elimina la categoria padre  duplicadas
+   *Elimina la categoria padre duplicadas, y no permite que una categoria padre se asigne a sus hijos
    *
    * @param {Category} categoria
    * @memberof CategoryComponent
    */
   eliminateDuplicateFather(categoria: Category): void {
     if (categoria.id == 0) return
-    let index = this.list_categories_dropdown.findIndex(category => category.id == categoria.id)
-    this.list_categories_dropdown.splice(index, 1);
+    this.list_categories_dropdown = this.list_categories_dropdown.filter(category => {
+      //elimina la categoria duplicada
+      if (categoria.id == category.id) return false   
+      //eliminamos los hijos de esa categoria
+      return category.father_category_id == 0 || category.father_category_id == null  
+    });
 
 
   }
