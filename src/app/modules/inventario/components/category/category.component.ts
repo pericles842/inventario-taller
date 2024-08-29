@@ -9,6 +9,7 @@ import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-
 import { ConfirmDialogService } from 'src/app/components/confirm-dialog/service/confirmDialog.service';
 import { TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { reduce } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -79,7 +80,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    *
    * @return {void} No return value, updates the list_categories property.
    */
-  getCategories(): void {
+  getCategories(edit: boolean = false): void {
     this.loading = true
     this.inventarioService.getCategories().subscribe({
       next: (res) => {
@@ -88,7 +89,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
         this.list_categories_dropdown = res;
         //eliminarmos categoria padre diuplicada en caso de existir
         this.eliminateDuplicateFather(this.category)
-        this.resetSelectableCategory()
+        this.assignParentCategory(edit)
         return this.loading = false
 
       },
@@ -153,8 +154,8 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
     if (categoria.id == 0) return
     let index = this.list_categories_dropdown.findIndex(category => category.id == categoria.id)
     this.list_categories_dropdown.splice(index, 1);
-    
-    
+
+
   }
   /**
    *Válida el formulario
@@ -176,29 +177,34 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @memberof CategoryComponent
    */
   eliminateFatherCategory(): void {
-    this.category.father_category_id = null
+    this.category.father_category_id = 0
 
   }
   /**
-   *Restablece el father_category_id y selecciona la primera categoría
-   *
+   * Este metodo se ecarga de setar el father_category_id de la categoria
+   *  dependiendo del modo editar o crear se guia por id 0 
+   *  @param [edit=false] {boolean} indica si se esta editando o no,
+   *  ES IMPORTANTE PARA NO SETEAR EL VALOR DE UNA CATEGORIA SIN PADRE AL EDITAR
    * @memberof CategoryComponent
    */
-  resetSelectableCategory(): void {
-    //es nueva categoria
-    const isCategoryNew = this.category.id === 0;
+  assignParentCategory(edit: boolean = false): any {
 
-    //no tiene categoria padre
-    const hasNoFatherCategory = this.category.father_category_id == null || this.category.father_category_id === 0;
+    const isCategoryNew = this.category.id === 0; //es nueva categoria
+    const hasNoFatherCategory = this.category.father_category_id == 0; //no tiene categoria padre
 
-    //si es nueva y no tiene categoria padre
-    if (isCategoryNew && hasNoFatherCategory) {
-      //asignamos el item como padre al crear nuevo registro
-      this.category.father_category_id = this.list_categories_dropdown[0].id;
+    //*SI LA CATEGORIA ES NUEVA y no tiene categoria padre 
+    if ((!isCategoryNew || isCategoryNew) && hasNoFatherCategory) {
 
-    } else if (!isCategoryNew && this.category.father_category_id != null) {
-      const index = this.list_categories_dropdown.findIndex(categoria => categoria.id === this.category.father_category_id);
-      this.category.father_category_id = this.list_categories_dropdown[index].id;
+      //* no tiene categoria padre pero esta en modo creando
+      if (hasNoFatherCategory && !edit) {
+        //asignamos  primer elemento de la lista a father_category_id
+        this.category.father_category_id = this.list_categories_dropdown[0].id;
+      } else this.eliminateFatherCategory(); //asignamos eliminamos categoria padre
+
+      //*SI LA CATEGORIA NO ES NUEVA y TIENE CATEGORIA PADRE
+    } else if (!isCategoryNew && !hasNoFatherCategory) {
+      const selectedCategory = this.list_categories_dropdown.find(categoria => categoria.id === this.category.father_category_id);
+      this.category.father_category_id = selectedCategory ? selectedCategory.id : this.category.father_category_id;
     }
   }
 
@@ -230,8 +236,10 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
    * @memberof CategoryComponent
    */
   editCategory(category: TreeNodeCategory): void {
-    this.category = category
-    this.getCategories()
+    //* clonamos la categoria para no editar el nodo original
+    this.category = { ...category }
+    this.category.father_category_id = this.category.father_category_id ?? 0;
+    this.getCategories(true)
     this.dynamic_modal.openAndCloseModal()
   }
   /**

@@ -13,6 +13,7 @@ import { DynamicTableComponent } from "../../components/dynamic-table/dynamic-ta
 import { TreeViewComponent } from "../../components/tree-view/tree-view.component";
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
 import { PriceListComponent } from './pages/price-list/price-list.component';
+import { DirectiveModule } from 'src/app/directives/directive.module';
 
 
 
@@ -24,6 +25,7 @@ import { PriceListComponent } from './pages/price-list/price-list.component';
   imports: [
     RouterModule.forChild(inventory),
     CommonModule,
+    DirectiveModule,
     FormsModule,
     GeneralFormMenuComponent,
     LoadingComponent,
