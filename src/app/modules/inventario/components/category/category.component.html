@@ -41,8 +41,8 @@
   <div class="d-flex flex-column gap-4 my-4 w-100">
     <!-- BOTONES DE ACCIONES -->
     <div class="ms-3 d-flex gap-2 justify-content-between">
-      <app-input-forms [(ngModel)]="config_tree.search" icon="bi bi-search" style="width: 100%;" typeInput="text"
-        labelInput="Buscar"></app-input-forms>
+      <app-input-forms [(ngModel)]="config_tree.search" (ngModelChange)="searchInCategoryTree(config_tree.search)"
+        icon="bi bi-search" style="width: 100%;" typeInput="text" labelInput="Buscar"></app-input-forms>
       <button (click)="config_tree.displayed = !config_tree.displayed" type="button" class=" btn btn-primary btn-info"
         style="width: 50px;" tooltip="Expandir">
         <i [class]="'bi bi-arrows-angle-expand fs-6'"></i>

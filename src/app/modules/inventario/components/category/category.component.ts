@@ -23,6 +23,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
 
   category: Category = new Category();
   list_categories_tree: TreeNodeCategory[] = [];
+  list_categories_tree_clone: TreeNodeCategory[] = [];
   list_categories_dropdown: Category[] = [];
   config_tree: { search: string, displayed: boolean } = { search: '', displayed: true }
 
@@ -42,8 +43,6 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   get tree_minimalist_category(): Category | undefined {
     return this.list_categories_dropdown.find(category => category.id == this.category.father_category_id);
   }
-
-
   ngOnInit(): void {
 
     this.personalizedView({
@@ -56,6 +55,41 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
     })
     this.getCategoryTree()
   }
+
+  /**
+   *Llama al metodo que fultra las categorías, y lo valida antes de ejecutarlo 
+   *
+   * @param {string} search
+   * @memberof CategoryComponent
+   */
+  searchInCategoryTree(search: string) {
+    this.list_categories_tree = search.trim() ? this.filterTree(this.list_categories_tree_clone, search) : [...this.list_categories_tree_clone];
+  }
+
+  /**
+   *METODO PARA FILTRAR LAS CATEGORIAS 
+   *
+   * @param {TreeNodeCategory[]} nodes CATEGORIAS ARBOL
+   * @param {string} search STRING DE BUSQUEDA
+   * @return {*}  {TreeNodeCategory[]} 
+   * @memberof CategoryComponent
+   */
+  filterTree(nodes: TreeNodeCategory[], search: string): TreeNodeCategory[] {
+    //MAPEAMOS EL ARREGLO DE NODOS
+    return nodes.map(node => {
+      //FILTRAMOS LOS HIJOS RECURSIVAMENTE
+      const children = this.filterTree(node.children, search);
+      //MODELO DE BUSQUEDA POR ID O NOMBRE
+      const matches = node.name.toLowerCase().includes(search.toLowerCase()) || node.id.toString().includes(search);
+
+      //SI HAY MACH O HIJOS RETORNAR UN CLON DEL OBJETO
+      if (matches || children.length > 0) {
+        return { ...node, children: children };
+      }
+      return null;
+    }).filter(node => node !== null) as TreeNodeCategory[];
+  }
+
   /**
    *llama al servicio para listar las categorias en arbol
    *
@@ -66,6 +100,7 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
     this.inventarioService.getCategoryTree().subscribe({
       next: (arrayTree) => {
         this.list_categories_tree = arrayTree
+        this.list_categories_tree_clone = [... this.list_categories_tree]
         this.loading = false
       },
       error: (err) => {

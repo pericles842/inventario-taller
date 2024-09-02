@@ -8,7 +8,7 @@
           <i class="me-2" [class]="node.expanded ? 'bi bi-caret-down-fill' : 'bi bi-caret-right-fill'"></i>
         </span>
         <!-- Mostrar nombre del nodo -->
-        <span class="tree-item-name">{{ node.name }}</span>
+        <span class="tree-item-name"> {{node.id+' - '+ node.name | uppercase }}</span>
         <span *ngIf="node.children.length != 0" class="fs-2 fw-bold ms-4">( {{ node.children.length }} )</span>
       </div>
       <div class="d-flex gap-2">
