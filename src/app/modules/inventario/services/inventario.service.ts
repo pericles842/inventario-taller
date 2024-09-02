@@ -13,8 +13,8 @@ export class InventarioService {
   columns_price_list: Columns[] = [
     { label: 'ID', key: 'id', visible: true },
     { label: 'Nombre', key: 'name', visible: true },
-    { label: 'Fecha de creación', key: 'createdAt', visible: true },
-    { label: 'Fecha de finalización', key: 'updatedAt', visible: true },
+    { label: 'Fecha de creación', key: 'fecha_inicio', visible: true, type: 'fecha' },
+    { label: 'Fecha de finalización', key: 'fecha_fin', visible: true, type: 'fecha' },
   ]
 
   constructor(
