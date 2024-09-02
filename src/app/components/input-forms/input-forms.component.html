@@ -58,7 +58,9 @@
       <span class="checkmark"></span>
     </label>
   </div>
+
   <div *ngSwitchCase="'select'">
+    <!-- !SE DEBE MEJORAR EL DROIPDOWN PARA EL FILTRADO -->
     <div class="d-flex gap-2 justify-content-between">
       <div class="custom-input-container" (click)="touchedSelectEvent.emit()">
         <select [ngClass]="disabled? 'disabled':''" [disabled]="disabled" aria-readonly="true"
