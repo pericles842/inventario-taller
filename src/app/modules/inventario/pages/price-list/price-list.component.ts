@@ -32,10 +32,40 @@ export class PriceListComponent extends GeneralMenu implements OnInit {
   ngOnInit(): void {
     this.columns_price_list = this.inventarioService.columns_price_list
   }
-  openModalPriceList() {
-    this.table_price_list.openAndCloseModal()
+
+  /**
+   *obtiene las listas de precios 
+   *
+   * @memberof PriceListComponent
+   */
+  getTheTotalPriceList() {
+    this.loading = true
+    this.inventarioService.getPriceList().subscribe({
+      next: (data) => {
+        this.array_price_list = data
+        this.table_price_list.openAndCloseModal()
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('Error al cargar listas de precios')
+      },
+    })
   }
+
+  selectPriceList(price_list: PriceList) {
+    this.totalMenu()
+    this.price_list = price_list
+    this.table_price_list.openAndCloseModal()
+
+
+  }
+  /**
+   *Limpia el formulario
+   *
+   * @memberof PriceListComponent
+   */
   discardForm() {
+    this.presentation()
     this.price_list = new PriceList()
   }
   /**

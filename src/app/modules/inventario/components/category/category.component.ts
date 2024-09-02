@@ -151,10 +151,13 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
   eliminateDuplicateFather(categoria: Category): void {
     if (categoria.id == 0) return
     this.list_categories_dropdown = this.list_categories_dropdown.filter(category => {
+
+      //!MEJOAR LAS VALIDACIONES PARA QUE UN PADRE NO PUEDA SER ASIGNADO A SUS HIJOS
       //elimina la categoria duplicada
-      if (categoria.id == category.id) return false   
+      return categoria.id != category.id
       //eliminamos los hijos de esa categoria
-      return category.father_category_id == 0 || category.father_category_id == null  
+
+      // return category.father_category_id == 0 || category.father_category_id == null 
     });
 
 

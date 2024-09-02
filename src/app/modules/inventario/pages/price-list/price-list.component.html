@@ -1,7 +1,8 @@
 <app-menu-general (descartar)="discardForm()" [access]="access" [view_buttons]="viewButtons"
-  (guardar)="createPriceList()" (search)="openModalPriceList()"></app-menu-general>
+  (guardar)="createPriceList()" (search)="getTheTotalPriceList()"></app-menu-general>
 
-<app-dynamic-table #table_price_list titleModal="Lista de precios" [columns]="columns_price_list"></app-dynamic-table>
+<app-dynamic-table #table_price_list titleModal="Lista de precios"
+ [columns]="columns_price_list" [records]="array_price_list" (selectItem)="selectPriceList($event)"></app-dynamic-table>
 
 <section class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
@@ -11,7 +12,7 @@
 
   <!-- FORMULARIO -->
   <section class="main-contend-form">
-    <div class="row align-items-center ">
+    <div class="row align-items-center">
       <div class="col-4">
         <app-input-forms [(ngModel)]="price_list.name" typeInput="text" labelInput="Nombre"></app-input-forms>
       </div>
@@ -30,5 +31,4 @@
       </div>
     </div>
   </section>
-  {{price_list|json}}
 </section>

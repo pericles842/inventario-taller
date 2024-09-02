@@ -70,4 +70,14 @@ export class InventarioService {
     let body: { priceList: PriceList } = { priceList: priceList }
     return this.http.post<PriceList>(`${environments.host}api/price-list`, body)
   }
+
+  /**
+   *Obtiene una lista de precis
+   *
+   * @return {*}  {Observable<PriceList>}
+   * @memberof InventarioService
+   */
+  getPriceList(): Observable<PriceList[]> {
+    return this.http.get<PriceList[]>(`${environments.host}api/price-list`)
+  }
 }
