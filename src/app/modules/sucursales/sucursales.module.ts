@@ -15,6 +15,7 @@ import { AssignUserToBranchCrudComponent } from './pages/assign-user-to-branch-c
 import { TiendaCrudComponent } from './pages/tiendas/tienda-crud/tienda-crud.component';
 import { BranchRoutes } from './sucursales.routing';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { DirectiveModule } from 'src/app/directives/directive.module';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
         LoadingComponent,
         HeaderFormComponent,
         InputFormsComponent,
-        DynamicTableComponent
+        DynamicTableComponent,
+        DirectiveModule
     ]
 })
 export class AlmacenesModule { }

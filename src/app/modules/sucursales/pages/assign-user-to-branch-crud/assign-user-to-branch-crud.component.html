@@ -7,7 +7,7 @@
   <app-header-form header="Sucursales" description="Proceso de asignación  de usuarios a una sucursal">
     <div chip-right>
       <!-- SELECCIONABLE DE SUCURSAL -->
-      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <div class="btn-group" tooltip="Selecciona una sucursal " role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" [disabled]="loadingSelectBranch ||disabled" (click)="changeBranch(true)"
           [(ngModel)]="typeBranch" value="almacen" name="btnradio" id="btnradio1" autocomplete="off">
         <label class="btn btn-outline-primary" for="btnradio1">Almacenes</label>
