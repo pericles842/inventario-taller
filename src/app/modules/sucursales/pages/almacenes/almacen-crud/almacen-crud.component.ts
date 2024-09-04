@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '../../../models/AlmacenModel';
-import { StoreService } from '../../../service/almacenes.service';
-import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
-import { ToastService } from 'src/app/services/toast/toast.service';
-import { GeneralMenu } from 'src/app/models/Menu';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Modules } from 'src/app/enum/Modules';
-import { Access } from 'src/app/models/Access';
+import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { GeneralMenu } from 'src/app/models/Menu';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { Store } from '../../../models/AlmacenModel';
+import { StoreService } from '../../../service/almacenes.service';
 
 
 @Component({
@@ -19,7 +18,6 @@ export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
   @ViewChild('table') table!: DynamicTableComponent
 
   store: Store = new Store()
-  type_view: number = 0
   listStores: Store[] = []
   columns: Columns[] = []
 
@@ -175,4 +173,12 @@ export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
     })
   }
 
+  /**
+   *Referencia al modelo de almacen
+   *
+   * @memberof AlmacenCrudComponent
+   */
+  refreshModel() {
+    this.store = new Store()
+  }
 }

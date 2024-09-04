@@ -1,4 +1,4 @@
-<app-menu-general (descartar)="descartar()" (delete)="deleteStore()" (search)="search()" (guardar)="saveElement()"
+<app-menu-general (goToCreate)="refreshModel()" (descartar)="descartar()" (delete)="deleteStore()" (search)="search()" (guardar)="saveElement()"
   (archivar)="closeStore()" [access]="access" [view_buttons]="viewButtons"></app-menu-general>
 
 <app-dynamic-table #table [columns]="columns" [records]="listStores" (selectItem)="selectItem($event)"

@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
-import { Shop } from '../../../models/Tienda.Model';
-import { ShopService } from '../../../service/tiendas.service';
-import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { ToastService } from 'src/app/services/toast/toast.service';
-import { GeneralMenu } from 'src/app/models/Menu';
-import { Access } from 'src/app/models/Access';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Modules } from 'src/app/enum/Modules';
+import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { GeneralMenu } from 'src/app/models/Menu';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { Shop } from '../../../models/Tienda.Model';
+import { ShopService } from '../../../service/tiendas.service';
 
 @Component({
   selector: 'app-tienda-crud',
@@ -17,7 +16,6 @@ import { Modules } from 'src/app/enum/Modules';
 export class TiendaCrudComponent extends GeneralMenu implements OnInit {
 
   @ViewChild('table') table!: DynamicTableComponent
-
 
   type_view: number = 0
   shop: Shop = new Shop()
@@ -56,7 +54,7 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
         }
 
         this.loading = false;
-        this.totalMenu()
+        this.presentation()
 
 
         this.toastService.success('Guardado exitosamente')
@@ -66,6 +64,7 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
       },
     })
   }
+
   /**
    *Valida el formulario
    *
@@ -95,6 +94,7 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
     this.listShopsService()
 
   }
+
   /**
    *Listar tiendas
    *
@@ -136,6 +136,7 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
     this.totalMenu()
     this.table.openAndCloseModal()
   }
+
   /**
    *Elimina una tienda
    *
@@ -161,6 +162,7 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
       },
     })
   }
+
   /**
    *Cerrar una tienda
    *
@@ -179,5 +181,14 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
         this.loading = false
       },
     })
+  }
+
+  /**
+   *Refresca el modelo de tienda
+   *
+   * @memberof TiendaCrudComponent
+   */
+  refreshModel() {
+    this.shop = new Shop()
   }
 }

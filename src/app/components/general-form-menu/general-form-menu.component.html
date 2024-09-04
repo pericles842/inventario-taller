@@ -1,10 +1,17 @@
 <div class="card shadow rounded">
   <div class="d-flex flex justify-content-start align-items-center gap-2 m-2">
+    <!--   [tooltip]="'Nuevo Registro'"  -->
+    <div *ngIf="viewButtons.go_to_create">
+      <button (click)="callGoToCreate()" [ngClass]="access.create? '':'disabled'" type="button"
+        class="btn-custom text-primary  touch ">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
 
-    <div *ngIf="view_buttons.create ">
-      <button [tooltip]="view_buttons.create_label" (click)="guardar.emit()" [ngClass]="access.create? '':'disabled'"
+    <div *ngIf="viewButtons.create ">
+      <button [tooltip]="viewButtons.create_label" (click)="guardar.emit()" [ngClass]="access.create? '':'disabled'"
         type="button" class="btn-custom  text-primary  touch ">
-        <i class="bi bi-plus-lg "></i>
+        <i class="bi bi-cloud-upload"></i>
       </button>
     </div>
 
@@ -14,22 +21,22 @@
       
     </button> -->
 
-    <div *ngIf="view_buttons.descartar">
+    <div *ngIf="viewButtons.descartar">
       <button tooltip="Descartar" (click)="descartar.emit()" [ngClass]="access.create || access.update? '':'disabled'"
         type="button" class="btn-custom touch   ">
         <i class="bi bi-arrow-repeat "></i>
       </button>
     </div>
 
-    <div *ngIf="view_buttons.search">
+    <div *ngIf="viewButtons.search">
       <button tooltip="Buscar" [ngClass]="access.authorized? '':'disabled'" (click)="search.emit()" type="button"
         class="btn-custom  text-info touch    ">
         <i class="bi bi-search "></i>
       </button>
     </div>
 
-    <div *ngIf="view_buttons.delete">
-      <button tooltip="Eliminar" [ngClass]="access.delete? '':'disabled'" type="button" class="btn-custom     touch   "
+    <div *ngIf="viewButtons.delete">
+      <button tooltip="Eliminar" [ngClass]="access.delete? '':'disabled'" type="button" class="btn-custom touch"
         (click)="delete.emit()">
         <i class="bi bi-trash text-danger "></i>
 
@@ -38,7 +45,7 @@
     <div class="col-auto d-flex align-items-center">
       <div class="vr"></div> <!-- Línea vertical -->
     </div>
-    <div *ngIf="view_buttons.archivar">
+    <div *ngIf="viewButtons.archivar">
       <button tooltip="Archivar" [ngClass]="access.create || access.update? '':'disabled'" title="Archivar elemento"
         type="button" class="btn-custom  text-warning touch  " (click)="archivar.emit()">
         <i class="bi bi-archive"></i>

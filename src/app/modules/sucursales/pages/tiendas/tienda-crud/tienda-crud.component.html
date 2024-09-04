@@ -1,5 +1,6 @@
-<app-menu-general (guardar)="saveElement()" (search)="search()" (archivar)="closeShop()" (descartar)="descartar()"
-  (delete)="delete()" [access]="access" [view_buttons]="viewButtons"></app-menu-general>
+<app-menu-general (goToCreate)="refreshModel()" (guardar)=" saveElement()" (search)="search()"
+  (archivar)="closeShop()" (descartar)="descartar()" (delete)="delete()" [access]="access"
+  [view_buttons]="viewButtons"></app-menu-general>
 
 <app-dynamic-table #table titleModal="Lista de Tiendas" (selectItem)="selectItem($event)" [records]="this.listShops"
   [columns]="columns"></app-dynamic-table>

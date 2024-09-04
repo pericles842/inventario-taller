@@ -1,4 +1,4 @@
-<app-menu-general (descartar)="discardForm()" [access]="access" [view_buttons]="viewButtons"
+<app-menu-general (goToCreate)="discardForm()" (descartar)="discardForm()" [access]="access" [view_buttons]="viewButtons"
   (guardar)="createPriceList()" (search)="getTheTotalPriceList()"></app-menu-general>
 
 <app-dynamic-table #table_price_list titleModal="Lista de precios"

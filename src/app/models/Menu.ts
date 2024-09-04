@@ -8,11 +8,14 @@ import { Access } from "./Access";
  * @export
  * @class GeneralMenu
  */
+
 export class GeneralMenu {
   loading: boolean = false
   access: Access = new Access()
+  readonly: boolean = false
 
   public viewButtons: ViewButtons = {
+    go_to_create: false,
     create_label: 'Guardar',
     create: false,
     search: false,
@@ -22,8 +25,8 @@ export class GeneralMenu {
   };
   public mode_presentation: TypeViewMenu = TypeViewMenu.PRESENTATION
 
-  constructor(authService: AuthService, modules: Modules) {
-    this.accessModule(authService, modules)
+  constructor(authService: AuthService | undefined = undefined, modules: Modules | undefined = undefined) {
+    if (authService && modules) this.accessModule(authService, modules)
     this.viewButtons = this.presentation()
   }
   /**
@@ -34,13 +37,18 @@ export class GeneralMenu {
    * @memberof GeneralMenu
    */
   public presentation(): ViewButtons {
-    this.viewButtons.create = true
-    this.viewButtons.search = true
-    this.viewButtons.descartar = true
-    this.viewButtons.delete = false
-    this.viewButtons.archivar = false
+    
+    this.readonly = true
     this.mode_presentation = TypeViewMenu.PRESENTATION
-    return this.viewButtons
+    return this.personalizedView({
+      create_label: 'Crear',
+      go_to_create: true,
+      create: false,
+      descartar: false,
+      search: true,
+      delete: false,
+      archivar: false
+    })
   }
   /**
    *Este modo muestran todos los botones
@@ -50,13 +58,16 @@ export class GeneralMenu {
    * @memberof GeneralMenu
    */
   public totalMenu(): ViewButtons {
-    this.viewButtons.create = true
-    this.viewButtons.search = true
-    this.viewButtons.descartar = true
-    this.viewButtons.delete = true
-    this.viewButtons.archivar = false
     this.mode_presentation = TypeViewMenu.TOTAL_MENU
-    return this.viewButtons
+    return this.personalizedView({
+      create_label: 'Crear',
+      go_to_create: false,
+      create: true,
+      descartar: true,
+      search: true,
+      delete: true,
+      archivar: false
+    })
   }
   /**
    * modo solo crear
@@ -65,14 +76,24 @@ export class GeneralMenu {
    * @return {*}  {ViewButtons}
    * @memberof GeneralMenu
    */
-  public justCreate(): ViewButtons {
-    this.viewButtons.create = true
-    this.viewButtons.descartar = true
-    this.viewButtons.search = false
-    this.viewButtons.delete = false
-    this.viewButtons.archivar = false
+  /**
+   * Este modo solo va a renderizar los botones GUARDAR , DESCARTAR Y BUSCAR
+   *
+   * @public
+   * @return {*}  {ViewButtons}
+   * @memberof GeneralMenu
+   */
+  public createOrEditMode(): ViewButtons {
     this.mode_presentation = TypeViewMenu.JUST_CREATE
-    return this.viewButtons
+    return this.personalizedView({
+      create_label: 'Crear',
+      go_to_create: false,
+      create: true,
+      descartar: true,
+      search: true,
+      delete: false,
+      archivar: false
+    })
   }
 
   /**
@@ -84,6 +105,7 @@ export class GeneralMenu {
    * @memberof GeneralMenu
    */
   public personalizedView(config_btn: ViewButtons = this.viewButtons): ViewButtons {
+    this.viewButtons.go_to_create = config_btn.go_to_create
     this.viewButtons.create = config_btn.create
     this.viewButtons.search = config_btn.search
     this.viewButtons.descartar = config_btn.descartar
@@ -123,12 +145,12 @@ export class GeneralMenu {
  */
 export enum TypeViewMenu {
   /**
-   * crear , buscar , descartar
+   *  SOLO SE MOSTRARA BOTON VAMOS A CREAR
    */
   PRESENTATION = 0,
 
   /**
-   *$ Todos los botones 
+   *$ CREAR , BUSCAR DESCARTAR
    */
   TOTAL_MENU = 1,
   /**
@@ -150,6 +172,7 @@ export enum TypeViewMenu {
  */
 export interface ViewButtons {
   create_label: string;
+  go_to_create: boolean;
   create: boolean;
   delete: boolean;
   archivar: boolean;

@@ -113,7 +113,7 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
 
           this.listUsers[index] = this.userForm
         }
-        this.totalMenu()
+        this.presentation()
         this.loading = false
         setTimeout(() => { this.toastService.success('Usuario guardado exitosamente ') }, 200);
       },
@@ -138,7 +138,7 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
         this.loading = false
       },
       error: (err) => {
-        
+
         this.loading = false
         this.toastService.error('Problema al cargar los roles');
       }
@@ -249,5 +249,8 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
         this.toastService.success('Error al archivar usuario')
       },
     })
+  }
+  refreshModel() {
+    this.userForm = new Usuario()
   }
 }

@@ -44,8 +44,8 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
     return this.list_categories_dropdown.find(category => category.id == this.category.father_category_id);
   }
   ngOnInit(): void {
-
     this.personalizedView({
+      go_to_create: false,
       create: true,
       create_label: 'Crear categoría',
       search: false,
@@ -310,4 +310,5 @@ export class CategoryComponent extends GeneralMenu implements OnInit {
       }
     })
   }
+
 }

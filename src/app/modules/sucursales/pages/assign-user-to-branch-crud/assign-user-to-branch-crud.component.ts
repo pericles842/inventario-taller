@@ -78,16 +78,17 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
     this.columns_branch_users = this.branchesService.columns_branch_users
 
     this.listAllBranch()
-
-    //Botones personalizados
     this.personalizedView({
+      go_to_create:  true,
       create_label: 'guardar',
-      create: true,
+      create: false,
       search: false,
-      descartar: true,
+      descartar: false,
       delete: false,
       archivar: false
     })
+
+
   }
 
   /**
@@ -193,7 +194,6 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
    */
   validateBranchUsers(id_branch: number, type_branch: typeBranch["typeBranch"]): boolean {
     let pass = true
-    console.log(id_branch);
 
     if (id_branch == undefined) {
       pass = false
@@ -398,5 +398,25 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
     }
 
     return pass
+  }
+
+  /**
+   *Refresca el modelo y los botones se visializan correctamente
+   *
+   * @memberof AssignUserToBranchCrudComponent
+   */
+  refreshModel() {
+
+    this.discard()
+    //Botones personalizados
+    this.viewButtons = this.personalizedView({
+      go_to_create: false,
+      create_label: 'guardar',
+      create: true,
+      search: false,
+      descartar: true,
+      delete: false,
+      archivar: false
+    })
   }
 }

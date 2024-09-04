@@ -1,4 +1,5 @@
-<app-menu-general [access]="access" [view_buttons]="viewButtons" (descartar)="discard()" (guardar)="saveElement()" ></app-menu-general>
+<app-menu-general (goToCreate)="refreshModel()" [access]="access" [view_buttons]="viewButtons" (descartar)="discard()"
+  (guardar)="saveElement()"></app-menu-general>
 
 
 <div class="main-contend-card">

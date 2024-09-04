@@ -348,4 +348,6 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     return pass;
 
   }
+
+  
 }
