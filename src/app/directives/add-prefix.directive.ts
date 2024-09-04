@@ -1,7 +1,13 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
+/**
+ *Agrega un prefijo a un componente por parametro
+ *
+ * @export
+ * @class AddPrefixDirective
+ */
 @Directive({
-  selector: '[appAddPrefix]'
+  selector: '[appAddPrefix]',
 })
 export class AddPrefixDirective {
   @Input() prefix: string = ''; // Prefijo predeterminado
@@ -11,11 +17,11 @@ export class AddPrefixDirective {
   @HostListener('input', ['$event']) onInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value;
-    
+
     // Si el valor no comienza con el prefijo, agregarlo al principio
     if (!inputValue.startsWith(this.prefix)) {
       inputElement.value = this.prefix + inputValue;
-      inputElement.setSelectionRange(this.prefix.length + 1 , this.prefix.length + 1 ); // Colocar el cursor al final del prefijo
+      inputElement.setSelectionRange(this.prefix.length + 1, this.prefix.length + 1); // Colocar el cursor al final del prefijo
     }
   }
 

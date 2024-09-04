@@ -3,53 +3,79 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
 @Directive({
   selector: '[tooltip]'
 })
-export class TooltipDirective  {
+export class TooltipDirective {
 
   @Input('tooltip') tooltipText: string = 'Tolltip';
-  tooltipElement: HTMLElement|null = null;
+  tooltipElement: HTMLElement | null = null;
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   @HostListener('mouseenter') onMouseEnter() {
+
     if (!this.tooltipElement) {
       this.showTooltip();
     }
   }
 
   @HostListener('mouseleave') onMouseLeave() {
+
     if (this.tooltipElement) {
       this.hideTooltip();
     }
   }
 
+  /**
+   *Agrega y valida un toltip
+   *
+   * @private
+   * @memberof TooltipDirective
+   */
   private showTooltip() {
-    this.tooltipElement = this.renderer.createElement('span');
-    this.renderer.appendChild(
-      this.tooltipElement,
-      this.renderer.createText(this.tooltipText) // Texto del tooltip
-    );
+    const tooltipClassName = 'tooltip-class';
+    const existingTooltips = document.getElementsByClassName(tooltipClassName);
 
-    this.renderer.appendChild(document.body, this.tooltipElement);
-    
-    this.renderer.setStyle(this.tooltipElement, 'position', 'fixed');
-    this.renderer.setStyle(this.tooltipElement, 'backgroundColor', '#333');
-    this.renderer.setStyle(this.tooltipElement, 'color', '#fff');
-    this.renderer.setStyle(this.tooltipElement, 'padding', '5px 10px');
-    this.renderer.setStyle(this.tooltipElement, 'borderRadius', '4px');
-    this.renderer.setStyle(this.tooltipElement, 'zIndex', '1000');
-    this.renderer.setStyle(this.tooltipElement, 'fontSize', '15px');
+    if (existingTooltips.length > 0) this.renderer.removeChild(document.body, existingTooltips[0]);
 
+    const tooltipElement = this.renderer.createElement('span');
+
+    // agregamos clase ancla 'tooltip-class'
+    this.renderer.addClass(tooltipElement, tooltipClassName);
+
+    // calculamos posición del mause sobre el elemento
     const hostPos = this.el.nativeElement.getBoundingClientRect();
-
     const tooltipPos = {
       top: hostPos.bottom + window.scrollY + 5 + 'px',
       left: hostPos.left + window.scrollX + 'px'
     };
 
-    this.renderer.setStyle(this.tooltipElement, 'top', tooltipPos.top);
-    this.renderer.setStyle(this.tooltipElement, 'left', tooltipPos.left);
+    //agregamos texto al elemento
+    this.renderer.appendChild(tooltipElement, this.renderer.createText(this.tooltipText));
+    //agregamos elemento la body
+    this.renderer.appendChild(document.body, tooltipElement);
+
+    //establecemos estilo creamos un obj literal
+    Object.assign(tooltipElement.style, {
+      position: 'fixed',
+      backgroundColor: '#333',
+      color: '#fff',
+      padding: '5px 10px',
+      borderRadius: '4px',
+      zIndex: '1000',
+      fontSize: '15px',
+      top: tooltipPos.top,
+      left: tooltipPos.left
+    });
+
+    this.tooltipElement = tooltipElement;
   }
 
+
+  /**
+   *Elimina el tooltip
+   *
+   * @private
+   * @memberof TooltipDirective
+   */
   private hideTooltip() {
     this.renderer.removeChild(document.body, this.tooltipElement);
     this.tooltipElement = null;

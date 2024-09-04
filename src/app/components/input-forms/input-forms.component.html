@@ -1,6 +1,6 @@
 <div [ngSwitch]="typeInput">
 
-
+  <!--//*---------------------------------------- CAMPO DE TEXTO -->
   <div *ngSwitchCase="'text'">
     <div class="custom-input-container">
       <input [value]="value" [ngClass]="disabled? 'disabled':''" (input)="onInputChange($event)" [disabled]="disabled"
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-
+  <!--//*---------------------------------------- CAMPO EMAIL -->
   <div *ngSwitchCase="'email'">
     <div class="custom-input-container">
       <input [ngClass]="disabled? 'disabled':''" [value]="value" (input)="onInputChange($event)" [disabled]="disabled"
@@ -19,6 +19,7 @@
     </div>
   </div>
 
+  <!--//*---------------------------------------- CAMPO CONTRASENA -->
   <div *ngSwitchCase="'password'">
     <div class="custom-input-container">
       <input [ngClass]="disabled? 'disabled':''" [value]="value" (input)="onInputChange($event)" [disabled]="disabled"
@@ -27,6 +28,7 @@
     </div>
   </div>
 
+  <!--//*---------------------------------------- CAMPO NUMERICO -->
   <div *ngSwitchCase="'number'">
     <div class="custom-input-container">
       <input [ngClass]="disabled? 'disabled':''" [value]="value" (input)="onInputChange($event)" [disabled]="disabled"
@@ -35,6 +37,7 @@
     </div>
   </div>
 
+  <!--//*---------------------------------------- CAMPO DE BUSQUEDA -->
   <div *ngSwitchCase="'search'">
     <div class="custom-input-container">
       <input [ngClass]="disabled? 'disabled':''" [value]="value" (input)="onInputChange($event)" [disabled]="disabled"
@@ -43,6 +46,7 @@
     </div>
   </div>
 
+  <!--//*---------------------------------------- CAMPO DE FECHA -->
   <div *ngSwitchCase="'date'">
     <div class="custom-input-container">
       <input [ngClass]="disabled? 'disabled':''" [value]="value" (input)="onInputChange($event)" [disabled]="disabled"
@@ -51,6 +55,7 @@
     </div>
   </div>
 
+  <!--//*---------------------------------------- CAMPO CHECKBOX -->
   <div *ngSwitchCase="'checkbox'">
     <label style="user-select: none;" class="checkbox-container  m-0">{{labelInput}}
       <input [ngClass]="disabled? 'disabled':''" [value]="value" [checked]="value" (change)="onCheckboxChange($event)"
@@ -59,6 +64,7 @@
     </label>
   </div>
 
+  <!--//*---------------------------------------- CAMPO SELECT -->
   <div *ngSwitchCase="'select'">
     <!-- !SE DEBE MEJORAR EL DROIPDOWN PARA EL FILTRADO -->
     <div class="d-flex gap-2 justify-content-between">

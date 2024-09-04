@@ -2,7 +2,7 @@
   <div class="d-flex flex justify-content-start align-items-center gap-2 m-2">
     <!--   [tooltip]="'Nuevo Registro'"  -->
     <div *ngIf="view_buttons.go_to_create">
-      <button (click)=" this.goToCreate.emit()" [ngClass]="access.create? '':'disabled'" type="button"
+      <button tooltip="Nuevo Registro" (click)=" this.goToCreate.emit()" [ngClass]="access.create? '':'disabled'" type="button"
         class="btn-custom text-primary  touch ">
         <i class="bi bi-plus-lg"></i>
       </button>
