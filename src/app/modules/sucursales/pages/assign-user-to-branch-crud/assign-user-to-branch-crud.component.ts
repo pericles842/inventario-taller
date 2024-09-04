@@ -18,7 +18,6 @@ import { Access } from 'src/app/models/Access';
 })
 export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnInit {
 
-  loading: boolean = false
   loadingSelectBranch: boolean = false
 
   //columnas de tablas
@@ -66,16 +65,13 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
 
   @ViewChild('table_users') table_users!: DynamicTableComponent
 
-  access: Access = new Access()
-
   constructor(
     private branchesService: BranchesService,
     private toastService: ToastService,
-    private authService: AuthService
-  ) { super() }
+    authService: AuthService
+  ) { super(authService, Modules.sucursales) }
 
   ngOnInit(): void {
-    this.accessModule()
     // Mostrar la notificación con la configuración personalizada
 
     this.columns_branch_not_users = this.branchesService.columns_branch_not_users
@@ -85,28 +81,12 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
 
     //Botones personalizados
     this.personalizedView({
+      create_label: 'guardar',
       create: true,
       search: false,
       descartar: true,
       delete: false,
       archivar: false
-    })
-  }
-  /**
-   *Permisologia del modulo
-   *
-   * @memberof AssignUserToBranchCrudComponent
-   */
-  accessModule() {
-    this.loading = true
-    this.authService.accessModule(Modules.sucursales).subscribe({
-      next: (access) => {
-        this.access = access
-        this.loading = false
-      }, error: (err) => {
-        this.loading = false
-        this.toastService.error('Error en permisos')
-      },
     })
   }
 

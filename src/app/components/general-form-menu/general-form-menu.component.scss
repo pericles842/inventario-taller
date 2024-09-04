@@ -1,5 +1,25 @@
 .disabled {
-    pointer-events: none; /* Evita que el botón responda a eventos del mouse */
-    opacity: 0.5; /* Opcional: reduce la opacidad para indicar visualmente que está deshabilitado */
-    cursor: not-allowed; /* Opcional: cambia el cursor a 'not-allowed' para indicar visualmente que no se puede interactuar */
-}  
+    pointer-events: none;
+    /* Evita que el botón responda a eventos del mouse */
+    opacity: 0.5;
+    /* Opcional: reduce la opacidad para indicar visualmente que está deshabilitado */
+    cursor: not-allowed;
+    /* Opcional: cambia el cursor a 'not-allowed' para indicar visualmente que no se puede interactuar */
+}
+
+.btn-custom {
+    padding: 5px 13px;
+    font-size: 25px;
+    font-weight: 900;
+    border: none;
+    background-color: #f8f9fa00;
+    color: #131313;
+    border-radius: 6px;
+}
+
+.btn-custom:hover {
+    background-color: #ececec;
+    border-color: #ececec;
+    border-radius: 6px;
+    font-weight: 900;
+}

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DirectiveModule } from 'src/app/directives/directive.module';
 import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
 import { Access } from 'src/app/models/Access';
 import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
@@ -12,11 +13,12 @@ import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
   styleUrls: ['./general-form-menu.component.scss'],
   imports: [
     CommonModule,
+    DirectiveModule
   ]
 })
-export class GeneralFormMenuComponent   {
+export class GeneralFormMenuComponent {
 
-   
+
   /**
    *Acceso de los botones
    *
@@ -31,7 +33,14 @@ export class GeneralFormMenuComponent   {
    * @type {ViewButtons}
    * @memberof GeneralFormMenuComponent
    */
-  @Input() view_buttons: ViewButtons = new GeneralMenu().viewButtons
+  @Input() view_buttons: ViewButtons = {
+    create_label: 'Guardar',
+    create: false,
+    search: false,
+    descartar: false,
+    delete: false,
+    archivar: false
+  }
 
 
   //EMITIR DE LOS BOTONES

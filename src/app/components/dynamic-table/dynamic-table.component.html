@@ -78,7 +78,7 @@
                 </button>
               </td>
               <!-- VISTA DE LOS ITEMS SEGUIDO DE UN SWICH PARA VALIDAR EL TIPO DE COLUMNA -->
-              <td [ngSwitch]="column.type" style="cursor: pointer;" (click)="selectItem.emit(item)"
+              <td [ngSwitch]="column.type" style="cursor: pointer;" (click)="selectItem.emit(cloneObjet(item))"
                 *ngFor="let column of columns">
                 <!-- general -->
                 <span *ngSwitchCase="null"> {{item[column.key] }}</span>

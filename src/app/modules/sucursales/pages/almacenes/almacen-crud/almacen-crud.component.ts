@@ -19,34 +19,19 @@ export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
   @ViewChild('table') table!: DynamicTableComponent
 
   store: Store = new Store()
-  loading: boolean = false
   type_view: number = 0
   listStores: Store[] = []
   columns: Columns[] = []
-  access: Access = new Access()
 
 
   constructor(
     private storeService: StoreService,
     private toastService: ToastService,
-    private authService: AuthService
-  ) { super() }
+    authService: AuthService
+  ) { super(authService, Modules.almacenes) }
 
   ngOnInit(): void {
-    this.accessModule()
     this.columns = this.storeService.columns_store
-  }
-  accessModule() {
-    this.loading = true
-    this.authService.accessModule(Modules.almacenes).subscribe({
-      next: (access) => {
-        this.access = access
-        this.loading = false
-      }, error: (err) => {
-        this.loading = false
-        this.toastService.error('Error en permisos')
-      },
-    })
   }
   /**
    *Guarda un almacen
@@ -142,7 +127,7 @@ export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
    * @memberof AlmacenCrudComponent
    */
   deleteStore() {
-    
+
     this.loading = true
     this.storeService.deleteStore(this.store.id).subscribe({
       next: (value) => {

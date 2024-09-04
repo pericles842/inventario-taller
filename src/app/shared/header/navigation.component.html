@@ -25,20 +25,31 @@
   <!-- ============================================================== -->
   <!-- User profile and search -->
   <!-- ============================================================== -->
-  <li class="nav-item" ngbDropdown placement="bottom-end">
-    <a ngbDropdownToggle class="nav-link  waves-effect waves-dark pro-pic" href="javascript:void(0)"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="me-3 text-white">{{usuario.name_user}}</span>
-      <!-- <img src="assets/images/users/user1.jpg" alt="user" class="rounded-circle" width="31" /> -->
-      <span [ngStyle]="{ 'background-color': hexadecimalColor , 'padding':'9px 7px'}"
-        class="rounded-circle text-white  ">
-        {{parseNameUser}} </span>
-    </a>
+  <li class="nav-item me-2" ngbDropdown placement="bottom-end">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="me-3 text-white text-end">
+        <p class="fs-4 m-0">{{usuario.name_user}}</p>
+        <p class="fs-2 m-0">{{usuario.name_rol}}</p>
+      </div>
+      <div>
+        <a ngbDropdownToggle class="nav-link  waves-effect waves-dark pro-pic" href="javascript:void(0)"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+          <!-- <img src="assets/images/users/user1.jpg" alt="user" class="rounded-circle" width="31" /> -->
+          <span [ngStyle]="{ 'background-color': hexadecimalColor , 'padding':'9px 7px'}"
+            class="rounded-circle text-white  " width="31">
+            {{parseNameUser}} </span>
+        </a>
+      </div>
+    </div>
+
 
     <div class="dropdown-menu-right" class="dropdown-menu-right" style="box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.285);"
       ngbDropdownMenu>
       <!-- mini caja informativa -->
       <div class="px-3 py-2  d-flex flex-column align-items-center">
+        <!-- <p class="fs-4 m-1">{{usuario.name_rol}}</p> -->
+        <!-- <p class="fs-2">{{usuario.name_user}}</p> -->
         <p class="fs-4 m-1">{{usuario.name_rol}}</p>
         <p class="fs-2">{{usuario.email}}</p>
       </div>

@@ -54,10 +54,11 @@
       </div>
 
       <div class="col-3">
-        <app-input-forms typeInput="select" [resources]="listRoles" [(ngModel)]="userForm.rol"
-          labelInput="Cargos"></app-input-forms>
+        <app-input-forms typeInput="select" [resources]="listRoles" [(ngModel)]="userForm.rol" labelInput="Cargos"
+          [loading]="loading"></app-input-forms>
       </div>
     </div>
 
   </section>
-  <app-loading [loading]="loading"></app-loading>
+</div>
+<app-loading [loading]="loading"></app-loading>

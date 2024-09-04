@@ -5,12 +5,12 @@ import { LoginComponent } from './components/login/login.component';
 import { FullComponent } from './layouts/full/full.component';
 
 export const AppRoutes: Routes = [
-  
+
   { path: 'login', component: LoginComponent },
   {
     path: '',
     component: FullComponent,
-    canActivate: [authGuardGuard], 
+    canActivate: [authGuardGuard],
     children: [
       {
         path: 'dashboard',
@@ -31,7 +31,12 @@ export const AppRoutes: Routes = [
       {
         path: 'sucursales',
         loadChildren: () => import('./modules/sucursales/sucursales.module').then(m => m.AlmacenesModule)
+      },
+      {
+        path: 'inventario',
+        loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule)
       }
+
     ],
   }
 ];

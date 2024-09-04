@@ -13,8 +13,6 @@ import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 })
 export class UsuariosService {
 
-  protected userAuthenticated: Usuario = this.authService.getUser();
-
   columns: Columns[] = [
     { label: 'id', key: 'id' },
     { label: 'Nombre', key: 'name_user' },
@@ -24,8 +22,7 @@ export class UsuariosService {
   ]
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthService
+    private http: HttpClient
   ) { }
 
   /**
@@ -48,9 +45,7 @@ export class UsuariosService {
    */
   listRoles(): Observable<RolUser[]> {
 
-    const headers = new HttpHeaders().set('rol', this.userAuthenticated.rol.toString());
-
-    return this.http.get<RolUser[]>(`${environments.host}api/status/list-roles`, { headers })
+    return this.http.get<RolUser[]>(`${environments.host}api/status/list-roles`)
   }
 
   /**
@@ -60,9 +55,7 @@ export class UsuariosService {
    * @memberof UsuariosService
    */
   searchUser() {
-
-    const headers = new HttpHeaders().set('user', this.userAuthenticated.id.toString());
-    return this.http.get<Usuario[]>(`${environments.host}api/user/list-users`, { headers })
+    return this.http.get<Usuario[]>(`${environments.host}api/user/list-users`)
 
   }
 

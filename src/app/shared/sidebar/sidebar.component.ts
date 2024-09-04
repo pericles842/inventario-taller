@@ -38,39 +38,38 @@ export class SidebarComponent implements OnInit {
     this.getAccessUser()
   }
 
-/**
- *Configura los menu eb base a la permisologia del usuario
- *
- * @memberof SidebarComponent
- */
-getAccessUser() {
+  /**
+   *Configura los menu eb base a la permisologia del usuario
+   *!SE DEBE MEJORAR LÓGICA
+   * @memberof SidebarComponent
+   */
+  getAccessUser() {
     this.loading = true
     this.authService.accessUser().subscribe({
       next: (config_permissions) => {
-        
+
         //*ITERAMOS LOS MENU DEL PROYECTO
         for (let menu of this.sidebarnavItems) {
 
           //*ITERAMOS LA CONFIGURACIÓN
           for (let index_config = 0; index_config < config_permissions.length; index_config++) {
             const config = config_permissions[index_config];
-            
+
             //*SI HAY MACH ASIGNA LA AUTORIZACIÓN EN TRUE
             if (menu.id == config.id) {
-              menu.authorized = config.authorized;
+              menu.authorized = config.authorized; //?para ver todos los items forzar en true
 
               //*IEAMOS SUB MENUS 
               for (let i = 0; i < menu.submenu.length; i++) {
                 let submenu = menu.submenu[i];
 
-                if (submenu.id == config[index_config + i + 1].id) {
-                  submenu.authorized = config[index_config + i + 1].authorized;
-                }
+                //ACCEDEMOS A SU LLAVE CON EL ID DEL SUBMENU
+                submenu.authorized = config[submenu.id as number].authorized;
               }
             }
           }
         }
-        
+
         this.loading = false
       }, error: (err) => {
         this.loading = false

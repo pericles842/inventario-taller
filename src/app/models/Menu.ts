@@ -1,3 +1,7 @@
+import { AuthService } from "../components/login/services/Auth.service";
+import { Modules } from "../enum/Modules";
+import { Access } from "./Access";
+
 /**
  *MOdelo de las vistas de los botones
  *
@@ -5,8 +9,11 @@
  * @class GeneralMenu
  */
 export class GeneralMenu {
+  loading: boolean = false
+  access: Access = new Access()
 
   public viewButtons: ViewButtons = {
+    create_label: 'Guardar',
     create: false,
     search: false,
     descartar: false,
@@ -15,7 +22,8 @@ export class GeneralMenu {
   };
   public mode_presentation: TypeViewMenu = TypeViewMenu.PRESENTATION
 
-  constructor() {
+  constructor(authService: AuthService, modules: Modules) {
+    this.accessModule(authService, modules)
     this.viewButtons = this.presentation()
   }
   /**
@@ -81,8 +89,29 @@ export class GeneralMenu {
     this.viewButtons.descartar = config_btn.descartar
     this.viewButtons.delete = config_btn.delete
     this.viewButtons.archivar = config_btn.archivar
+    this.viewButtons.create_label = config_btn.create_label == undefined ? 'Guardar' : config_btn.create_label
     this.mode_presentation = TypeViewMenu.PERSONALIZED_VIEW
     return this.viewButtons
+  }
+  /**
+   *este metodo obteine los permisos del usuario y los almacena
+   *
+   * @param {AuthService} authService servicio de autenticación
+   * @param {Modules} modules modulo del sistema
+   * @memberof GeneralMenu
+   */
+  public accessModule(authService: AuthService, modules: Modules) {
+    this.loading = true
+
+    authService.accessModule(modules).subscribe({
+      next: (access) => {
+        this.access = access
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        console.log('Error en permisos')
+      },
+    })
   }
 }
 
@@ -120,6 +149,7 @@ export enum TypeViewMenu {
  * @interface ViewButtons
  */
 export interface ViewButtons {
+  create_label: string;
   create: boolean;
   delete: boolean;
   archivar: boolean;

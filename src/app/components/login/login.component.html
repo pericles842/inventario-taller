@@ -1,26 +1,26 @@
-<div  (keydown.enter)="callServiceAutenticarLogin()" class="background-login d-flex justify-content-center align-items-center"
-  style="height: 100vh;">
-  <div class="rounded-3 shadow-sm container p-5" style="width: 50%; background-color: rgb(255, 255, 255);">
-    <!-- <img class="mb-4 mx-auto" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-    <h1 class="h2 mt-3 mb-5 fw-normal text-center">Iniciar Sesión</h1>
-
-    <div class="row d-flex mb-4" style="gap: 40px;">
+<div (keydown.enter)="callServiceAutenticarLogin()"
+  class="background-login d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="bg-white p-5 rounded-3 shadow-sm" style="max-width: 400px;">
+    <h1 class="h3 mb-5 text-center fw-medium">Iniciar Sesión</h1>
+    <div class="row  " style="gap: 40px;">
       <div class="col-12">
         <app-input-forms typeInput="text" [(ngModel)]="usuario.username" labelInput="Usuario"></app-input-forms>
       </div>
       <div class="col-12">
         <app-input-forms typeInput="password" [(ngModel)]="usuario.password" labelInput="Contraseña"></app-input-forms>
       </div>
+    </div>
+    <div class="row g-2 mt-4 ">
       <div class="col-12">
         <app-input-forms typeInput="checkbox" [(ngModel)]="recordarPassword"
           labelInput="Recordar Contraseña"></app-input-forms>
       </div>
-    </div>
-
-    <div class="text-start mb-3">
-      <button class="btn btn-primary text-white w-100 py-2" [disabled]="loading"
-       (click)="callServiceAutenticarLogin()"
-        type="submit">Entrar</button>
+      <div class="col-12">
+        <button class="btn btn-primary w-100" type="submit" (click)="callServiceAutenticarLogin()" [disabled]="loading">
+          Entrar
+        </button>
+      </div>
     </div>
   </div>
-  <app-loading [loading]="loading"></app-loading>
+</div>
+<app-loading [loading]="loading"></app-loading>

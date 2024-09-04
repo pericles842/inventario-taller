@@ -1,17 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmDialogService } from 'src/app/components/confirm-dialog/service/confirmDialog.service';
+import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
+import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
+import { TasasComponent } from 'src/app/components/tasas/tasas.component';
 import { Modules } from 'src/app/enum/Modules';
-import { Access } from 'src/app/models/Access';
+import { oneFirsUppercase } from 'src/app/functions/Words';
+import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { GeneralMenu } from 'src/app/models/Menu';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { Moneda, Tasa } from '../../../models/Moneda.model';
-import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { MonedasService } from '../../../services/monedas.service';
-import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
-import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
-import { TasasComponent } from 'src/app/components/tasas/tasas.component';
-import { GeneralMenu } from 'src/app/models/Menu';
-import { oneFirsUppercase } from 'src/app/functions/Words';
-import { ConfirmDialogService } from 'src/app/components/confirm-dialog/service/confirmDialog.service';
 
 @Component({
   selector: 'app-monedas-crud',
@@ -35,7 +34,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
-  access: Access = new Access();
+
   moneda: Moneda = new Moneda();
 
   /**
@@ -47,21 +46,21 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
   tasasComponent: TasasComponent = new TasasComponent()
   tasa: Tasa = new Tasa();
 
-  loading: boolean = false;
+
 
   columns_monedas: Columns[] = []
   columns_tasas: Columns[] = [];
   list_monedas: Moneda[] = [];
 
   constructor(
-    private authService: AuthService,
+    authService: AuthService,
     private toastService: ToastService,
     private monedasService: MonedasService,
     private confirmDialogService: ConfirmDialogService
-  ) { super() }
+  ) { super(authService, Modules.monedas) }
 
   ngOnInit(): void {
-    this.accessModule()
+
     this.getCoins();
     this.columns_tasas = this.monedasService.columns_tasas
     this.columns_monedas = this.monedasService.columns_monedas
@@ -82,23 +81,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
       },
     })
   }
-  /**
-   *Obtiene los permisos del usuario
-   *
-   * @memberof MonedasCrudComponent
-   */
-  accessModule() {
-    this.loading = true
-    this.authService.accessModule(Modules.monedas).subscribe({
-      next: (access) => {
-        this.access = access
-        this.loading = false
-      }, error: (err) => {
-        this.loading = false
-        this.toastService.error('Error en permisos')
-      },
-    })
-  }
+
   /**
    *seleccionar moneda
    *
@@ -113,6 +96,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     this.totalMenu()
   }
   eliminarTasasViejas(tasas: Tasa[]) {
+
     if (tasas.length >= 7) {
       tasas.sort((a, b) => {
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -253,6 +237,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     })
   }
   descartar() {
+    this.presentation()
     this.moneda = new Moneda()
   }
   /**
@@ -261,32 +246,30 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   deleteCurrency() {
-    //modal de confirmación
-    this.confirmDialogService.confirm({ message: "¿Seguro desea eliminar esta moneda?" }).subscribe({
-      next: (confirmar) => {
-        //confrimar
-        if (confirmar) {
-          //metodo eliminar
-          this.loading = true
-          this.monedasService.deleteCurrency(this.moneda.id).subscribe({
-            next: (value) => {
+    this.confirmDialogService.showAlert(
+      'Advertencia',
+      'Seguro desea eliminar esta moneda, puede afectar a su sistema'
+    ).then((result) => {
+      if (result.isConfirmed) {
+        //metodo eliminar
+        this.loading = true
+        this.monedasService.deleteCurrency(this.moneda.id).subscribe({
+          next: (value) => {
 
-              let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
-              this.list_monedas.splice(index, 1)
-              this.moneda = new Moneda()
+            let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
+            this.list_monedas.splice(index, 1)
+            this.moneda = new Moneda()
 
-              this.presentation()
-              this.loading = false
-            }, error: (err) => {
-              this.loading = false
-              this.toastService.error(err.error.text, 'Error al borrar moneda')
-            },
-          })
-        }
-      }, error(err) {
-        console.log(err);
-      },
+            this.presentation()
+            this.loading = false
+          }, error: (err) => {
+            this.loading = false
+            this.toastService.error(err.error.text, 'Error al borrar moneda')
+          },
+        })
+      }
     })
+
   }
   /**
    *Valida el formulario

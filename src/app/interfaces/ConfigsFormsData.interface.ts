@@ -9,5 +9,14 @@ export interface Columns {
     key: string,
     visible?: boolean
     filterable?: boolean
-    type?: 'boolean' | 'decimal' | 'fecha' 
+    type?: 'boolean' | 'decimal' | 'fecha'
+}
+
+export interface TreeNodeCategory {
+    id: number;
+    name: string;
+    father_category_id: number | null;
+    user_id: number;
+    children: TreeNodeCategory[];
+    expanded: boolean;
 }

@@ -1,7 +1,5 @@
-import { ApplicationRef, ComponentFactoryResolver, ComponentRef, EventEmitter, Injectable, Injector, Output } from '@angular/core';
-import { ConfirmDialogComponent } from '../confirm-dialog.component';
-import { Observable, Subject } from 'rxjs';
-import { ConfirmDialog } from '../interface/ConfirmDialog';
+import { ApplicationRef, ComponentFactoryResolver, Injectable, Injector } from '@angular/core';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -10,64 +8,27 @@ import { ConfirmDialog } from '../interface/ConfirmDialog';
 export class ConfirmDialogService {
 
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private appRef: ApplicationRef,
-    private injector: Injector
-  ) { }
+  constructor() { }
 
-  /**
-   *Despliega un config dialog 
-   *
-   * @param {ConfirmDialog} config
-   * @memberof ConfirmDialogService
-   * @returns  Observable<boolean> false|rechazar, true|aceptar
-   */
-  confirm(config: ConfirmDialog): Observable<boolean> {
-    return new Observable<boolean>(observer => {
-
-      // Crear el componente dinámicamente
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ConfirmDialogComponent);
-      const componentRef = componentFactory.create(this.injector);
-
-      // Adjuntar el componente al DOM
-      this.appRef.attachView(componentRef.hostView);
-      const domElem = (componentRef.hostView as any).rootNodes[0] as HTMLElement;
-
-      // Agregar el elemento al DOM
-      document.body.appendChild(domElem);
-
-      //componentRef.changeDetectorRef.detectChanges();
-      componentRef.instance.message = config.message
-      componentRef.instance.title = !config.title ? '' : config.title as string
-      componentRef.instance.classIcon = !config.classIcon ? 'bi bi-exclamation-triangle-fill' : config.classIcon as string
-      componentRef.instance.acceptLabel = !config.acceptLabel ? 'Aceptar' : config.acceptLabel as string
-      componentRef.instance.rejectLabel = !config.rejectLabel ? 'Rechazar' : config.rejectLabel as string
-      componentRef.instance.closeDialog = !config.closeDialog ? false : config.closeDialog as boolean
-
-      //Abrir o cerrar el modal
-      componentRef.instance.openAndCloseModal();
-
-      //CLICK EN ACEPTAR MODAL
-      componentRef.instance.acceptEvent.subscribe(() => {
-        observer.next(true);
-      //  observer.complete();
-        componentRef.instance.openAndCloseModal();
-      });
-
-      //CLICK EN RECHAZAR MODAL
-      componentRef.instance.rejectEvent.subscribe(() => {
-        observer.next(false);
-       // observer.complete();
-        componentRef.instance.openAndCloseModal();
-      });
-
-      // Limpiar el componente cuando sea necesario
-      componentRef.onDestroy(() => {
-        this.appRef.detachView(componentRef.hostView);
-        componentRef.destroy();
-      });
-
+  showAlert(
+    title: string,
+    text?: string,
+    icon: 'success' | 'error' | 'warning' | 'info' = 'warning',
+    confirmButtonText: string = 'Confirmar',
+    cancelButtonText: string = 'Descartar',
+    confirmButtonColor: string = 'rgb(22, 160, 146)',
+    cancelButtonColor: string = '#fa5838',
+  ): Promise<any> {
+    return Swal.fire({
+      title,
+      text,
+      icon,
+      showCancelButton: true,
+      confirmButtonText,
+      cancelButtonText,
+      confirmButtonColor,
+      cancelButtonColor,
+      reverseButtons: true
     });
   }
 
