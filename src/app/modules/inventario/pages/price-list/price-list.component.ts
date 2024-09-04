@@ -104,4 +104,13 @@ export class PriceListComponent extends GeneralMenu implements OnInit {
     }
     return pass
   }
+
+  /**
+   *Refresca el MODELO PRICE LIST
+   *
+   * @memberof PriceListComponent
+   */
+  refreshModel() {
+    this.price_list = new PriceList()
+  }
 }

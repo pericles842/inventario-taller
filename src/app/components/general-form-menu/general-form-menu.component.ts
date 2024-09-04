@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Inject, Injector, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DirectiveModule } from 'src/app/directives/directive.module';
 import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
 import { Access } from 'src/app/models/Access';
-import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
+import { ViewButtons } from 'src/app/models/Menu';
 
 
 @Component({
@@ -16,21 +16,30 @@ import { GeneralMenu, TypeViewMenu, ViewButtons } from 'src/app/models/Menu';
     DirectiveModule
   ]
 })
-export class GeneralFormMenuComponent extends GeneralMenu {
+export class GeneralFormMenuComponent {
 
   /**
    * Establece el valor de la propiedad access.
    *
    * @param value - El valor de acceso que se asignará
    */
-  @Input('access') set accessInput(value: Access) { this.access = value; }
+  @Input() access: Access = new Access();
 
   /**
    * Establece el valor de la propiedad view_buttons.
    *
-   * @param value - El valor de los botones de vista que se asignará
+   *  
    */
-  @Input('view_buttons') set viewButtonsInput(value: ViewButtons) { this.viewButtons = value; }
+  @Input() view_buttons: ViewButtons = {
+    create_label: 'Crear',
+    go_to_create: false,
+    create: false,
+    descartar: false,
+    search: false,
+    delete: false,
+    archivar: false
+  };
+
 
   //EMITIR DE LOS BOTONES
   @Output() guardar: EventEmitter<GeneralFormMenu.create> = new EventEmitter<GeneralFormMenu.create>();
@@ -41,12 +50,4 @@ export class GeneralFormMenuComponent extends GeneralMenu {
   @Output() search: EventEmitter<GeneralFormMenu.search> = new EventEmitter<GeneralFormMenu.search>();
   @Output() descartar: EventEmitter<GeneralFormMenu.descartar> = new EventEmitter<GeneralFormMenu.descartar>();
 
-  constructor() {
-    super(undefined, undefined);
-  }
-
-  callGoToCreate() {
-    this.viewButtons = this.createOrEditMode()
-    this.goToCreate.emit()
-  }
 }

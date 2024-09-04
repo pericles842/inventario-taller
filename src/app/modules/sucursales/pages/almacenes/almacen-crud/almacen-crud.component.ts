@@ -54,7 +54,7 @@ export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
         }
 
         this.loading = false;
-        this.totalMenu()
+        this.presentation()
 
 
         this.toastService.success('Guardado exitosamente')
@@ -180,5 +180,6 @@ export class AlmacenCrudComponent extends GeneralMenu implements OnInit {
    */
   refreshModel() {
     this.store = new Store()
+    this.createOrEditMode()
   }
 }

@@ -71,7 +71,7 @@ export class InputFormsComponent {
    * @type {boolean}
    * @memberof InputFormsComponent
    */
-  @Input() disabled: boolean = false
+  @Input() disabled: boolean = true
 
   @Input() placeholder: string = ' ';
 

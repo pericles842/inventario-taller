@@ -10,9 +10,9 @@ import { Access } from "./Access";
  */
 
 export class GeneralMenu {
-  loading: boolean = false
-  access: Access = new Access()
-  readonly: boolean = false
+  loading: boolean = false //carga
+  access: Access = new Access() //permisos del modulo 
+  disabled!: boolean //si es disabled el formulario
 
   public viewButtons: ViewButtons = {
     go_to_create: false,
@@ -27,7 +27,7 @@ export class GeneralMenu {
 
   constructor(authService: AuthService | undefined = undefined, modules: Modules | undefined = undefined) {
     if (authService && modules) this.accessModule(authService, modules)
-    this.viewButtons = this.presentation()
+    this.presentation()
   }
   /**
    *Modo presentación
@@ -37,8 +37,6 @@ export class GeneralMenu {
    * @memberof GeneralMenu
    */
   public presentation(): ViewButtons {
-    
-    this.readonly = true
     this.mode_presentation = TypeViewMenu.PRESENTATION
     return this.personalizedView({
       create_label: 'Crear',
@@ -48,7 +46,7 @@ export class GeneralMenu {
       search: true,
       delete: false,
       archivar: false
-    })
+    }, true)
   }
   /**
    *Este modo muestran todos los botones
@@ -67,7 +65,7 @@ export class GeneralMenu {
       search: true,
       delete: true,
       archivar: false
-    })
+    }, false)
   }
   /**
    * modo solo crear
@@ -93,18 +91,19 @@ export class GeneralMenu {
       search: true,
       delete: false,
       archivar: false
-    })
+    }, false)
   }
 
   /**
    *vista de botones personalizada
    *
-   * @public
-   * @param {ViewButtons} config_btn
+   * @param {ViewButtons} [config_btn=this.viewButtons]   configuración de botones
+   * @param {boolean} [disabled=false] disabled del formulario
    * @return {*}  {ViewButtons}
    * @memberof GeneralMenu
    */
-  public personalizedView(config_btn: ViewButtons = this.viewButtons): ViewButtons {
+  public personalizedView(config_btn: ViewButtons = this.viewButtons, disabled = true): ViewButtons {
+    this.disabled = disabled
     this.viewButtons.go_to_create = config_btn.go_to_create
     this.viewButtons.create = config_btn.create
     this.viewButtons.search = config_btn.search

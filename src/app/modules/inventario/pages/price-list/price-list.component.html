@@ -1,8 +1,8 @@
-<app-menu-general (goToCreate)="discardForm()" (descartar)="discardForm()" [access]="access" [view_buttons]="viewButtons"
-  (guardar)="createPriceList()" (search)="getTheTotalPriceList()"></app-menu-general>
+<app-menu-general (goToCreate)="refreshModel()" (descartar)="discardForm()" [access]="access"
+  [view_buttons]="viewButtons" (guardar)="createPriceList()" (search)="getTheTotalPriceList()"></app-menu-general>
 
-<app-dynamic-table #table_price_list titleModal="Lista de precios"
- [columns]="columns_price_list" [records]="array_price_list" (selectItem)="selectPriceList($event)"></app-dynamic-table>
+<app-dynamic-table #table_price_list titleModal="Lista de precios" [columns]="columns_price_list"
+  [records]="array_price_list" (selectItem)="selectPriceList($event)"></app-dynamic-table>
 
 <section class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
@@ -14,21 +14,23 @@
   <section class="main-contend-form">
     <div class="row align-items-center">
       <div class="col-4">
-        <app-input-forms [(ngModel)]="price_list.name" typeInput="text" labelInput="Nombre"></app-input-forms>
+        <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.name" typeInput="text" labelInput="Nombre"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms [(ngModel)]="price_list.fecha_inicio" typeInput="date" textUppercase
+        <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.fecha_inicio" typeInput="date" textUppercase
           labelInput="Fecha inicio"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms [(ngModel)]="price_list.fecha_fin" typeInput="date" labelInput="Fecha fin"></app-input-forms>
+        <app-input-forms  [disabled]="disabled" [(ngModel)]="price_list.fecha_fin" typeInput="date" labelInput="Fecha fin"></app-input-forms>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <app-input-forms [(ngModel)]="price_list.description" typeInput="text"
+        <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.description" typeInput="text"
           labelInput="Description"></app-input-forms>
       </div>
     </div>
   </section>
 </section>
+
+<app-loading [loading]="loading"></app-loading>
