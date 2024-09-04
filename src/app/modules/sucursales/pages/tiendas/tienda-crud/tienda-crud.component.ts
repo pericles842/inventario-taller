@@ -189,6 +189,7 @@ export class TiendaCrudComponent extends GeneralMenu implements OnInit {
    * @memberof TiendaCrudComponent
    */
   refreshModel() {
+    this.createOrEditMode()
     this.shop = new Shop()
   }
 }

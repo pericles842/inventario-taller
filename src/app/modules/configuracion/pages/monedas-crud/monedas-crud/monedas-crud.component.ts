@@ -348,6 +348,9 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     return pass;
 
   }
+  refreshModel() {
+    this.createOrEditMode()
+    this.moneda = new Moneda()
+  }
 
-  
 }

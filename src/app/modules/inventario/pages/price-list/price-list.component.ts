@@ -112,5 +112,6 @@ export class PriceListComponent extends GeneralMenu implements OnInit {
    */
   refreshModel() {
     this.price_list = new PriceList()
+    this.createOrEditMode()
   }
 }

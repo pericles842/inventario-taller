@@ -79,7 +79,7 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
 
     this.listAllBranch()
     this.personalizedView({
-      go_to_create:  true,
+      go_to_create: true,
       create_label: 'guardar',
       create: false,
       search: false,
@@ -99,6 +99,15 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
   discard() {
     this.typeBranch = null
     this.listUserBranch = []
+    this.viewButtons = this.personalizedView({
+      go_to_create: true,
+      create_label: 'guardar',
+      create: false,
+      search: false,
+      descartar: false,
+      delete: false,
+      archivar: false
+    }, true)
   }
   /**
    *Filtra las sucrusales segun el tipo
@@ -406,8 +415,10 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
    * @memberof AssignUserToBranchCrudComponent
    */
   refreshModel() {
+    //***Limpia los arreglos 
+    this.typeBranch = null
+    this.listUserBranch = []
 
-    this.discard()
     //Botones personalizados
     this.viewButtons = this.personalizedView({
       go_to_create: false,
@@ -417,6 +428,6 @@ export class AssignUserToBranchCrudComponent extends GeneralMenu implements OnIn
       descartar: true,
       delete: false,
       archivar: false
-    })
+    }, false)
   }
 }

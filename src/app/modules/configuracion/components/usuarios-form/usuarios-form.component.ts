@@ -251,6 +251,7 @@ export class UsuariosFormComponent extends GeneralMenu implements OnInit {
     })
   }
   refreshModel() {
+    this.createOrEditMode()
     this.userForm = new Usuario()
   }
 }

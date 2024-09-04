@@ -8,11 +8,11 @@
     <div chip-right>
       <!-- SELECCIONABLE DE SUCURSAL -->
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" [disabled]="loadingSelectBranch" (click)="changeBranch(true)"
+        <input type="radio" class="btn-check" [disabled]="loadingSelectBranch ||disabled" (click)="changeBranch(true)"
           [(ngModel)]="typeBranch" value="almacen" name="btnradio" id="btnradio1" autocomplete="off">
         <label class="btn btn-outline-primary" for="btnradio1">Almacenes</label>
 
-        <input type="radio" class="btn-check" (click)="changeBranch(true)" [disabled]="loadingSelectBranch"
+        <input type="radio" class="btn-check" (click)="changeBranch(true)" [disabled]="loadingSelectBranch ||disabled"
           [(ngModel)]="typeBranch" value="tienda" name="btnradio" id="btnradio2" autocomplete="off">
         <label class="btn btn-outline-primary" for="btnradio2">Tiendas</label>
       </div>
@@ -23,8 +23,9 @@
   <section class="main-contend-form">
     <div class="row">
       <div class="col-6">
-        <app-input-forms [(ngModel)]="idBranch" (click)="msgSelect()" (ngModelChange)="changeBranch()"
-          typeInput="select" [resources]="branch" [loading]="loading" labelInput="Sucursales">
+        <app-input-forms [disabled]="disabled" [(ngModel)]="idBranch" (click)="msgSelect()"
+          (ngModelChange)="changeBranch()" typeInput="select" [resources]="branch" [loading]="loading"
+          labelInput="Sucursales">
         </app-input-forms>
       </div>
       <div class="col-6">

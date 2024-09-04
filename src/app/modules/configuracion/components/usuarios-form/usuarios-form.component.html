@@ -1,5 +1,6 @@
-<app-menu-general (goToCreate)="descartar()" [view_buttons]="viewButtons" [access]="access" (descartar)="descartar()" (delete)="deleteUser()"
-  (archivar)="archiveUser()" (search)="searchUser()" (guardar)="saveElement()"></app-menu-general>
+<app-menu-general (goToCreate)="refreshModel()" [view_buttons]="viewButtons" [access]="access" (descartar)="descartar()"
+  (delete)="deleteUser()" (archivar)="archiveUser()" (search)="searchUser()"
+  (guardar)="saveElement()"></app-menu-general>
 
 <!-- TABLA MODAL -->
 <app-dynamic-table #table [columns]="columns" (selectItem)="selectItem($event)" [records]="listUsers"
@@ -14,48 +15,53 @@
   <section class="main-contend-form">
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.name_user"
+        <app-input-forms [disabled]="disabled" typeInput="text" [(ngModel)]="userForm.name_user"
           labelInput="Nombre completo"></app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms typeInput="email" [(ngModel)]="userForm.email" labelInput="Email"></app-input-forms>
+        <app-input-forms [disabled]="disabled" typeInput="email" [(ngModel)]="userForm.email"
+          labelInput="Email"></app-input-forms>
       </div>
     </div>
     <!-- FILA 2 -->
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.direction" labelInput="Dirección"></app-input-forms>
+        <app-input-forms typeInput="text" [disabled]="disabled" [(ngModel)]="userForm.direction"
+          labelInput="Dirección"></app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms typeInput="number" [(ngModel)]="userForm.ci" labelInput="Cédula"></app-input-forms>
+        <app-input-forms typeInput="number" [disabled]="disabled" [(ngModel)]="userForm.ci"
+          labelInput="Cédula"></app-input-forms>
       </div>
     </div>
 
     <!-- FILA 2 -->
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="checkbox" [(ngModel)]="userForm.ci_as_username" (change)="changeUsername()"
-          labelInput="Cédula como usuario"></app-input-forms>
+        <app-input-forms typeInput="checkbox" [disabled]="disabled" [(ngModel)]="userForm.ci_as_username"
+          (change)="changeUsername()" labelInput="Cédula como usuario"></app-input-forms>
       </div>
     </div>
 
     <!-- FILA 3 -->
     <div class="row">
       <div class="col-3">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.username" labelInput="usuario"></app-input-forms>
+        <app-input-forms typeInput="text" [disabled]="disabled" [(ngModel)]="userForm.username"
+          labelInput="usuario"></app-input-forms>
       </div>
       <div class="col-3">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.password" labelInput="Contraseña"></app-input-forms>
+        <app-input-forms typeInput="text" [disabled]="disabled" [(ngModel)]="userForm.password"
+          labelInput="Contraseña"></app-input-forms>
       </div>
 
       <div class="col-3">
-        <app-input-forms typeInput="text" [(ngModel)]="userForm.repeat_password"
+        <app-input-forms typeInput="text" [disabled]="disabled" [(ngModel)]="userForm.repeat_password"
           labelInput="Confirmar Contraseña"></app-input-forms>
       </div>
 
       <div class="col-3">
-        <app-input-forms typeInput="select" [resources]="listRoles" [(ngModel)]="userForm.rol" labelInput="Cargos"
-          [loading]="loading"></app-input-forms>
+        <app-input-forms typeInput="select" [disabled]="disabled" [resources]="listRoles" [(ngModel)]="userForm.rol"
+          labelInput="Cargos" [loading]="loading"></app-input-forms>
       </div>
     </div>
 

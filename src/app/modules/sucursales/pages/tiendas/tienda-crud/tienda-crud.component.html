@@ -18,12 +18,12 @@
   <section class="main-contend-form">
     <div class="row">
       <div class="col-6">
-        <app-input-forms typeInput="text" [(ngModel)]="shop.name_shop"
+        <app-input-forms [disabled]="disabled" typeInput="text" [(ngModel)]="shop.name_shop"
           (ngModelChange)="shop.name_shop = $event.toUpperCase()" appAddPrefix [prefix]="'TDA-'"
           labelInput="Nombre Tienda"></app-input-forms>
       </div>
       <div class="col-6">
-        <app-input-forms typeInput="email" [(ngModel)]="shop.direction" labelInput="Dirección"></app-input-forms>
+        <app-input-forms [disabled]="disabled" typeInput="email" [(ngModel)]="shop.direction" labelInput="Dirección"></app-input-forms>
       </div>
     </div>
   </section>
