@@ -27,6 +27,8 @@ export class PriceList {
 export class PriceListDetail {
 	id: number = 0
 	quantity: number = 0
+	product_name: string = ''
+	categoria: string = ''
 	price: number = 0
 	net_price: number = 0
 	discount: number = 0
@@ -34,4 +36,5 @@ export class PriceListDetail {
 	price_list_id: number = 0
 	product_id: number = 0
 	user_id: number = 0
+	active_discount: boolean = false
 }

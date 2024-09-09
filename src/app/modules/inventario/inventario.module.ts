@@ -14,13 +14,15 @@ import { TreeViewComponent } from "../../components/tree-view/tree-view.componen
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
 import { PriceListComponent } from './pages/price-list/price-list.component';
 import { DirectiveModule } from 'src/app/directives/directive.module';
+import { ProductFormComponent } from './pages/product-form/product-form.component';
 
 
 
 @NgModule({
   declarations: [
     CategoryComponent,
-    PriceListComponent
+    PriceListComponent,
+    ProductFormComponent
   ],
   imports: [
     RouterModule.forChild(inventory),

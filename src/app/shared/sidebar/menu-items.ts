@@ -100,7 +100,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     id: 7,
-    path: '',
+    path: 'inventario/products',
     title: 'Productos',
     icon: 'bi bi-basket3-fill',
     class: '',
