@@ -14,14 +14,16 @@
   <section class="main-contend-form">
     <div class="row align-items-center">
       <div class="col-4">
-        <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.name" typeInput="text" labelInput="Nombre"></app-input-forms>
+        <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.name" typeInput="text"
+          labelInput="Nombre"></app-input-forms>
       </div>
       <div class="col-4">
         <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.fecha_inicio" typeInput="date" textUppercase
           labelInput="Fecha inicio"></app-input-forms>
       </div>
       <div class="col-4">
-        <app-input-forms  [disabled]="disabled" [(ngModel)]="price_list.fecha_fin" typeInput="date" labelInput="Fecha fin"></app-input-forms>
+        <app-input-forms [disabled]="disabled" [(ngModel)]="price_list.fecha_fin" typeInput="date"
+          labelInput="Fecha fin"></app-input-forms>
       </div>
     </div>
     <div class="row">
@@ -30,6 +32,19 @@
           labelInput="Description"></app-input-forms>
       </div>
     </div>
+  </section>
+</section>
+<!-- DETALLES DE LISTA DE PRECIOS -->
+<section class="main-contend-card">
+  <!-- HEADER DEL FORMULARIO -->
+  <app-header-form header="Productos" description="Productos en la lista de precios">
+  </app-header-form>
+
+  <!-- FORMULARIO -->
+  <section class="main-contend-form">
+    <app-dynamic-table [disabledBtnAdd]="disabled" [viewBtnAdd]="true" [records]="price_list.price_list_details"
+      [type_table]="'table'" [columns]="columns_price_list_detail" >
+    </app-dynamic-table>
   </section>
 </section>
 

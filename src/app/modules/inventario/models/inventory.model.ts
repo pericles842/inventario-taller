@@ -21,7 +21,7 @@ export class PriceList {
 	fecha_inicio: string = setDateInput(new Date())
 	fecha_fin: string = ''
 	user_id: number = 0
-	details?: PriceListDetail[] = []
+	price_list_details: PriceListDetail[] = []
 }
 
 export class PriceListDetail {

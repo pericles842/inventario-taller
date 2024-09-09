@@ -19,6 +19,7 @@ export class PriceListComponent extends GeneralMenu implements OnInit {
   @ViewChild('table_price_list') table_price_list!: DynamicModalComponent
   price_list: PriceList = new PriceList()
   columns_price_list: Columns[] = []
+  columns_price_list_detail: Columns[] = []
   array_price_list: PriceList[] = []
 
   constructor(
@@ -31,6 +32,7 @@ export class PriceListComponent extends GeneralMenu implements OnInit {
 
   ngOnInit(): void {
     this.columns_price_list = this.inventarioService.columns_price_list
+    this.columns_price_list_detail = this.inventarioService.columns_price_list_detail
   }
 
   /**
@@ -79,8 +81,9 @@ export class PriceListComponent extends GeneralMenu implements OnInit {
 
     this.loading = true
     this.inventarioService.createPriceList(this.price_list).subscribe({
-      next: (data) => {
+      next: (price_list) => {
         this.array_price_list.push(this.price_list)
+        //this.price_list = price_list
         this.loading = false
         this.toastService.success('Lista de precios guardada exitosamente')
       },

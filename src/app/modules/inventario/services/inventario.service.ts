@@ -17,6 +17,24 @@ export class InventarioService {
     { label: 'Fecha de finalización', key: 'fecha_fin', visible: true, type: 'fecha' },
   ]
 
+  /**
+   *Columnas de l atabla detalle de lisa de precios 
+   *
+   * @type {Columns[]}
+   * @memberof InventarioService
+   */
+  columns_price_list_detail: Columns[] = [
+    { label: 'Product_id', key: 'product_id', visible: true },
+    { label: 'Producto', key: 'product_name', visible: true },
+    { label: 'Categoría', key: 'categoria', visible: true },
+    { label: 'Precio', key: 'price', visible: true },
+    { label: 'Precio neto ', key: 'net_price', visible: true },
+    { label: 'Descuento', key: 'discount', visible: true },
+    { label: 'iva', key: 'iva', visible: true },
+    { label: 'active_discount', key: 'active_discount', visible: true, type: 'boolean' },
+
+  ]
+
   constructor(
     private http: HttpClient
   ) { }
