@@ -1,4 +1,4 @@
-<app-menu-general [access]="access" [view_buttons]="viewButtons"></app-menu-general>
+<app-menu-general [access]="access" (goToCreate)="refreshModel()" [view_buttons]="viewButtons"></app-menu-general>
 
 <section class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
@@ -7,7 +7,6 @@
   </app-header-form>
 
   <section class="main-contend-form">
-
     <!-- Cabecera  -->
     <div class="row g-5">
       <img src="../../../../../assets/images/product-img.png" alt="img-product" class=" img-product">
@@ -15,26 +14,30 @@
 
         <!-- Formulario cabecera fila 1  -->
         <div class="row">
-          <div class="col-5">
+          <div class="col-4">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.name_product" typeInput="text"
               labelInput="nombre"></app-input-forms>
           </div>
 
           <div class="col">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.type_product" typeInput="select"
-              labelInput="Tipo producto"></app-input-forms>
+              [resources]="typeOfProductsList" labelInput="Tipo producto" [loading]="loading"></app-input-forms>
           </div>
           <div class="col">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.category_id" typeInput="select"
-              labelInput="Categoria"></app-input-forms>
+              [resources]="categoryList" labelInput="Categoria" [loading]="loading"></app-input-forms>
+          </div>
+          <div class="col">
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.talla" typeInput="select" labelInput="Talla"
+              [resources]=" tallasList" [loading]="loading" [selectInNull]="true"></app-input-forms>
           </div>
         </div>
 
         <!-- Formulario cabecera fila 2  -->
         <div class="row mt-5">
           <div class="col-4">
-            <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list_detail.price_list_id" typeInput="select"
-              labelInput="Lista de precios"></app-input-forms>
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.id" typeInput="select"
+              labelInput="Lista de precios" [resources]="priceListArray" [loading]="loading"></app-input-forms>
           </div>
           <div class="col-3">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.reference" typeInput="text"
@@ -45,7 +48,8 @@
               labelInput="Sku"></app-input-forms>
           </div>
           <div class="col-1">
-            <input type="color" class="m-1" [(ngModel)]="product.color">
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.color" typeInput="color"
+              labelInput="Color"></app-input-forms>
           </div>
           <div class="col-1">
             <button class="btn btn-primary bi bi-plus w-full m-1"></button>
@@ -55,27 +59,27 @@
       <!-- body -->
       <div class="row mt-4">
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list_detail.price" typeInput="number"
-            labelInput="Precio"></app-input-forms>
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.price"
+            typeInput="number" labelInput="Precio"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list_detail.net_price" typeInput="number"
-            labelInput="Precio neto"></app-input-forms>
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.net_price"
+            typeInput="number" labelInput="Precio neto"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list_detail.discount" typeInput="number"
-            labelInput="Descuento"></app-input-forms>
-        </div>
-        <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list_detail.active_discount" typeInput="checkbox"
-            labelInput="Activar descuento"></app-input-forms>
-        </div>
-        <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list_detail.iva" typeInput="text"
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.iva" typeInput="text"
             labelInput="iva"></app-input-forms>
         </div>
-         
+        <div class="col">
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.discount"
+            typeInput="number" labelInput="Descuento"></app-input-forms>
+        </div>
+        <div class="col">
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.active_discount"
+            typeInput="checkbox" labelInput="Activar descuento"></app-input-forms>
+        </div>
       </div>
     </div>
   </section>
 </section>
+<app-loading [loading]="loading"></app-loading>

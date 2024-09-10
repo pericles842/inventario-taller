@@ -22,6 +22,7 @@ export class PriceList {
 	fecha_fin: string = ''
 	user_id: number = 0
 	price_list_details: PriceListDetail[] = []
+	price_list_detail: PriceListDetail = new PriceListDetail()
 }
 
 export class PriceListDetail {

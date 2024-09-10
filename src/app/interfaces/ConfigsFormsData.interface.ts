@@ -20,3 +20,5 @@ export interface TreeNodeCategory {
     children: TreeNodeCategory[];
     expanded: boolean;
 }
+
+export type SelectInput  = { id: number|string, name: string }[] 

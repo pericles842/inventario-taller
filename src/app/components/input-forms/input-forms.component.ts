@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SelectInput } from 'src/app/interfaces/ConfigsFormsData.interface';
 
 @Component({
   standalone: true,
@@ -34,7 +35,7 @@ export class InputFormsComponent {
    * @type {('text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select')}
    * @memberof InputFormsComponent
    */
-  @Input() typeInput: 'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select' | 'checkbox' = 'text'
+  @Input() typeInput: 'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select' | 'checkbox' | 'color' = 'text'
 
   /**
    *En caso de ser un select definir los recursos
@@ -42,7 +43,7 @@ export class InputFormsComponent {
    * @type {{key:string,label:string}[]}
    * @memberof InputFormsComponent
    */
-  @Input() resources: { id: number, name: string }[] = [];
+  @Input() resources: { id: number | string, name: string }[] = [];
   /**
    *Define si un selec puede ser nulo, mostrara el bton de limpiar
    *

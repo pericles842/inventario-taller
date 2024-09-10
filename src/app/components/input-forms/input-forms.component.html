@@ -84,4 +84,13 @@
         class="btn text-white bg-primary bi bi-x-lg fw-bolder fs-4"></button>
     </div>
   </div>
+
+  <!--//*---------------------------------------- CAMPO COLOR -->
+  <div *ngSwitchCase="'color'">
+    <div class="custom-input-container ">
+      <input [ngClass]="disabled? 'disabled':''" style=" height: 45px;" [value]="value"
+        (input)="onInputChange($event)" [disabled]="disabled" type="color" class="custom-input" placeholder="">
+      <label class="custom-input-label">{{labelInput}}</label>
+    </div>
+  </div>
 </div>
