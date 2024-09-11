@@ -31,9 +31,9 @@ export class PriceListDetail {
 	product_name: string = ''
 	categoria: string = ''
 	price: number = 0
-	net_price: number = 0
+	net_price: number = 30
 	discount: number = 0
-	iva: string = ''
+	iva: string = '12'
 	price_list_id: number = 0
 	product_id: number = 0
 	user_id: number = 0

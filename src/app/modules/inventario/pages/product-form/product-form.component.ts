@@ -16,16 +16,26 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class ProductFormComponent extends GeneralMenu implements OnInit {
 
   /**
-   *Tipos de producto
+   *Tipos de producto unitario o compuesto
    *
    * @type {SelectInput}
    * @memberof ProductFormComponent
    */
-  typeOfProductsList: SelectInput = [
-    { id: 'sale', name: 'Venta' },
-    { id: 'production', name: 'Producción' },
+  type_product_list: SelectInput = [
+    { id: 'unit_product', name: 'Producto Unitario' },
+    { id: 'composite_product', name: 'Producto Compuesto' },
   ]
 
+  /**
+   *Claseficacion del producto Puede ir a la venta o almacen  
+   *
+   * @type {SelectInput}
+   * @memberof ProductFormComponent
+   */
+  product_classification_list: SelectInput = [
+    { id: 'marketable_product', name: 'Producto Comercial' },
+    { id: 'primary_product', name: 'Producto Primario' },
+  ]
   /**
    *Listado de categorias
    *
@@ -66,12 +76,18 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
 
   }
 
+  /**
+   *oBTIENE LOS RECURSOS
+   *
+   * @private
+   * @memberof ProductFormComponent
+   */
   private async loadResource() {
     this.loading = true
     await Promise.all([
       this.inventarioService.getCategories().toPromise().then((categories) => this.categoryList = categories as Category[]),
       this.inventarioService.getPriceList().toPromise().then((priceList) => this.priceListArray = priceList as PriceList[]),
-      
+
     ]).finally(() => this.loading = false).catch((error) => {
       this.loading = false
       console.log(error);
@@ -82,4 +98,5 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
   refreshModel() {
     this.createOrEditMode()
   }
+  
 }

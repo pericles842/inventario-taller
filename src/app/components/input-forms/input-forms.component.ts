@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SelectInput } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { DirectiveModule } from 'src/app/directives/directive.module';
 
 @Component({
   standalone: true,
@@ -10,7 +10,8 @@ import { SelectInput } from 'src/app/interfaces/ConfigsFormsData.interface';
   styleUrls: ['./input-forms.component.scss'],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    DirectiveModule
   ],
   providers: [
     {
@@ -29,6 +30,13 @@ export class InputFormsComponent {
    * @memberof InputFormsComponent
    */
   @Input() labelInput: string = ''
+  /**
+   *Si existe un texto habilita el icono de pregunta
+   *
+   * @type {string}
+   * @memberof InputFormsComponent
+   */
+  @Input() question_button: string = ''
   /**
    *Tipo de input
    *

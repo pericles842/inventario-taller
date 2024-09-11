@@ -30,10 +30,10 @@
 <ng-template #tableTemplate>
   <div class="card">
     <div class="card-body p-0">
-      <!-- FILTROS -->
+      <!-- FILTROS  de la tabla-->
       <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
 
-        <div class="col-4">
+        <div class="col-4 pt-3">
           <app-input-forms [disabled]="records.length == 0" typeInput="text" [(ngModel)]="search"
             labelInput="Buscar"></app-input-forms>
         </div>

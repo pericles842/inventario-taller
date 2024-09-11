@@ -77,6 +77,7 @@
         </select>
         <label class="custom-input-label">{{labelInput}}
           <!-- spinner -->
+          <ng-container *ngTemplateOutlet="questionIconTpl; context: { question: question_button }"></ng-container>
           <span *ngIf="loading" class="ms-2 spinner-border spinner-border-sm" aria-hidden="true"></span>
         </label>
       </div>
@@ -88,9 +89,15 @@
   <!--//*---------------------------------------- CAMPO COLOR -->
   <div *ngSwitchCase="'color'">
     <div class="custom-input-container ">
-      <input [ngClass]="disabled? 'disabled':''" style=" height: 45px;" [value]="value"
-        (input)="onInputChange($event)" [disabled]="disabled" type="color" class="custom-input" placeholder="">
+      <input [ngClass]="disabled? 'disabled':''" style=" height: 45px;" [value]="value" (input)="onInputChange($event)"
+        [disabled]="disabled" type="color" class="custom-input" placeholder="">
       <label class="custom-input-label">{{labelInput}}</label>
     </div>
   </div>
 </div>
+
+<!-- ICONO DE PREGNTA TEMPLATE -->
+<ng-template #questionIconTpl let-question="question">
+  <i *ngIf="question.trim()" [tooltipQuestion]="true" [tooltip]="question"
+    class="bi bi-question-circle-fill ms-2 fs-4 text-info"></i>
+</ng-template>

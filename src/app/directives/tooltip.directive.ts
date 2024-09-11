@@ -6,6 +6,13 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
 export class TooltipDirective {
 
   @Input('tooltip') tooltipText: string = 'Tolltip';
+  /**
+   *si es true la fuente sera mas pequeña para mostrar mas información
+   *
+   * @type {boolean}
+   * @memberof TooltipDirective
+   */
+  @Input('tooltipQuestion') tooltipQuestion: boolean = false
   tooltipElement: HTMLElement | null = null;
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
@@ -53,18 +60,36 @@ export class TooltipDirective {
     //agregamos elemento la body
     this.renderer.appendChild(document.body, tooltipElement);
 
-    //establecemos estilo creamos un obj literal
-    Object.assign(tooltipElement.style, {
-      position: 'fixed',
-      backgroundColor: '#333',
-      color: '#fff',
-      padding: '5px 10px',
-      borderRadius: '4px',
-      zIndex: '1000',
-      fontSize: '15px',
-      top: tooltipPos.top,
-      left: tooltipPos.left
-    });
+    if (!this.tooltipQuestion) {
+      //*tooltip
+      Object.assign(tooltipElement.style, {
+        position: 'fixed',
+        backgroundColor: '#333',
+        color: '#fff',
+        padding: '5px 10px',
+        borderRadius: '4px',
+        zIndex: '10000',
+        fontSize: '15px',
+        top: tooltipPos.top,
+        left: tooltipPos.left
+      });
+    } else {
+      // *CAJA DE INFORMACION
+      Object.assign(tooltipElement.style, {
+        position: 'fixed',
+        backgroundColor: '#fff',
+        color: '#000',
+        padding: '5px 10px',
+        borderRadius: '4px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+        zIndex: '10000',
+        fontSize: '12px',
+        width: '10%',
+        top: tooltipPos.top,
+        left: tooltipPos.left
+      });
+    }
+
 
     this.tooltipElement = tooltipElement;
   }

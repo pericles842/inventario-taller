@@ -1,4 +1,5 @@
 @import '../../../assets/scss/variable';
+
 /* Estilos para el input de texto */
 .custom-input-container {
     position: relative;
@@ -8,7 +9,7 @@
 
 .custom-input {
     width: 100%;
-  
+
     padding: 10px;
     border: 1px solid #ccc;
     /* Ajusta el color y grosor del borde según sea necesario */
@@ -40,13 +41,18 @@
 /* Estilos cuando el input está enfocado o tiene contenido */
 .custom-input:focus+.custom-input-label,
 .custom-input:not(:placeholder-shown)+.custom-input-label {
-    top: -14px;
+   font-family: Arial, Helvetica, sans-serif;
+    //text-transform: uppercase;
+
     /* Posición del texto cuando el input está enfocado o tiene contenido */
-    font-size: 15px;
+    left: 0px;
+    top: -11px;
+
     /* Tamaño del texto cuando el input está enfocado o tiene contenido */
-    color: var(--text-secondary);
+    font-size: 12px;
 
     /* Color del texto cuando el input está enfocado o tiene contenido */
+    color: $primary;
 }
 
 /* Estilos cuando el input está enfocado */

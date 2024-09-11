@@ -1,5 +1,6 @@
 <app-menu-general [access]="access" (goToCreate)="refreshModel()" [view_buttons]="viewButtons"></app-menu-general>
 
+
 <section class="main-contend-card">
   <!-- HEADER DEL FORMULARIO -->
   <app-header-form header="Productos" description="Creacion de productos">
@@ -8,56 +9,70 @@
 
   <section class="main-contend-form">
     <!-- Cabecera  -->
-    <div class="row g-5">
+    <div class="row ">
       <img src="../../../../../assets/images/product-img.png" alt="img-product" class=" img-product">
-      <div class="col">
+      <div class="col d-flex flex-column justify-content-between">
 
         <!-- Formulario cabecera fila 1  -->
         <div class="row">
           <div class="col-4">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.name_product" typeInput="text"
-              labelInput="nombre"></app-input-forms>
+              labelInput="Nombre del producto"></app-input-forms>
           </div>
 
-          <div class="col">
+          <div class="col-4">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.type_product" typeInput="select"
-              [resources]="typeOfProductsList" labelInput="Tipo producto" [loading]="loading"></app-input-forms>
+              [resources]="type_product_list" labelInput="Tipo producto"
+              [question_button]="'Define si es un solo producto o un producto de varias unidades'"
+              [loading]="loading"></app-input-forms>
           </div>
-          <div class="col">
-            <app-input-forms [disabled]="disabled" [(ngModel)]="product.category_id" typeInput="select"
-              [resources]="categoryList" labelInput="Categoria" [loading]="loading"></app-input-forms>
+          <div class="col-4">
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.product_class" typeInput="select"
+              [resources]="product_classification_list" labelInput="Clasificación del producto"
+              [loading]="loading" [question_button]="'Clasifica el producto y determina si se puede vender o si es para producción'"></app-input-forms>
           </div>
-          <div class="col">
-            <app-input-forms [disabled]="disabled" [(ngModel)]="product.talla" typeInput="select" labelInput="Talla"
-              [resources]=" tallasList" [loading]="loading" [selectInNull]="true"></app-input-forms>
-          </div>
+
         </div>
 
-        <!-- Formulario cabecera fila 2  -->
-        <div class="row mt-5">
-          <div class="col-4">
+        <!-- Formulario cabecera fila 2    -->
+        <div class="row ">
+          <div class="col-6">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.id" typeInput="select"
               labelInput="Lista de precios" [resources]="priceListArray" [loading]="loading"></app-input-forms>
           </div>
-          <div class="col-3">
+          <div class="col-6">
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.category_id" typeInput="select"
+              [resources]="categoryList" labelInput="Categoria" [loading]="loading"></app-input-forms>
+          </div>
+
+        </div>
+
+        <!-- Formulario cabecera fila 3  -->
+        <div class="row ">
+          <div class="col-4">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.reference" typeInput="text"
               labelInput="Referencia"></app-input-forms>
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.sku" typeInput="text"
               labelInput="Sku"></app-input-forms>
           </div>
-          <div class="col-1">
+          <div class="col-2">
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.talla" typeInput="select" labelInput="Talla"
+              [resources]=" tallasList" [loading]="loading" [selectInNull]="true"></app-input-forms>
+          </div>
+
+          <div class="col">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.color" typeInput="color"
               labelInput="Color"></app-input-forms>
           </div>
-          <div class="col-1">
+          <div class="col" *ngIf="product.product_class === 'primary_product'">
             <button class="btn btn-primary bi bi-plus w-full m-1"></button>
           </div>
         </div>
       </div>
       <!-- body -->
-      <div class="row mt-4">
+      <div class="row mt-5">
         <div class="col">
           <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.price"
             typeInput="number" labelInput="Precio"></app-input-forms>
