@@ -1,4 +1,4 @@
-<app-menu-general [access]="access" (goToCreate)="refreshModel()" [view_buttons]="viewButtons"></app-menu-general>
+<app-menu-general [access]="access" (guardar)="saveProduct()" (goToCreate)="refreshModel()" [view_buttons]="viewButtons"></app-menu-general>
 
 
 <section class="main-contend-card">
@@ -74,23 +74,23 @@
       <!-- body -->
       <div class="row mt-5">
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.price"
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].price"
             typeInput="number" labelInput="Precio"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.net_price"
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].net_price"
             typeInput="number" labelInput="Precio neto"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.iva" typeInput="text"
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].iva" typeInput="text"
             labelInput="iva"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.discount"
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].discount"
             typeInput="number" labelInput="Descuento"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_detail.active_discount"
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].active_discount"
             typeInput="checkbox" labelInput="Activar descuento"></app-input-forms>
         </div>
       </div>

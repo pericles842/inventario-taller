@@ -98,5 +98,7 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
   refreshModel() {
     this.createOrEditMode()
   }
-  
+  saveProduct() {
+    console.log(this.product)
+  }  
 }
