@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DirectiveModule } from 'src/app/directives/directive.module';
+import { TypeInput } from 'src/app/interfaces/ConfigsFormsData.interface';
 
 @Component({
   standalone: true,
@@ -43,7 +44,7 @@ export class InputFormsComponent {
    * @type {('text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select')}
    * @memberof InputFormsComponent
    */
-  @Input() typeInput: 'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select' | 'checkbox' | 'color' = 'text'
+  @Input() typeInput: TypeInput = 'text'
 
   /**
    *En caso de ser un select definir los recursos

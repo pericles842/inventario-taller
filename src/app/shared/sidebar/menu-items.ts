@@ -88,7 +88,6 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
-
   {
     id: 17,
     path: 'inventario/price-list',
@@ -99,10 +98,19 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    id: 18,
+    path: 'inventario/products/attributes',
+    title: 'Atributos',
+    icon: 'bi bi bi-box-seam',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     id: 7,
     path: 'inventario/products',
     title: 'Productos',
-    icon: 'bi bi-basket3-fill',
+    icon: 'bi bi bi-boxes',
     class: '',
     extralink: false,
     submenu: []

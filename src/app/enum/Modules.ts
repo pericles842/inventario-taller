@@ -1,5 +1,5 @@
 /**
- *Id de los modulos
+ *Id de los modulos en el sistema, estan anclados con el servidor
  *
  * @export
  * @enum {number}
@@ -21,5 +21,6 @@ export enum Modules {
     venta = 14,
     reportes = 15,
     categorías = 16,
-    lista_de_precios = 17
+    lista_de_precios = 17,
+    atributos_productos = 18
 }

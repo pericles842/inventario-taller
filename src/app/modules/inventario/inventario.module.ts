@@ -15,6 +15,7 @@ import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-mo
 import { PriceListComponent } from './pages/price-list/price-list.component';
 import { DirectiveModule } from 'src/app/directives/directive.module';
 import { ProductFormComponent } from './pages/product-form/product-form.component';
+import { ProductAttributesComponent } from './pages/product-attributes/product-attributes.component';
 
 
 
@@ -22,7 +23,8 @@ import { ProductFormComponent } from './pages/product-form/product-form.componen
   declarations: [
     CategoryComponent,
     PriceListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductAttributesComponent
   ],
   imports: [
     RouterModule.forChild(inventory),

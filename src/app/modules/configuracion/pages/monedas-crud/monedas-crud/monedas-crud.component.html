@@ -17,9 +17,13 @@
         <app-input-forms [disabled]="disabled" [(ngModel)]="moneda.name" typeInput="text"
           labelInput="Nombre Moneda"></app-input-forms>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <app-input-forms [disabled]="disabled" typeInput="text" textUppercase [(ngModel)]="moneda.iso"
           labelInput="Iso"></app-input-forms>
+      </div>
+      <div class="col-2">
+        <app-input-forms [disabled]="disabled" typeInput="text" textUppercase [(ngModel)]="moneda.symbol"
+          labelInput="Símbolo"></app-input-forms>
       </div>
       <div class="col-4">
         <app-input-forms [disabled]="disabled" typeInput="checkbox" [(ngModel)]="moneda.default"

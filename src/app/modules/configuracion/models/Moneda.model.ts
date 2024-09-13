@@ -8,6 +8,7 @@ export class Moneda {
   id: number = -1;
   name: string = '';
   iso: string = '';
+  symbol: string = ''
   default: boolean = false;
   tasas: Tasa[] = [];
 }
@@ -22,6 +23,7 @@ export class Tasa {
   id_coin: number = -1;
   father_currency: string = '';
   price: number = 0;
+  price_symbol: string = '';
   created_at: Date = new Date();
   updated_at: Date = new Date();
 
@@ -42,7 +44,7 @@ export type RequestUpdateTasa = { config: { id: number, price: number } }
  * @export
  * @type RequestUpdateTasa
  */
-export type RequestCreateCurrency = { moneda: { iso: string, name: string, default: boolean, id: number | undefined } }
+export type RequestCreateCurrency = { moneda: { iso: string, name: string, default: boolean, symbol: string, id: number | undefined } }
 
 /**
  * respuesta de crear o actualizar monda
@@ -50,7 +52,7 @@ export type RequestCreateCurrency = { moneda: { iso: string, name: string, defau
  * @export
  * @type RequestUpdateTasa
  */
-export type ResponseCreateCurrency = { iso: string, name: string, default: boolean, id: number }
+export type ResponseCreateCurrency = { iso: string, name: string, default: boolean, id: number, symbol: string }
 
 
 export interface HttpTasaCreate {

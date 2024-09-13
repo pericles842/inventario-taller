@@ -114,7 +114,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
    * @memberof MonedasCrudComponent
    */
   deleteTasaService(id_tasa: number) {
-    this.monedasService.deleteCurrency(id_tasa).subscribe({
+    this.monedasService.deleteTasa(id_tasa).subscribe({
       error: (err) => {
         this.toastService.error(err.error.text, 'Error en eliminar tasas')
       },
@@ -162,6 +162,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
         let index = this.moneda.tasas.findIndex(item => item.id == id)
         //asignamos precio nuevo
         this.moneda.tasas[index].price = price
+        this.moneda.tasas[index].price_symbol = price + ' ' + this.moneda.symbol
         this.moneda.tasas[index].updated_at = new Date()
         this.loading = false
         this.toastService.success('Tasa actualizada con éxito')
@@ -187,6 +188,7 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
         let tasa = new Tasa()
         tasa.id = response.id
         tasa.price = response.price
+        tasa.price_symbol = response.price + ' ' + this.moneda.symbol
         tasa.father_currency = this.moneda.name
         tasa.id_coin = this.moneda.id
         tasa.updated_at = new Date()
@@ -213,18 +215,18 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
     if (!this.validateForm()) return
 
     this.loading = true
-    let { id, iso, name, default: por_defecto, tasas } = this.moneda;
+    let { id, iso, name, default: por_defecto, tasas, symbol } = this.moneda;
     name = oneFirsUppercase(this.moneda.name)
 
-    this.monedasService.saveNewCurrency(iso, name, por_defecto, id).subscribe({
+    this.monedasService.saveNewCurrency(iso, name, por_defecto, symbol, id).subscribe({
       next: (response) => {
 
         if (id == -1) {
-          this.list_monedas.push({ id: response.id, iso, name, default: por_defecto, tasas })
+          this.list_monedas.push({ id: response.id, iso, name, default: por_defecto, tasas, symbol: this.moneda.symbol })
           this.moneda.id = response.id
         } else {
           let index = this.list_monedas.findIndex(item => item.id == id)
-          this.list_monedas[index] = { id, iso, name, default: por_defecto, tasas }
+          this.list_monedas[index] = { id, iso, name, default: por_defecto, tasas, symbol: this.moneda.symbol }
         }
         this.loading = false
         this.toastService.success('Moneda guardada correctamente')
@@ -256,12 +258,14 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
         this.monedasService.deleteCurrency(this.moneda.id).subscribe({
           next: (value) => {
 
-            let index = this.list_monedas.findIndex(item => item.id = this.moneda.id)
+            let index = this.list_monedas.findIndex(item => item.id == this.moneda.id)
+            
             this.list_monedas.splice(index, 1)
             this.moneda = new Moneda()
 
             this.presentation()
             this.loading = false
+            this.toastService.success('Moneda eliminada correctamente')
           }, error: (err) => {
             this.loading = false
             this.toastService.error(err.error.text, 'Error al borrar moneda')
@@ -287,7 +291,11 @@ export class MonedasCrudComponent extends GeneralMenu implements OnInit {
 
       pass = false
       this.toastService.warning('Campo "iso" vació')
-    }
+    } else if (this.moneda.symbol.trim() == '') {
+
+    pass = false
+    this.toastService.warning('Campo "Símbolo" vació')
+  }
 
     return pass
   }

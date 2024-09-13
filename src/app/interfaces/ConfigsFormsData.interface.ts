@@ -21,4 +21,7 @@ export interface TreeNodeCategory {
     expanded: boolean;
 }
 
-export type SelectInput  = { id: number|string, name: string }[] 
+//interfaz de capmpo seleccinable para los recursos
+export type SelectInput = { id: number | string, name: string }[]
+//Tipos de inputs
+export type TypeInput = 'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'select' | 'checkbox' | 'color'

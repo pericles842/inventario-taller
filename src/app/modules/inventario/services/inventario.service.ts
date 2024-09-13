@@ -4,6 +4,7 @@ import { environments } from 'environments/environment.local';
 import { Category, PriceList } from '../models/inventory.model';
 import { Observable } from 'rxjs';
 import { Columns, TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { AttributesProduct } from '../models/Product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,18 @@ export class InventarioService {
 
   ]
 
+  /**
+   *Columnas de l atabla de atributos
+   *
+   * @type {Columns[]}
+   * @memberof InventarioService
+   */
+  columns_attributes_product: Columns[] = [
+    { label: 'Nombre del atributo', key: 'name_attributes', visible: true },
+    { label: 'Tipo del campo', key: 'type_input', visible: true },
+    { label: 'Descripción', key: 'description', visible: true },
+    { label: 'Datos', key: 'data', visible: true },
+  ]
   constructor(
     private http: HttpClient
   ) { }
@@ -97,5 +110,9 @@ export class InventarioService {
    */
   getPriceList(): Observable<PriceList[]> {
     return this.http.get<PriceList[]>(`${environments.host}api/price-list`)
+  }
+
+  geAttributesProducts(): Observable<AttributesProduct[]> {
+    return this.http.get<AttributesProduct[]>(`${environments.host}api/product/attributes`)
   }
 }

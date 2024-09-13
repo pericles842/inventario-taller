@@ -1,0 +1,33 @@
+<app-menu-general [access]="access" [view_buttons]="viewButtons" (goToCreate)="refreshModel()"></app-menu-general>
+
+
+<section class="main-contend-card">
+  <!-- HEADER DEL FORMULARIO -->
+  <app-header-form header="Atributos de productos" description="Atributos personalizados para productos">
+    <h4 correlative_number class=" fs-6 fw-normal mt-3 mb-2">#{{product_model.id|sequence:1 }}</h4>
+  </app-header-form>
+
+  <section class="main-contend-form">
+    <div class="row">
+      <div class="col-6">
+        <app-input-forms [disabled]="disabled" [(ngModel)]="product_model.name" typeInput="text"
+          labelInput="Nombre plantilla" tooltip="Nombre asociado a un ente Ejemplo: 'Ropa'"></app-input-forms>
+      </div>
+      <div class="col-4 d-flex align-content-center gap-3">
+        <button class="btn btn-info bi bi-eye-fill w-full" tooltip="Ver plantilla en un formulario"
+          [disabled]="disabled"></button>
+        <app-input-forms [disabled]="disabled" [(ngModel)]="product_model.status_id" typeInput="checkbox"
+          labelInput="Activo" [tooltip]="'Plantilla activa o inactiva '" [loading]="loading"></app-input-forms>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+<section class="main-contend-card">
+
+  <section class="main-contend-form">
+    <app-dynamic-table [disabledBtnAdd]="disabled" type_table="table" [viewBtnAdd]="true"
+      [columns]="columns"></app-dynamic-table>
+  </section>
+</section>

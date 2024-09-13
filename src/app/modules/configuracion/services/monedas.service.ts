@@ -16,7 +16,7 @@ export class MonedasService {
         { label: 'id', key: 'id' },
         { label: 'Fecha Creación', key: 'created_at', type: 'fecha' },
         { label: 'Ultima actualización', key: 'updated_at', type: 'fecha' },
-        { label: 'Tasa', key: 'price' }
+        { label: 'Tasa', key: 'price_symbol' }
     ];
 
     columns_monedas: Columns[] = [
@@ -76,8 +76,8 @@ export class MonedasService {
      * @return {*} 
      * @memberof MonedasService
      */
-    saveNewCurrency(iso: string, name: string, por_defecto: boolean, id?: number): Observable<ResponseCreateCurrency> {
-        let body: RequestCreateCurrency = { moneda: { iso, name, default: por_defecto, id } }
+    saveNewCurrency(iso: string, name: string, por_defecto: boolean, symbol: string, id?: number): Observable<ResponseCreateCurrency> {
+        let body: RequestCreateCurrency = { moneda: { iso, name, default: por_defecto, id, symbol } }
         return this.http.post<ResponseCreateCurrency>(`${environments.host}api/coin`, body)
     }
 
@@ -88,7 +88,18 @@ export class MonedasService {
      * @return {*} 
      * @memberof MonedasService
      */
-    deleteCurrency(id: number) {
+    deleteTasa(id: number) {
         return this.http.delete<number>(`${environments.host}api/coin/price/${id}`)
+    }
+
+    /**
+     *Elimina una moneda
+     *
+     * @param {number} id_currency
+     * @return {*} 
+     * @memberof MonedasService
+     */
+    deleteCurrency(id_currency: number) {
+        return this.http.delete<number>(`${environments.host}api/coin/${id_currency}`)
     }
 }

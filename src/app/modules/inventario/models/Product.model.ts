@@ -1,3 +1,4 @@
+import { SelectInput, TypeInput } from "src/app/interfaces/ConfigsFormsData.interface";
 import { PriceList, PriceListDetail } from "./inventory.model";
 
 export class Product {
@@ -28,10 +29,38 @@ export class Product {
     category_id: number = 0
     reference: string = ''
     talla: string = ''
-    sku: string = '' 
+    sku: string = ''
     color: string = '#3B3B3B'
     price_list: PriceList = new PriceList()
     production_product_elements?: { [key: string]: string | number }[] = []
 
 
+}
+
+/**
+ *Plnatilla de atributos para agregar atributos personalizados
+ *
+ * @export
+ * @class AttributesProduct
+ */
+export class AttributesProduct {
+    id: number = 0
+    name: string = ''
+    status_id: number = 0
+    
+    attributes_products: DetailAttributes[] = []
+}
+
+/**
+ *Modelo de atributos para un producto
+ *
+ * @export
+ * @class DetailAttributes
+ */
+export class DetailAttributes {
+    data: SelectInput | boolean | null = null
+    name_attributes: string = ''
+    type_input: TypeInput = 'text'
+    description: string = ''
+    key: string = ''
 }
