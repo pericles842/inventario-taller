@@ -47,8 +47,7 @@ export class AttributesProduct {
     id: number = 0
     name: string = ''
     status_id: number = 0
-    
-    attributes_products: DetailAttributes[] = []
+    properties: DetailAttributes[] = []
 }
 
 /**
@@ -58,7 +57,7 @@ export class AttributesProduct {
  * @class DetailAttributes
  */
 export class DetailAttributes {
-    data: SelectInput | boolean | null = null
+    data: SelectInput | null = null
     name_attributes: string = ''
     type_input: TypeInput = 'text'
     description: string = ''

@@ -1,3 +1,4 @@
+ <!-- TABLA CONTENEDOR MODAL -->
 <ng-container *ngIf="type_table === 'modal'; else standaloneTable">
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-scrollable modal-xl">
@@ -20,7 +21,7 @@
   </div>
 </ng-container>
 
-
+<!-- CONTENEDOR TABLA ESTATICA -->
 <ng-template #standaloneTable>
   <h1 *ngIf="titleModal.trim()" class=" fs-6 p-3 bg-primary rounded-2 text-white">{{ titleModal }}</h1>
   <ng-template [ngTemplateOutlet]="tableTemplate"></ng-template>
@@ -80,21 +81,28 @@
               <!-- VISTA DE LOS ITEMS SEGUIDO DE UN SWICH PARA VALIDAR EL TIPO DE COLUMNA -->
               <td [ngSwitch]="column.type" style="cursor: pointer;" (click)="selectItem.emit(cloneObjet(item))"
                 *ngFor="let column of columns">
-                <!-- general -->
+                <!-- tipo general general -->
                 <span *ngSwitchCase="null"> {{item[column.key] }}</span>
-                <!-- booleana -->
+
+                <!-- columna  booleana -->
                 <i *ngSwitchCase="'boolean'"
                   [ngClass]="item[column.key] == 1 || item[column.key] == true  ?'bi bi-check-square-fill text-success':'bi bi-check-square text-danger' "
                   style="--bs-text-opacity: .7;" class="bi-xxl"></i>
-                <!-- fecha -->
+
+                <!-- Tipo fecha -->
                 <span *ngSwitchCase="'fecha'"> {{item[column.key].toString() | date:'MMM d, y, h:mm a' }}</span>
+                <!-- Tipo Json -->
+                <span *ngSwitchCase="'json'" [tooltip]="extractLabelsJson(item[column.key])" [tooltipQuestion]="true">
+                  {{extractLabelsJson(item[column.key]) }}</span>
+                <!-- Tipo bolder -->
+                <span *ngSwitchCase="'bolder'" class="fw-medium"> {{item[column.key] }}</span>
 
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <!-- BOTONES -->
+      <!-- BOTONES  DE LA TABLA MODO MODAL-->
       <div class="d-flex justify-content-end gap-4 ">
         <button *ngIf="type_table =='modal'" (click)="  this.openAndCloseModal()" type="button"
           class="btn btn-danger">Cerrar</button>

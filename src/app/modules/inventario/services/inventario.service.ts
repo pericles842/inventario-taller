@@ -42,11 +42,21 @@ export class InventarioService {
    * @type {Columns[]}
    * @memberof InventarioService
    */
-  columns_attributes_product: Columns[] = [
+  columns_attributes_product_details: Columns[] = [
     { label: 'Nombre del atributo', key: 'name_attributes', visible: true },
-    { label: 'Tipo del campo', key: 'type_input', visible: true },
+    { label: 'Tipo del campo', key: 'type_input', visible: true ,type:'bolder' },
     { label: 'Descripción', key: 'description', visible: true },
-    { label: 'Datos', key: 'data', visible: true },
+    { label: 'Datos', key: 'data', visible: true, type: 'json' },
+  ]
+  /**
+   *Columnas de la tabla de atributos
+   *
+   * @type {Columns[]}
+   * @memberof InventarioService
+   */
+  columns_attributes_product: Columns[] = [
+    { label: 'id', key: 'id', visible: true },
+    { label: 'Nombre', key: 'name', visible: true },
   ]
   constructor(
     private http: HttpClient

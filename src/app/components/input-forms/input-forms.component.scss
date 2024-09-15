@@ -52,7 +52,8 @@
     font-size: 12px;
 
     /* Color del texto cuando el input está enfocado o tiene contenido */
-    color: $primary;
+    //color: $primary;
+    color: var(--text-secondary);
 }
 
 /* Estilos cuando el input está enfocado */

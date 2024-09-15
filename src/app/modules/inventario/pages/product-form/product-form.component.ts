@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Modules } from 'src/app/enum/Modules';
 import { SelectInput } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { GeneralMenu } from 'src/app/models/Menu';
-import { Category, PriceList } from '../../models/inventory.model';
+import { Category, PriceList, PriceListDetail } from '../../models/inventory.model';
 import { Product } from '../../models/Product.model';
 import { InventarioService } from '../../services/inventario.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -71,6 +71,8 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
 
 
   ngOnInit(): void {
+    // 
+    this.product.price_list.price_list_details = [new PriceListDetail()]
     this.loadResource()
 
 
@@ -100,5 +102,5 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
   }
   saveProduct() {
     console.log(this.product)
-  }  
+  }
 }

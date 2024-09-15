@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Columns } from 'src/app/interfaces/ConfigsFormsData.interface';
+import { Columns, SelectInput } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
 import { InputFormsComponent } from "../input-forms/input-forms.component";
+import { DirectiveModule } from 'src/app/directives/directive.module';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { InputFormsComponent } from "../input-forms/input-forms.component";
   imports: [
     CommonModule,
     InputFormsComponent,
-    FormsModule
+    FormsModule,
+    DirectiveModule
   ]
 })
 export class DynamicTableComponent {
@@ -253,5 +255,25 @@ export class DynamicTableComponent {
    */
   cloneObjet(objeto: any) {
     return { ...objeto }
+  }
+  
+  /**
+   * Extrae los labels de un array de objetos tipo SelectInput y devuelve
+   * una cadena separada por comas. Si el objeto es undefined, devuelve
+   * "Sin datos". Si el objeto es un booleano, devuelve "Si" o "No".
+   *
+   * @param {SelectInput} data Array de objetos SelectInput
+   * @returns {string} Cadena separada por comas con los labels
+   */
+  extractLabelsJson(data: SelectInput) {
+    //Si data est undefined retornar vacio
+    if (data == undefined) return 'Sin datos'
+
+    //Si data es booeana retornar boleano
+    if (typeof data == 'boolean') return data ? 'Si' : 'No'
+    let labels: string[] = []
+
+    data.forEach((item: any) => labels.push(item.name))
+    return labels.join(', ')
   }
 }

@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { timeout } from 'rxjs';
 import { AuthService } from 'src/app/components/login/services/Auth.service';
 import { Usuario } from 'src/app/modules/configuracion/models/UsuariosModel';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 
 
@@ -26,12 +29,23 @@ export class NavigationComponent implements AfterViewInit, OnInit {
 
 
   constructor(
-    private modalService: NgbModal,
-    private authService: AuthService
+    private router: Router,
+    private authService: AuthService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
     this.usuario = this.authService.getUser()
+
+    //La session expiro
+    if (this.usuario === null) {
+      this.toastService.warning('Por favor inicia sesión', 'Session expirada')
+      
+      setTimeout(() => {
+        this.router.navigate(['/login'])
+      }, 5000)
+    }
+
     this.hexadecimalColor = this.hexadecimalAleatorio()
 
 

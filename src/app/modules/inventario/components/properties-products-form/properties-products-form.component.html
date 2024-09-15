@@ -1,0 +1,23 @@
+<section class="row">
+  <div class="col-4">
+    <app-input-forms typeInput="text" labelInput="Nombre atributo"
+      [(ngModel)]="proprieties.name_attributes"></app-input-forms>
+  </div>
+  <div class="col-4">
+    <app-input-forms typeInput="text" labelInput="Descripción atributo"
+      [(ngModel)]="proprieties.description"></app-input-forms>
+  </div>
+  <div class="col-3">
+    <app-input-forms typeInput="select" (change)="validateTypeInput()" [resources]="dataTypesInput" labelInput="Tipo de atributo"
+      [(ngModel)]="proprieties.type_input"></app-input-forms>
+  </div>
+  <div *ngIf="proprieties.type_input == 'select'" class="col-1" (click)="addData()">
+    <button class="btn btn-info bi bi-plus-lg"></button>
+  </div>
+
+  <h5 *ngIf="DataProprieties.length != 0 || proprieties.type_input == 'select'" class="mt-4">Agregar datos</h5>
+
+  <div class="col-3 my-3" *ngFor="let data of DataProprieties ; let i = index">
+    <app-input-forms typeInput="text" [labelInput]="'Dato' + (i + 1)" [(ngModel)]="data.name"></app-input-forms>
+  </div>
+</section>
