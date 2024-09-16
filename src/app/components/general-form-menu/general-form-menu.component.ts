@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { DirectiveModule } from 'src/app/directives/directive.module';
 import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
 import { ExtraButtons } from 'src/app/interfaces/ConfigsFormsData.interface';
@@ -18,6 +18,13 @@ import { ViewButtons } from 'src/app/models/Menu';
   ]
 })
 export class GeneralFormMenuComponent {
+  /**
+     *Botones adicionales del formulario
+     *
+     * @type {ExtraButtons[]}
+     * @memberof GeneralFormMenuComponent
+     */
+  @Input() extraButtons: ExtraButtons[] = [];
 
   /**
    * Establece el valor de la propiedad access.
@@ -27,14 +34,12 @@ export class GeneralFormMenuComponent {
   @Input() access: Access = new Access();
 
   /**
-   *Botones adicionales del formulario
-   *
-   * @type {ExtraButtons[]}
+   * Emitir de los botones
+   * 
    * @memberof GeneralFormMenuComponent
    */
-  @Input() extraButtons: ExtraButtons[] = [];
-
   @Output() extraButtonEvent: EventEmitter<ExtraButtons> = new EventEmitter<ExtraButtons>();
+
   /**
    * Establece el valor de la propiedad view_buttons.
    *
@@ -59,5 +64,22 @@ export class GeneralFormMenuComponent {
   @Output() archivar: EventEmitter<GeneralFormMenu.file> = new EventEmitter<GeneralFormMenu.file>();
   @Output() search: EventEmitter<GeneralFormMenu.search> = new EventEmitter<GeneralFormMenu.search>();
   @Output() descartar: EventEmitter<GeneralFormMenu.descartar> = new EventEmitter<GeneralFormMenu.descartar>();
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    //? SI SE ACTUALIZA ES DECIR SE OBTIENE EL PARÁMETRO SE LLAMA EL MÉTODO PARA SIGNAR EL ACCESO A LOS BOTONES PERSONALIZADOS
+    if (changes['access']) this.setAccessExtraButtons(this.extraButtons);
+  }
+
+  /**
+   * Establece los permisos de los botones extra.
+   *
+   * @param {ExtraButtons[]} extraButtons botones extra
+   * @memberof GeneralFormMenuComponent
+   */
+  setAccessExtraButtons(extraButtons: ExtraButtons[]) {
+    extraButtons.map(button => { button.access = this.access });
+    this.extraButtons = extraButtons;
+  }
 
 }

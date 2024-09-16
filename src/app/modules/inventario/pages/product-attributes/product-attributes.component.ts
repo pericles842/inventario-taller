@@ -16,6 +16,7 @@ import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-
 })
 export class ProductAttributesComponent extends GeneralMenu implements OnInit {
 
+  
   @ViewChild('table_products_attributes') table_products_attributes!: DynamicTableComponent
   @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
 
@@ -29,12 +30,10 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
     {
       id: 1,
       icon: 'bi bi-eye-fill',
-      access: this.access,
       class: 'text-info ',
+      disabled: true,
       description: 'Ver modelo en un formulario',
-      action: () => {
-        console.log('visualizar formulario')
-      }
+      action: () => { this.formPreview() }
     }
   ]
 
@@ -167,4 +166,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
     this.presentation()
   }
 
+  formPreview() {
+    this.dynamic_modal.openAndCloseModal()
+  }
 }

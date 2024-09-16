@@ -20,9 +20,7 @@
         <app-input-forms [disabled]="disabled" [(ngModel)]="product_model.name" typeInput="text"
           labelInput="Nombre modelo" tooltip="Nombre asociado a un ente Ejemplo: 'Ropa'"></app-input-forms>
       </div>
-      <div class="col-4 d-flex align-content-center gap-3">
-        <button class="btn btn-info bi bi-eye-fill w-full" tooltip="Ver modelo en un formulario"
-          [disabled]="disabled"></button>
+      <div class="col-4 ">
         <app-input-forms [disabled]="disabled" [(ngModel)]="product_model.status_id" typeInput="checkbox"
           labelInput="Activo" [tooltip]="'Modelo activa o inactiva '" [loading]="loading"></app-input-forms>
       </div>
@@ -36,7 +34,14 @@
 
   <!-- MODAL PARA EDITAR O AGREGAR PROPIEDADES -->
   <app-dynamic-modal title="Crear atributos" #dynamic_modal (acceptBtn)="saveProprieties()" [btnClose]="true">
-    <app-properties-products-form modal-body [proprieties]="properties"></app-properties-products-form>
+    <!-- <app-properties-products-form modal-body [proprieties]="properties"></app-properties-products-form> -->
+
+    <div modal-body class="row">
+      <div *ngFor="let atributo of product_model.properties" class="col">
+        <app-input-forms [disabled]="false" [typeInput]="atributo.type_input" [labelInput]="atributo.name_attributes"
+          [tooltip]="atributo.description" [resources]="atributo.data? atributo.data : [] "></app-input-forms>
+      </div>
+    </div>
   </app-dynamic-modal>
 
   <section class="main-contend-form">

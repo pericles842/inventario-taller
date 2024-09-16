@@ -31,11 +31,12 @@ export interface TreeNodeCategory {
  */
 export interface ExtraButtons {
     id: number;
-    access: Access
+    access?: Access
     name?: string;
     icon: string;
     class?: string;
     description: string;
+    disabled: boolean
     action: () => void;
 }
 
