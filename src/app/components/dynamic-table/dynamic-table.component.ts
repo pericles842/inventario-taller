@@ -267,10 +267,10 @@ export class DynamicTableComponent {
    */
   extractLabelsJson(data: SelectInput) {
     //Si data est undefined retornar vacio
-    if (data == undefined) return 'Sin datos'
+    if (data == undefined || data.length == 0) return 'Sin datos'
 
-    //Si data es booeana retornar boleano
-    if (typeof data == 'boolean') return data ? 'Si' : 'No'
+    //todo  Si data es booeana retornar boleano @Deprecado
+    // if (typeof data == 'boolean') return data ? 'Si' : 'No'
     let labels: string[] = []
 
     data.forEach((item: any) => labels.push(item.name))

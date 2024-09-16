@@ -27,7 +27,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
    */
   product_model: AttributesProduct = new AttributesProduct()
   products_attributes_list: AttributesProduct[] = []
-  properties:DetailAttributes = new DetailAttributes()
+  properties: DetailAttributes = new DetailAttributes()
 
   columns: Columns[] = []
   columns_attributes: Columns[] = []
@@ -77,7 +77,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
    * @memberof ProductAttributesComponent
    */
   selectItem(atributos: AttributesProduct) {
-     
+
     this.product_model = atributos
     this.table_products_attributes.openAndCloseModal()
     this.totalMenu()
@@ -87,8 +87,38 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
     this.properties = new DetailAttributes()
     this.dynamic_modal.openAndCloseModal()
   }
+  /**
+   *asigna el registro al valor de la tabla 
+   *
+   * @param {DetailAttributes} atributos
+   * @memberof ProductAttributesComponent
+   */
   selectAttributes(atributos: DetailAttributes) {
     this.properties = atributos
     this.dynamic_modal.openAndCloseModal()
   }
+  saveProprieties() {
+    const index = this.product_model.properties.findIndex(prop => prop.key === this.properties.key);
+
+    if (index === -1) {
+      this.product_model.properties.push({ ...this.properties });
+    } else {
+      this.product_model.properties[index] = { ...this.properties };
+    }
+    //!PROBLEMAS EN REFRECAMIENTO 
+    // this.inventarioService.createProductProperties(this.product_model).subscribe({
+    //   next: (model_product)=>{
+    //     this.product_model = model_product
+    //     this.properties = new DetailAttributes()
+    //     this.dynamic_modal.openAndCloseModal()
+    //     this.toastService.success('Modelo creado con éxito')
+    //   },
+    //   error: (err)=>{
+    //     console.log(err);
+    //     this.toastService.error('Error al guardar atributos')
+    //   }
+    // })
+
+  }
+
 }

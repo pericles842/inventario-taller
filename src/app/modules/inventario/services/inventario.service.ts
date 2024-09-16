@@ -4,7 +4,7 @@ import { environments } from 'environments/environment.local';
 import { Category, PriceList } from '../models/inventory.model';
 import { Observable } from 'rxjs';
 import { Columns, TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { AttributesProduct } from '../models/Product.model';
+import { AttributesProduct, DetailAttributes } from '../models/Product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +44,7 @@ export class InventarioService {
    */
   columns_attributes_product_details: Columns[] = [
     { label: 'Nombre del atributo', key: 'name_attributes', visible: true },
-    { label: 'Tipo del campo', key: 'type_input', visible: true ,type:'bolder' },
+    { label: 'Tipo del campo', key: 'type_input', visible: true, type: 'bolder' },
     { label: 'Descripción', key: 'description', visible: true },
     { label: 'Datos', key: 'data', visible: true, type: 'json' },
   ]
@@ -122,7 +122,25 @@ export class InventarioService {
     return this.http.get<PriceList[]>(`${environments.host}api/price-list`)
   }
 
+  /**
+   * Obtiene una lista de atributos personalizados de los productos / PLANTILLA
+   *
+   * @return {Observable<AttributesProduct[]>} The list of attributes products.
+   * @memberof InventarioService
+   */
   geAttributesProducts(): Observable<AttributesProduct[]> {
     return this.http.get<AttributesProduct[]>(`${environments.host}api/product/attributes`)
+  }
+
+  /**
+   * Crea una platilla personaliada para un producto
+   *
+   * @param {AttributesProduct} data - Objeto con la platilla a crear
+   * @return {*}  {Observable<AttributesProduct>} La platilla creada.
+   * @memberof InventarioService
+   */
+  createProductProperties(data: AttributesProduct): Observable<AttributesProduct> {
+    let body: { attribute_product: AttributesProduct } = { attribute_product: data }
+    return this.http.post<AttributesProduct>(`${environments.host}api/product/attributes`, body)
   }
 }

@@ -33,7 +33,7 @@
 <section class="main-contend-card">
 
   <!-- MODAL PARA EDITAR O AGREGAR PROPIEDADES -->
-  <app-dynamic-modal title="Crear atributos" #dynamic_modal [btnClose]="true">
+  <app-dynamic-modal title="Crear atributos" #dynamic_modal (acceptBtn)="saveProprieties()" [btnClose]="true">
     <app-properties-products-form modal-body [proprieties]="properties"></app-properties-products-form>
   </app-dynamic-modal>
 
