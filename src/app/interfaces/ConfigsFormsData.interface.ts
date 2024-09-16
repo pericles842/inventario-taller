@@ -1,3 +1,5 @@
+import { Access } from "../models/Access";
+
 /**
  *Configuración de columnas
  *
@@ -19,6 +21,22 @@ export interface TreeNodeCategory {
     user_id: number;
     children: TreeNodeCategory[];
     expanded: boolean;
+}
+
+/**
+ *Interfaz de botones extra en el menu de formulario
+ *
+ * @export
+ * @interface ExtraButtons
+ */
+export interface ExtraButtons {
+    id: number;
+    access: Access
+    name?: string;
+    icon: string;
+    class?: string;
+    description: string;
+    action: () => void;
 }
 
 //interfaz de capmpo seleccinable para los recursos

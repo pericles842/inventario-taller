@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DirectiveModule } from 'src/app/directives/directive.module';
 import { GeneralFormMenu } from 'src/app/enum/general-form-menu';
+import { ExtraButtons } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { Access } from 'src/app/models/Access';
 import { ViewButtons } from 'src/app/models/Menu';
 
@@ -25,6 +26,15 @@ export class GeneralFormMenuComponent {
    */
   @Input() access: Access = new Access();
 
+  /**
+   *Botones adicionales del formulario
+   *
+   * @type {ExtraButtons[]}
+   * @memberof GeneralFormMenuComponent
+   */
+  @Input() extraButtons: ExtraButtons[] = [];
+
+  @Output() extraButtonEvent: EventEmitter<ExtraButtons> = new EventEmitter<ExtraButtons>();
   /**
    * Establece el valor de la propiedad view_buttons.
    *

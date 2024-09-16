@@ -59,4 +59,14 @@ export class PropertiesProductsFormComponent {
   validateTypeInput() {
     if (this.proprieties.type_input != 'select') this.proprieties.data = []
   }
+
+  /**
+   *Elimina un dato del formulario
+   *
+   * @param {number} index
+   * @memberof PropertiesProductsFormComponent
+   */
+  deleteData(index: number) {
+    this.proprieties.data!.splice(index, 1)
+  }
 }

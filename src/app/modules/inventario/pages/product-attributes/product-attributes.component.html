@@ -1,5 +1,7 @@
-<app-menu-general [access]="access" [view_buttons]="viewButtons" (search)="  getAttributeProductsList()"
-  (goToCreate)="refreshModel()"></app-menu-general>
+<!-- !SIN TERMINAR -->
+<app-menu-general [access]="access" [view_buttons]="viewButtons" (search)="getAttributeProductsList()"
+  (goToCreate)="refreshModel()" (guardar)="saveModelProduct()" (descartar)="discardForm()" [extraButtons]="extraButtons"
+  (extraButtonEvent)="$event.action()"></app-menu-general>
 
 <!-- TABLAS DE PLANTILLAS -->
 <app-dynamic-table #table_products_attributes titleModal="Modelos de productos" (selectItem)="selectItem($event)"

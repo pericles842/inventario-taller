@@ -46,12 +46,20 @@
     <div class="col-auto d-flex align-items-center">
       <div class="vr"></div> <!-- Línea vertical -->
     </div>
-    <div *ngIf="view_buttons.archivar">
+    <!-- BOTONES EXTRA -->
+    <div *ngIf="extraButtons" class="d-flex">
+      <div *ngFor="let button of extraButtons">
+        <button [tooltip]="button.description" [ngClass]="button.access.create || button.access.update? '':'disabled'"
+          type="button" [class]="'btn-custom touch ' + button.class" (click)="extraButtonEvent.emit(button)">
+          <i [class]="button.icon"></i>
+        </button>
+      </div>
+    </div>
+    <!-- <div *ngIf="view_buttons.archivar">
       <button tooltip="Archivar" [ngClass]="access.create || access.update? '':'disabled'" title="Archivar elemento"
         type="button" class="btn-custom  text-warning touch  " (click)="archivar.emit()">
         <i class="bi bi-archive"></i>
-
       </button>
-    </div>
+    </div> -->
   </div>
 </div>

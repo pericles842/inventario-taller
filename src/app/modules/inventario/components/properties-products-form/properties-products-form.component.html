@@ -17,7 +17,8 @@
 
   <!-- TITULO PARA AREGAR DATOS -->
   <h5 *ngIf="DataProprieties.length != 0 || proprieties.type_input == 'select'" class="mt-4">Agregar datos</h5>
-  <div class="col-3 my-3" *ngFor="let data of DataProprieties ; let i = index">
+  <div class="col-3 my-3 d-flex gap-1" *ngFor="let data of DataProprieties ; let i = index">
     <app-input-forms typeInput="text" [labelInput]="'Dato' + (i + 1)" [(ngModel)]="data.name"></app-input-forms>
+    <button class="btn btn-danger bi bi-x-lg" (click)="deleteData(i)"></button>
   </div>
 </section>
