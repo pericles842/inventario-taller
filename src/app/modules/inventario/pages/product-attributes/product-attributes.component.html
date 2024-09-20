@@ -33,13 +33,18 @@
 <section class="main-contend-card">
 
   <!-- MODAL PARA EDITAR O AGREGAR PROPIEDADES -->
-  <app-dynamic-modal title="Crear atributos" #dynamic_modal (acceptBtn)="saveProprieties()" [btnClose]="true">
-    <!-- <app-properties-products-form modal-body [proprieties]="properties"></app-properties-products-form> -->
+  <app-dynamic-modal [title]="labelsInComponent.title_modal" [viewSaveBtn]="labelsInComponent.view_save"
+    [viewDiscardBtn]="labelsInComponent.view_discard" #dynamic_modal (acceptBtn)="saveProprieties()" [btnClose]="true">
+
 
     <div modal-body class="row">
+      <app-properties-products-form *ngIf="labelsInComponent.mode_view == 'form'"
+        [proprieties]="properties"></app-properties-products-form>
+
       <div *ngFor="let atributo of product_model.properties" class="col">
-        <app-input-forms [disabled]="false" [typeInput]="atributo.type_input" [labelInput]="atributo.name_attributes"
-          [tooltip]="atributo.description" [resources]="atributo.data? atributo.data : [] "></app-input-forms>
+        <app-input-forms *ngIf="labelsInComponent.mode_view == 'preview'" [disabled]="false"
+          [typeInput]="atributo.type_input" [labelInput]="atributo.name_attributes" [tooltip]="atributo.description"
+          [resources]="atributo.data? atributo.data : [] "></app-input-forms>
       </div>
     </div>
   </app-dynamic-modal>

@@ -42,6 +42,14 @@ export class DynamicModalComponent {
    * @memberof DynamicModalComponent
    */
   @Input() viewDiscardBtn: boolean = true
+
+  /**
+   * Deshabilita el botón de aceptar
+   *
+   * @type {boolean}
+   * @memberof DynamicModalComponent
+   */
+  @Input() viewSaveBtn: boolean = true
   /**
    *emite el botón aceptar
    *

@@ -8,6 +8,7 @@ import { Columns, ExtraButtons } from 'src/app/interfaces/ConfigsFormsData.inter
 import { AttributesProduct, DetailAttributes } from '../../models/Product.model';
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
+import { LabelsFormProprieties } from '../../models/LabelsForm.model';
 
 @Component({
   selector: 'app-product-attributes',
@@ -16,10 +17,10 @@ import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-
 })
 export class ProductAttributesComponent extends GeneralMenu implements OnInit {
 
-  
   @ViewChild('table_products_attributes') table_products_attributes!: DynamicTableComponent
   @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
 
+  labelsInComponent = new LabelsFormProprieties('form')
   /**
    *Botones adicionales del formulario !IMPORTANTE RESOLVER PROBLEMA DEL ACCESO
    *
@@ -33,7 +34,10 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
       class: 'text-info ',
       disabled: true,
       description: 'Ver modelo en un formulario',
-      action: () => { this.formPreview() }
+      action: () => {
+        this.labelsInComponent = new LabelsFormProprieties('preview')
+        this.formPreview()
+      }
     }
   ]
 
@@ -102,6 +106,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
   }
 
   openFormProperties() {
+    this.labelsInComponent = new LabelsFormProprieties('form')
     this.properties = new DetailAttributes()
     this.dynamic_modal.openAndCloseModal()
   }

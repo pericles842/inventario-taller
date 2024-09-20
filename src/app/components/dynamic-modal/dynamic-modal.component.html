@@ -15,7 +15,7 @@
       <div class="modal-footer p-2">
         <button *ngIf="viewDiscardBtn" type="button" (click)="rejectBtn.emit()" class="btn btn-secondary"
           data-bs-dismiss="modal">{{discardBtnLabel}}</button>
-        <button type="button" (click)="acceptBtn.emit()" class="btn btn-primary">{{confirmBtnLabel}}</button>
+        <button *ngIf="viewSaveBtn" type="button" (click)="acceptBtn.emit()" class="btn btn-primary">{{confirmBtnLabel}}</button>
       </div>
     </div>
   </div>
