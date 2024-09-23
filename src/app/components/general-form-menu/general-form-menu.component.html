@@ -50,7 +50,7 @@
     <div *ngIf="extraButtons" class="d-flex">
       <div *ngFor="let button of extraButtons">
         <button [tooltip]="button.description"
-          [ngClass]="(button.access!.create || button.access!.update)  &&  button.disabled? '':'disabled'" type="button"
+          [ngClass]="(button.access!.create || button.access!.update) ? '':'disabled'" type="button"
           [class]="'btn-custom touch ' + button.class" (click)="extraButtonEvent.emit(button)">
           <i [class]="button.icon"></i>
         </button>

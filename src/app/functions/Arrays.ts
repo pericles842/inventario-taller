@@ -11,10 +11,10 @@ import { SelectInput } from "../interfaces/ConfigsFormsData.interface";
  * @param {string} [key2='name'] - La clave a extraer para el nombre.
  * @returns {SelectInput} - Un array de objetos con id y name.
  */
-export function extractKeysForInput<T>(array: T[], key1: string = 'id', key2: string = 'name'): SelectInput {
+export function extractKeysForInput<T>(array: T[], key: string = 'id', name: string = 'name'): SelectInput {
     return array.map((item: any) => ({
-        id: item[key1],
-        name: item[key2]
+        id: item[key],
+        name: item[name]
     }))
 }
 

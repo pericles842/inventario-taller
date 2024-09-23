@@ -9,6 +9,7 @@ import { AttributesProduct, DetailAttributes } from '../../models/Product.model'
 import { DynamicTableComponent } from 'src/app/components/dynamic-table/dynamic-table.component';
 import { DynamicModalComponent } from 'src/app/components/dynamic-modal/dynamic-modal.component';
 import { LabelsFormProprieties } from '../../models/LabelsForm.model';
+import { ConfirmDialogService } from 'src/app/components/confirm-dialog/service/confirmDialog.service';
 
 @Component({
   selector: 'app-product-attributes',
@@ -32,7 +33,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
       id: 1,
       icon: 'bi bi-eye-fill',
       class: 'text-info ',
-      disabled: true,
+      disabled: this.disabled,
       description: 'Ver modelo en un formulario',
       action: () => {
         this.labelsInComponent = new LabelsFormProprieties('preview')
@@ -54,6 +55,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
   columns: Columns[] = []
   columns_attributes: Columns[] = []
   constructor(
+    private confirmDialogService: ConfirmDialogService,
     private inventarioService: InventarioService,
     private toastService: ToastService,
     authService: AuthService) {
@@ -99,12 +101,15 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
    * @memberof ProductAttributesComponent
    */
   selectItem(atributos: AttributesProduct) {
-
     this.product_model = atributos
     this.table_products_attributes.openAndCloseModal()
     this.totalMenu()
   }
-
+  /**
+   *Levanta el modal de propiedades
+   *
+   * @memberof ProductAttributesComponent
+   */
   openFormProperties() {
     this.labelsInComponent = new LabelsFormProprieties('form')
     this.properties = new DetailAttributes()
@@ -117,6 +122,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
    * @memberof ProductAttributesComponent
    */
   selectAttributes(atributos: DetailAttributes) {
+    this.labelsInComponent = new LabelsFormProprieties('form')
     this.properties = atributos
     this.dynamic_modal.openAndCloseModal()
   }
@@ -173,5 +179,32 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
 
   formPreview() {
     this.dynamic_modal.openAndCloseModal()
+  }
+
+  deletePropertied(property: DetailAttributes) {
+    this.confirmDialogService.showAlert(`¿Desea eliminar el atributo ${property.name_attributes}?`).then((result) => {
+      if (result.isConfirmed) {
+
+        const index = this.product_model.properties.findIndex(prop => prop.key === property.key);
+        this.product_model.properties.splice(index, 1);
+
+        this.inventarioService.createProductProperties(this.product_model).subscribe({
+          next: (model_product) => {
+
+            this.product_model = model_product
+            this.properties = new DetailAttributes()
+
+            this.toastService.success('Modelo eliminado con éxito')
+            this.loading = false
+          },
+          error: (err) => {
+            console.log(err);
+            this.toastService.error('Error al guardar atributos')
+            this.loading = false
+          }
+        })
+
+      }
+    })
   }
 }

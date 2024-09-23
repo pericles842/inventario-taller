@@ -1,4 +1,5 @@
-<app-menu-general [access]="access" (guardar)="saveProduct()" (goToCreate)="refreshModel()" [view_buttons]="viewButtons"></app-menu-general>
+<app-menu-general [access]="access" (guardar)="saveProduct()" (goToCreate)="refreshModel()"
+  [view_buttons]="viewButtons"></app-menu-general>
 
 
 <section class="main-contend-card">
@@ -28,8 +29,8 @@
           </div>
           <div class="col-4">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.product_class" typeInput="select"
-              [resources]="product_classification_list" labelInput="Clasificación del producto"
-              [loading]="loading" [question_button]="'Clasifica el producto y determina si se puede vender o si es para producción'"></app-input-forms>
+              [resources]="product_classification_list" labelInput="Clasificación del producto" [loading]="loading"
+              [question_button]="'Clasifica el producto y determina si se puede vender o si es para producción'"></app-input-forms>
           </div>
 
         </div>
@@ -44,7 +45,6 @@
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.category_id" typeInput="select"
               [resources]="categoryList" labelInput="Categoria" [loading]="loading"></app-input-forms>
           </div>
-
         </div>
 
         <!-- Formulario cabecera fila 3  -->
@@ -53,26 +53,24 @@
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.reference" typeInput="text"
               labelInput="Referencia"></app-input-forms>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.sku" typeInput="text"
               labelInput="Sku"></app-input-forms>
           </div>
-          <div class="col-2">
-            <app-input-forms [disabled]="disabled" [(ngModel)]="product.talla" typeInput="select" labelInput="Talla"
-              [resources]=" tallasList" [loading]="loading" [selectInNull]="true"></app-input-forms>
-          </div>
-
-          <div class="col">
+          <div class="col-1">
             <app-input-forms [disabled]="disabled" [(ngModel)]="product.color" typeInput="color"
               labelInput="Color"></app-input-forms>
           </div>
-          <div class="col" *ngIf="product.product_class === 'primary_product'">
-            <button class="btn btn-primary bi bi-plus w-full m-1"></button>
+          <div class="col-4">
+            <app-input-forms [disabled]="disabled" [(ngModel)]="product.product_model_key" typeInput="select"
+              [resources]="simple_product_model_list" (ngModelChange)="changeModelProduct($event)"
+              labelInput="Modelo de producto" [loading]="loading"
+              [question_button]="'Define las propiedades personalizadas de cada producto'"></app-input-forms>
           </div>
         </div>
       </div>
       <!-- body -->
-      <div class="row mt-5">
+      <div class="row mt-5 mb-4">
         <div class="col">
           <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].price"
             typeInput="number" labelInput="Precio"></app-input-forms>
@@ -82,8 +80,8 @@
             typeInput="number" labelInput="Precio neto"></app-input-forms>
         </div>
         <div class="col">
-          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].iva" typeInput="text"
-            labelInput="iva"></app-input-forms>
+          <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].iva"
+            typeInput="text" labelInput="iva"></app-input-forms>
         </div>
         <div class="col">
           <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].discount"
@@ -92,6 +90,15 @@
         <div class="col">
           <app-input-forms [disabled]="disabled" [(ngModel)]="product.price_list.price_list_details[0].active_discount"
             typeInput="checkbox" labelInput="Activar descuento"></app-input-forms>
+        </div>
+      </div>
+      
+      <div class="row ">
+        <div *ngFor="let atributo of list_properties" class="col">
+          {{atributo.value}}
+          <app-input-forms [disabled]="this.disabled" 
+            [typeInput]="atributo.type_input" [labelInput]="atributo.name_attributes" [(ngModel)]="atributo.value" [tooltip]="atributo.description"
+            [resources]="atributo.data? atributo.data : [] "></app-input-forms>
         </div>
       </div>
     </div>

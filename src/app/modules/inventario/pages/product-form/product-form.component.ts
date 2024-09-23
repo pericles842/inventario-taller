@@ -4,9 +4,10 @@ import { Modules } from 'src/app/enum/Modules';
 import { SelectInput } from 'src/app/interfaces/ConfigsFormsData.interface';
 import { GeneralMenu } from 'src/app/models/Menu';
 import { Category, PriceList, PriceListDetail } from '../../models/inventory.model';
-import { Product } from '../../models/Product.model';
+import { AttributesProduct, DetailAttributes, Product } from '../../models/Product.model';
 import { InventarioService } from '../../services/inventario.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { extractKeysForInput } from 'src/app/functions/Arrays';
 
 @Component({
   selector: 'app-product-form',
@@ -14,6 +15,30 @@ import { ToastService } from 'src/app/services/toast/toast.service';
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent extends GeneralMenu implements OnInit {
+
+  /**
+  * Listado de modelos para el select
+   *
+   * @type {AttributesProduct[]}
+   * @memberof ProductFormComponent
+   */
+  simple_product_model_list: SelectInput = []
+
+  /**
+   *listado de modelos de productos
+   *
+   * @type {AttributesProduct[]}
+   * @memberof ProductFormComponent
+   */
+  product_model_list: AttributesProduct[] = []
+  
+  /**
+   *Listado de propiedades del formulario 
+   *
+   * @type {DetailAttributes[]}
+   * @memberof ProductFormComponent
+   */
+  list_properties: DetailAttributes[] = []
 
   /**
    *Tipos de producto unitario o compuesto
@@ -79,7 +104,7 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
   }
 
   /**
-   *oBTIENE LOS RECURSOS
+   *Recursos de listas  de prcio categorioas etc  en el formularios
    *
    * @private
    * @memberof ProductFormComponent
@@ -89,6 +114,13 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
     await Promise.all([
       this.inventarioService.getCategories().toPromise().then((categories) => this.categoryList = categories as Category[]),
       this.inventarioService.getPriceList().toPromise().then((priceList) => this.priceListArray = priceList as PriceList[]),
+      this.inventarioService.geAttributesProducts().toPromise().then((modelProduct) => {
+        this.product_model_list = modelProduct as AttributesProduct[]
+        this.simple_product_model_list = extractKeysForInput(this.product_model_list)
+        this.product.product_model_key = this.product_model_list[0].id
+        this.changeModelProduct(this.product_model_list[0].id)
+
+      }),
 
     ]).finally(() => this.loading = false).catch((error) => {
       this.loading = false
@@ -97,10 +129,17 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
     })
   }
 
+  changeModelProduct(id_model: number) {
+    let index = this.product_model_list.findIndex(model => model.id == id_model)
+    this.list_properties = this.product_model_list[index].properties
+  }
+
   refreshModel() {
     this.createOrEditMode()
   }
   saveProduct() {
     console.log(this.product)
   }
+
+
 }

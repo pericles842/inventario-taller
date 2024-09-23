@@ -50,9 +50,9 @@
   </app-dynamic-modal>
 
   <section class="main-contend-form">
-    <app-dynamic-table (btnAdd)="openFormProperties()" (selectItem)="selectAttributes($event)"
-      [disabledBtnAdd]="disabled" type_table="table" [viewBtnAdd]="true" [columns]="columns"
-      [records]="product_model.properties"></app-dynamic-table>
+    <app-dynamic-table (btnAdd)="openFormProperties()" [viewBtnDelete]="true" (btnDelete)="deletePropertied($event)"
+      (selectItem)="selectAttributes($event)" [disabledBtnAdd]="disabled" type_table="table" [viewBtnAdd]="true"
+      [columns]="columns" [records]="product_model.properties"></app-dynamic-table>
   </section>
 
 </section>

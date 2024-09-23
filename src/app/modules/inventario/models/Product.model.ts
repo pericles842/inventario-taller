@@ -28,11 +28,10 @@ export class Product {
     categoria: string = ''
     category_id: number = 0
     reference: string = ''
-    talla: string = ''
     sku: string = ''
     color: string = '#3B3B3B'
     price_list: PriceList = new PriceList()
-    production_product_elements?: { [key: string]: string | number }[] = []
+    product_model_key?: number = 0
 
 
 }
@@ -62,4 +61,5 @@ export class DetailAttributes {
     type_input: TypeInput = 'text'
     description: string = ''
     key: string = ''
+    value: string = ''
 }
