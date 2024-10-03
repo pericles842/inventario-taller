@@ -109,7 +109,10 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
 
       }),
 
-    ]).finally(() => this.loading = false).catch((error) => {
+    ]).finally(() => {
+      this.setValuesSelect()
+      this.loading = false
+    }).catch((error) => {
       this.loading = false
       console.log(error);
       this.toastService.error('Error al cargar categorías y listas de precios')
@@ -137,8 +140,29 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
     this.createOrEditMode()
   }
   saveProduct() {
+    this.product.categoria = this.categoryList.find(category => category.id == this.product.category_id)?.name as string
+
+    let price_list_detail = this.product.price_list.price_list_details[0]
+
+    this.product.price_list = this.priceListArray.find(priceList => priceList.id == this.product.price_list.id) as PriceList
+    this.product.price_list.price_list_details = [price_list_detail]
+
+
     this.product.detail_product = this.list_properties
     console.log(this.product)
+  }
+
+  /**
+   * Setea los valores por defecto de los select en el formulario
+   * Selecciona el primer elemento de las listas de categorias y lista de precios
+   * y se lo asigna al producto
+   * @memberof ProductFormComponent
+   */
+  setValuesSelect() {
+    this.product.price_list.id = this.priceListArray[0].id
+    this.product.category_id = this.categoryList[0].id
+
+    //!iterar propiedades del producto detalles e iterarlas par asetear el valor 
   }
 
 
