@@ -92,12 +92,11 @@
             typeInput="checkbox" labelInput="Activar descuento"></app-input-forms>
         </div>
       </div>
-      
+
       <div class="row ">
         <div *ngFor="let atributo of list_properties" class="col">
-          {{atributo.value}}
-          <app-input-forms [disabled]="this.disabled" 
-            [typeInput]="atributo.type_input" [labelInput]="atributo.name_attributes" [(ngModel)]="atributo.value" [tooltip]="atributo.description"
+          <app-input-forms [disabled]="this.disabled" [typeInput]="atributo.type_input"
+            [labelInput]="atributo.name_attributes" [(ngModel)]="atributo.value" [tooltip]="atributo.description"
             [resources]="atributo.data? atributo.data : [] "></app-input-forms>
         </div>
       </div>

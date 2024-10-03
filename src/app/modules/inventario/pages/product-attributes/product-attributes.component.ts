@@ -22,6 +22,7 @@ export class ProductAttributesComponent extends GeneralMenu implements OnInit {
   @ViewChild('dynamic_modal') dynamic_modal!: DynamicModalComponent
 
   labelsInComponent = new LabelsFormProprieties('form')
+  
   /**
    *Botones adicionales del formulario !IMPORTANTE RESOLVER PROBLEMA DEL ACCESO
    *

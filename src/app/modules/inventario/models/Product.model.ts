@@ -32,6 +32,7 @@ export class Product {
     color: string = '#3B3B3B'
     price_list: PriceList = new PriceList()
     product_model_key?: number = 0
+    detail_product: DetailAttributes[] = []
 
 
 }

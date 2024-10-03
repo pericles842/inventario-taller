@@ -38,9 +38,11 @@
 
 
     <div modal-body class="row">
+      <!-- crear formulario -->
       <app-properties-products-form *ngIf="labelsInComponent.mode_view == 'form'"
         [proprieties]="properties"></app-properties-products-form>
 
+      <!-- PREVIEW DEL FORMULARIO YA CREADO  -->
       <div *ngFor="let atributo of product_model.properties" class="col">
         <app-input-forms *ngIf="labelsInComponent.mode_view == 'preview'" [disabled]="false"
           [typeInput]="atributo.type_input" [labelInput]="atributo.name_attributes" [tooltip]="atributo.description"

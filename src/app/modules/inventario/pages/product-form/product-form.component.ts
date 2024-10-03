@@ -17,7 +17,7 @@ import { extractKeysForInput } from 'src/app/functions/Arrays';
 export class ProductFormComponent extends GeneralMenu implements OnInit {
 
   /**
-  * Listado de modelos para el select
+  * Listado de modelos de productos para el select
    *
    * @type {AttributesProduct[]}
    * @memberof ProductFormComponent
@@ -31,7 +31,7 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
    * @memberof ProductFormComponent
    */
   product_model_list: AttributesProduct[] = []
-  
+
   /**
    *Listado de propiedades del formulario 
    *
@@ -69,19 +69,6 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
    */
   categoryList: Category[] = []
 
-  /**
-   *tallas
-   *
-   * @type {SelectInput}
-   * @memberof ProductFormComponent
-   */
-  tallasList: SelectInput = [
-    { id: 'S', name: 'S' },
-    { id: 'M', name: 'M' },
-    { id: 'L', name: 'L' },
-    { id: 'XL', name: 'XL' },
-    { id: 'XXL', name: 'XXL' },
-  ]
   priceListArray: PriceList[] = []
 
   product: Product = new Product()
@@ -100,7 +87,6 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
     this.product.price_list.price_list_details = [new PriceListDetail()]
     this.loadResource()
 
-
   }
 
   /**
@@ -114,6 +100,7 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
     await Promise.all([
       this.inventarioService.getCategories().toPromise().then((categories) => this.categoryList = categories as Category[]),
       this.inventarioService.getPriceList().toPromise().then((priceList) => this.priceListArray = priceList as PriceList[]),
+      //MODELO DE PRODUCTOS
       this.inventarioService.geAttributesProducts().toPromise().then((modelProduct) => {
         this.product_model_list = modelProduct as AttributesProduct[]
         this.simple_product_model_list = extractKeysForInput(this.product_model_list)
@@ -129,15 +116,28 @@ export class ProductFormComponent extends GeneralMenu implements OnInit {
     })
   }
 
+  /**
+   * Cambia el modelo de producto en el formulario y actualiza 
+   * la lista de propiedades que se va a mostrar
+   *
+   * @param {number} id_model ID del modelo de producto a cambiar
+   * @memberof ProductFormComponent
+   */
   changeModelProduct(id_model: number) {
     let index = this.product_model_list.findIndex(model => model.id == id_model)
     this.list_properties = this.product_model_list[index].properties
   }
 
+  /**
+   *REFRESCA le formulario 
+   *
+   * @memberof ProductFormComponent
+   */
   refreshModel() {
     this.createOrEditMode()
   }
   saveProduct() {
+    this.product.detail_product = this.list_properties
     console.log(this.product)
   }
 

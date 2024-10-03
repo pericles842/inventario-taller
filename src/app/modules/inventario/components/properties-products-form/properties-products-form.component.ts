@@ -69,4 +69,5 @@ export class PropertiesProductsFormComponent {
   deleteData(index: number) {
     this.proprieties.data!.splice(index, 1)
   }
+  
 }
