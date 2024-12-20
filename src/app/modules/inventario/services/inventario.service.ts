@@ -4,7 +4,7 @@ import { environments } from 'environments/environment.local';
 import { Category, PriceList } from '../models/inventory.model';
 import { Observable } from 'rxjs';
 import { Columns, TreeNodeCategory } from 'src/app/interfaces/ConfigsFormsData.interface';
-import { AttributesProduct, DetailAttributes } from '../models/Product.model';
+import { AttributesProduct, DetailAttributes, Product } from '../models/Product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -142,5 +142,11 @@ export class InventarioService {
   createProductProperties(data: AttributesProduct): Observable<AttributesProduct> {
     let body: { attribute_product: AttributesProduct } = { attribute_product: data }
     return this.http.post<AttributesProduct>(`${environments.host}api/product/attributes`, body)
+  }
+
+  //CREACIÓN DE PRODUCTOS 
+  createProduct(product: Product): Observable<Product> {
+    let body: { product: Product } = { product: product }
+    return this.http.post<Product>(`${environments.host}api/product`, body)
   }
 }

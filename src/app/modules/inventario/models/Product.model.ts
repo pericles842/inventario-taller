@@ -24,6 +24,7 @@ export class Product {
     type_product: 'unit_product' | 'composite_product' = 'unit_product'
 
     id_product: number = 0
+    path_image: string = ''
     name_product: string = ''
     categoria: string = ''
     category_id: number = 0
